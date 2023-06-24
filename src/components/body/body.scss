@@ -1,0 +1,93 @@
+
+#body {
+
+
+
+
+
+    .wrapper-table {
+
+    
+        margin-top: 5rem;
+    
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        
+    
+    
+            .custom-table {
+
+
+                
+
+                td {
+
+                    text-align: center;
+
+                    border: 7px solid #263b54;
+                    height: 140px;
+                    width: 140px;
+
+
+
+                    line-height: 0px;
+
+                    cursor: pointer;
+
+                    font-size: 7rem;
+
+                    color: rgb(117, 128, 128);
+
+                }
+
+    
+
+
+                #zero, #one, #two {
+                    border-top: none;
+                }
+        
+                #six, #seven, #eight {
+                    border-bottom: none;
+                }
+        
+                #zero, #three, #six {
+                    border-left: none;
+                }
+        
+                #two, #five, #eight {
+                    border-right: none;
+                }
+
+               
+            
+            }
+    
+         
+    
+    
+   
+    
+    
+           
+    
+            
+    
+    
+    
+    
+    }
+
+
+}
+
+
+
+
+
+
+
+

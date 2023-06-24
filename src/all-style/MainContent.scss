@@ -1,0 +1,37 @@
+.container {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+height: 80vh;
+width: 100vw;
+
+}
+
+.message-wrapper ul {
+  background-color: #ddd;
+  height: 48vh;
+  width: 40vw;
+  border: 1px solid black;
+}
+
+.message-wrapper input {
+width: 100%;
+background-color: #ccc;
+}
+
+.rooms-sidebar {
+  overflow: scroll;
+  border-bottom: 2px solid red;
+  height: 55vh;
+  width: 20vw;
+  background-color: #ddd;
+}
+
+.users-sidebar {
+  overflow: scroll;
+  border-bottom: 2px solid red;
+  height: 55vh;
+  width: 20vw;
+  background-color: #ddd;
+}
