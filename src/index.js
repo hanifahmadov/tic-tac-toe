@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 
 const appJsx = (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter>
 
         <RecoilRoot>
             <App />
