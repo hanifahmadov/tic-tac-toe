@@ -14,7 +14,7 @@ export const Header = () => {
             </div>
 
             <div className='wrapper-subheader'>
-                <SubHeader/>
+                <SubHeader />
             </div>
         </div>
     );
