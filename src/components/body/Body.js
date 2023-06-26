@@ -1,8 +1,14 @@
 /* eslint-disable */
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./body.scss";
 
-import { checkWin, winSpots, aiPlays, minimax } from "../utils/helper";
+import {
+    checkWin,
+    winSpots,
+    aiPlays,
+    minimax,
+    aviableSpots,
+} from "../utils/helper";
 import { boardState, winPositionState, movesState } from "../utils/store";
 import { useRecoilState } from "recoil";
 
@@ -10,39 +16,34 @@ export const Body = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [moves, setMoves] = useRecoilState(movesState);
 
-    const res = checkWin(board, winPositionState)
+    const res = checkWin(board, winPositionState);
     let totalMoves = moves.ai.moves.length + moves.hu.moves.length;
     let result = [];
-    let gameOver= false;
+    let gameOver = false;
     let draw = false;
 
     // check player turn
     // if x wins
-    if(res == 1){
+    if (res == 1) {
         // get array of winsspot for x
         result = winSpots(winPositionState, moves.hu.moves);
         // end game
         gameOver = true;
-        
-    }// if o wins
-    else if(res == 0){
+    } // if o wins
+    else if (res == 0) {
         // get array of winspot for o
         result = winSpots(winPositionState, moves.ai.moves);
         // end game
         gameOver = true;
-
     } // if game over and it means its a draw
-    else if(totalMoves == 9){
-        console.log('game DRAWWW')
+    else if (totalMoves == 9) {
+        console.log("game DRAWWW");
         gameOver = true;
         draw = true;
-
     }
 
-    
     // handle click/turn
     const handleClick = (e) => {
-
         // hu turn
         if (moves.hu.turn) {
             let index = Number(e.target.className);
@@ -66,22 +67,35 @@ export const Body = () => {
                     },
                 });
             }
-
         }
-           
     };
 
-
     useEffect(() => {
+        setTimeout(() => {
+            // ai turn
+            if (moves.ai.turn && !gameOver) {
+                // let index = ;
 
-      setTimeout(() => {
+                let index;
+                let tempbd = [...board];
+                let bestScore = -Infinity;
 
-          // ai turn
-          if (moves.ai.turn && !gameOver) {
-            let index = aiPlays(board);
-            // let index = minimax(board, 0)
+                // console.log(tempbd)
 
-            if (board[index] == "") {
+                for (let i = 0; i < tempbd.length; i++) {
+                    if (tempbd[i] === "") {
+
+                        tempbd[i] = "O";
+                        let score = minimax(tempbd, winPositionState, false);
+                        tempbd[i] = "";
+
+                        if (score > bestScore) {
+                            bestScore = score;
+                            index = i;
+                        }
+                    }
+                }
+
                 let temp = [...board];
                 temp[index] = "O";
                 setBoard(temp);
@@ -100,16 +114,10 @@ export const Body = () => {
                     },
                 });
             }
-        }
-        
-      }, 800);
+        }, 800);
 
-      return 0;
-        
+        return 0;
     }, [moves.ai.turn]);
-
-
-    
 
     return (
         <div id='body'>
