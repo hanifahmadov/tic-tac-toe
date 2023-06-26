@@ -17,25 +17,27 @@ export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [player, setPlayer] = useRecoilState(playerState);
 
-    const res = checkWin(board, winPositionsState);
+
     let totalMoves = player.ai.moves.length + player.hu.moves.length;
-    let result = [];
+    let winResultIndexes = [];
     let gameOver = false;
     let draw = false;
 
     // check player turn
     // if x wins
-    if (res == 1) {
+    if (checkWin(board, winPositionsState) == 1) {
         // get array of winsspot for x
-        result = getWinPositions(winPositionsState, player.hu.moves);
+        winResultIndexes = getWinPositions(winPositionsState, player.hu.moves);
         // end game
         gameOver = true;
+
     } // if o wins
-    else if (res == 0) {
+    else if (checkWin(board, winPositionsState) == 0) {
         // get array of winspot for o
-        result = getWinPositions(winPositionsState, player.ai.moves);
+        winResultIndexes = getWinPositions(winPositionsState, player.ai.moves);
         // end game
         gameOver = true;
+
     } // if game over and it means its a draw
     else if (totalMoves == 9) {
         console.log("game DRAWWW");
@@ -142,7 +144,7 @@ export const Table = () => {
                                 id='zero'
                                 className='0'
                                 style={{
-                                    background: result.includes(0)
+                                    background: winResultIndexes.includes(0)
                                         ? "#aaa"
                                         : "",
                                     borderTopLeftRadius: "50px",
@@ -155,7 +157,7 @@ export const Table = () => {
                                 id='one'
                                 className='1'
                                 style={{
-                                    background: result.includes(1)
+                                    background: winResultIndexes.includes(1)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -167,7 +169,7 @@ export const Table = () => {
                                 id='two'
                                 className='2'
                                 style={{
-                                    background: result.includes(2)
+                                    background: winResultIndexes.includes(2)
                                         ? "#aaa"
                                         : "",
                                     borderTopRightRadius: "50px",
@@ -183,7 +185,7 @@ export const Table = () => {
                                 id='three'
                                 className='3'
                                 style={{
-                                    background: result.includes(3)
+                                    background: winResultIndexes.includes(3)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -195,7 +197,7 @@ export const Table = () => {
                                 id='four'
                                 className='4'
                                 style={{
-                                    background: result.includes(4)
+                                    background: winResultIndexes.includes(4)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -207,7 +209,7 @@ export const Table = () => {
                                 id='five'
                                 className='5'
                                 style={{
-                                    background: result.includes(5)
+                                    background: winResultIndexes.includes(5)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -222,7 +224,7 @@ export const Table = () => {
                                 id='six'
                                 className='6'
                                 style={{
-                                    background: result.includes(6)
+                                    background: winResultIndexes.includes(6)
                                         ? "#aaa"
                                         : "",
                                     borderBottomLeftRadius: "50px",
@@ -235,7 +237,7 @@ export const Table = () => {
                                 id='seven'
                                 className='7'
                                 style={{
-                                    background: result.includes(7)
+                                    background: winResultIndexes.includes(7)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -247,7 +249,7 @@ export const Table = () => {
                                 id='eight'
                                 className='8'
                                 style={{
-                                    background: result.includes(8)
+                                    background: winResultIndexes.includes(8)
                                         ? "#aaa"
                                         : "",
                                     borderBottomRightRadius: "50px",
