@@ -77,22 +77,21 @@ export const Body = () => {
                 // let index = ;
 
                 let index;
-                let tempboard = [...board];
+                let tempbd = [...board];
                 let bestScore = -Infinity;
 
-                console.log(tempboard)
+                // console.log(tempbd)
 
-                for (let i = 0; i < tempboard.length; i++) {
-                    if (tempboard[i] === "") {
-                        tempboard[i] = "O";
-                        console.log(tempboard)
-                        let score = minimax(tempboard, winPositionState, false);
-                        tempboard[i] = "";
+                for (let i = 0; i < tempbd.length; i++) {
+                    if (tempbd[i] === "") {
+
+                        tempbd[i] = "O";
+                        let score = minimax(tempbd, winPositionState, false);
+                        tempbd[i] = "";
 
                         if (score > bestScore) {
                             bestScore = score;
                             index = i;
-                            break;
                         }
                     }
                 }

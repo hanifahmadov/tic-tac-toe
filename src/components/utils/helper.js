@@ -84,7 +84,7 @@ export const minimax = (board, position, aiturn) => {
 
     let emptySpots = aviableSpots(board);
 
-    console.log(position)
+    // console.log(position)
 
 
 
@@ -104,7 +104,7 @@ export const minimax = (board, position, aiturn) => {
         for(let i = 0; i < emptySpots.length; i++){
 
             board[emptySpots[i]] = "O";
-            let score = minimax(board, false)
+            let score = minimax(board, position, false)
             board[emptySpots[i]] = "";
 
             bestScore = Math.max(score, bestScore)
@@ -122,7 +122,7 @@ export const minimax = (board, position, aiturn) => {
         for(let i = 0; i < emptySpots.length; i++){
 
             board[emptySpots[i]] = "X";
-            let score = minimax(board, true)
+            let score = minimax(board, position, true)
             board[emptySpots[i]] = "";
 
             bestScore = Math.min(score, bestScore)
