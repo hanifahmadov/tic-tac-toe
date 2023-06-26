@@ -14,9 +14,8 @@ const App = () => {
             <Header />
 
             <Settings/>
+            <Body/>
 
-          
-            
         </Fragment>
     );
 };

@@ -53,6 +53,8 @@ export const winSpots = (winPositions, arr) => {
     return res;
 }
 
+
+// avialable slots
 export const aviableSpots = (board) => {
     let res = []
 
@@ -76,17 +78,22 @@ export const aiPlays = (board) => {
 
 }
 
-export const minimax = (board, depth, aiturn) => {
+
+// MINIMAX
+export const minimax = (board, position, aiturn) => {
 
     let emptySpots = aviableSpots(board);
-  
+
+    console.log(position)
+
+
 
     // edge cases
     if(emptySpots.length == 0) {
         return 0
-    } else if(checkWin(board) == 1) {
+    } else if(checkWin(board, position) === 1) {
         return -1;
-    } else if(checkWin == 0){
+    } else if(checkWin(board, position) === 0){
         return 1;
     } 
 
@@ -97,7 +104,7 @@ export const minimax = (board, depth, aiturn) => {
         for(let i = 0; i < emptySpots.length; i++){
 
             board[emptySpots[i]] = "O";
-            let score = minimax(board, depth + 1, false)
+            let score = minimax(board, false)
             board[emptySpots[i]] = "";
 
             bestScore = Math.max(score, bestScore)
@@ -115,7 +122,7 @@ export const minimax = (board, depth, aiturn) => {
         for(let i = 0; i < emptySpots.length; i++){
 
             board[emptySpots[i]] = "X";
-            let score = minimax(board, depth + 1, true)
+            let score = minimax(board, true)
             board[emptySpots[i]] = "";
 
             bestScore = Math.min(score, bestScore)
