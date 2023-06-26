@@ -15,7 +15,7 @@ const App = () => {
 
             <Settings/>
             <Body/>
-
+      
         </Fragment>
     );
 };
