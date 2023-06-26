@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 // checks board if there is win
-export const checkBoard = (board, winPositions) => {
+export const checkWin = (board, winPositions) => {
 
     for(let position of winPositions){
 
@@ -29,6 +29,8 @@ export const checkBoard = (board, winPositions) => {
 }
 
 
+
+
 // returns win postion indexes
 export const winSpots = (winPositions, arr) => {
 
@@ -49,4 +51,79 @@ export const winSpots = (winPositions, arr) => {
     }
 
     return res;
+}
+
+export const aviableSpots = (board) => {
+    let res = []
+
+    board.forEach((val, index) => {
+        if(val === '') {
+            res.push(index)
+        }
+    })
+
+    return res;
+}
+
+// ai turn and it plays
+export const aiPlays = (board) => {
+
+    console.log('board:::', board)
+
+    let res = aviableSpots(board);
+
+    return res[Math.floor(Math.random() * res.length)];
+
+}
+
+export const minimax = (board, depth, aiturn) => {
+
+    let emptySpots = aviableSpots(board);
+  
+
+    // edge cases
+    if(emptySpots.length == 0) {
+        return 0
+    } else if(checkWin(board) == 1) {
+        return -1;
+    } else if(checkWin == 0){
+        return 1;
+    } 
+
+    if(aiturn) {
+        // ai turn
+        let bestScore = -Infinity;
+
+        for(let i = 0; i < emptySpots.length; i++){
+
+            board[emptySpots[i]] = "O";
+            let score = minimax(board, depth + 1, false)
+            board[emptySpots[i]] = "";
+
+            bestScore = Math.max(score, bestScore)
+
+             
+        }
+
+        return bestScore;
+    
+    } else {
+
+        // human turn
+        let bestScore = Infinity;
+
+        for(let i = 0; i < emptySpots.length; i++){
+
+            board[emptySpots[i]] = "X";
+            let score = minimax(board, depth + 1, true)
+            board[emptySpots[i]] = "";
+
+            bestScore = Math.min(score, bestScore)
+
+        }
+
+        return bestScore
+    }
+
+
 }
