@@ -1,23 +1,24 @@
 /* eslint-disable */
 import React, { useEffect } from "react";
-import "./body.scss";
+import "./table.scss";
+
 
 import {
     checkWin,
-    winSpots,
-    aiPlays,
-    minimax,
+    getWinPositions,
+    getRandomSpot,
     aviableSpots,
 } from "../utils/helper";
-import { boardState, winPositionState, movesState } from "../utils/store";
+import { boardState, winPositionsState, playerState } from "../utils/store";
+import { minimax } from "../utils/ai";
 import { useRecoilState } from "recoil";
 
-export const Body = () => {
+export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
-    const [moves, setMoves] = useRecoilState(movesState);
+    const [player, setPlayer] = useRecoilState(playerState);
 
-    const res = checkWin(board, winPositionState);
-    let totalMoves = moves.ai.moves.length + moves.hu.moves.length;
+    const res = checkWin(board, winPositionsState);
+    let totalMoves = player.ai.moves.length + player.hu.moves.length;
     let result = [];
     let gameOver = false;
     let draw = false;
@@ -26,13 +27,13 @@ export const Body = () => {
     // if x wins
     if (res == 1) {
         // get array of winsspot for x
-        result = winSpots(winPositionState, moves.hu.moves);
+        result = getWinPositions(winPositionsState, player.hu.moves);
         // end game
         gameOver = true;
     } // if o wins
     else if (res == 0) {
         // get array of winspot for o
-        result = winSpots(winPositionState, moves.ai.moves);
+        result = getWinPositions(winPositionsState, player.ai.moves);
         // end game
         gameOver = true;
     } // if game over and it means its a draw
@@ -42,10 +43,12 @@ export const Body = () => {
         draw = true;
     }
 
+
+
     // handle click/turn
     const handleClick = (e) => {
         // hu turn
-        if (moves.hu.turn) {
+        if (player.hu.turn) {
             let index = Number(e.target.className);
 
             if (board[index] == "") {
@@ -53,16 +56,16 @@ export const Body = () => {
                 temp[index] = "X";
                 setBoard(temp);
 
-                setMoves({
+                setPlayer({
                     hu: {
                         value: "X",
-                        moves: [...moves.hu.moves, index],
+                        moves: [...player.hu.moves, index],
                         turn: false,
                     },
 
                     ai: {
                         value: "O",
-                        moves: [...moves.ai.moves],
+                        moves: [...player.ai.moves],
                         turn: true,
                     },
                 });
@@ -72,13 +75,13 @@ export const Body = () => {
 
     useEffect(() => {
         setTimeout(() => {
+            
             // ai turn
-            if (moves.ai.turn && !gameOver) {
-                // let index = ;
-
+            if (player.ai.turn && !gameOver) {
+          
                 let index;
                 let tempbd = [...board];
-                let bestScore = -Infinity;
+                let bestScore = { val: -Infinity, anaz: 0 }
 
                 // console.log(tempbd)
 
@@ -86,30 +89,33 @@ export const Body = () => {
                     if (tempbd[i] === "") {
 
                         tempbd[i] = "O";
-                        let score = minimax(tempbd, winPositionState, false);
+                        let score = minimax(tempbd, winPositionsState, false, 0);
                         tempbd[i] = "";
 
-                        if (score > bestScore) {
-                            bestScore = score;
+                        bestScore.anaz = bestScore.anaz + score.anaz
+
+                        if (score.val > bestScore.val) {
+                            bestScore .val= score.val;
                             index = i;
                         }
                     }
                 }
 
+                console.log("analize:::", bestScore.anaz)
                 let temp = [...board];
                 temp[index] = "O";
                 setBoard(temp);
 
-                setMoves({
+                setPlayer({
                     hu: {
                         value: "X",
-                        moves: [...moves.hu.moves],
+                        moves: [...player.hu.moves],
                         turn: true,
                     },
 
                     ai: {
                         value: "O",
-                        moves: [...moves.ai.moves, index],
+                        moves: [...player.ai.moves, index],
                         turn: false,
                     },
                 });
@@ -117,7 +123,7 @@ export const Body = () => {
         }, 500);
 
         return 0;
-    }, [moves.ai.turn]);
+    }, [player.ai.turn]);
 
     return (
         <div id='body'>

@@ -1,16 +1,15 @@
 /* eslint-disable */
 import { atom } from "recoil";
 
-
-
 // const board = [
 //   ['0', '1', '2'],
 //   ['3', '4', '5'],
 //   ['6', '7', '8'],
 // ]
 
+
 // win positions matrix
-export const winPositionState = [
+export const winPositionsState = [
     // left-to-right
     [0, 1, 2],
     [3, 4, 5],
@@ -36,8 +35,8 @@ export const boardState = atom({
 
 
 // 2 players moves states
-export const movesState =  atom({
-    key: 'movesState',
+export const playerState =  atom({
+    key: 'playersState',
     default: {
         hu: {
             value: "X",
