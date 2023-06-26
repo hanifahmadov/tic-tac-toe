@@ -114,7 +114,7 @@ export const Body = () => {
                     },
                 });
             }
-        }, 800);
+        }, 500);
 
         return 0;
     }, [moves.ai.turn]);
