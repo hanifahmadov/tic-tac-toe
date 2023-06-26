@@ -1,13 +1,15 @@
 /* eslint-disable */
 import React from "react";
-import "./subheader.scss";
+import "./settings.scss";
 import { useRecoilState } from "recoil";
-import { movesState } from "../../utils/store";
+import { movesState } from "../utils/store";
 
 // import friendly from "../../shared/happy-robot.png";
 // import challenge from "../../shared/smart-robot.png";
 
-export const SubHeader = () => {
+
+
+export const Settings = () => {
 
     const [moves, setMoves] = useRecoilState(movesState)
 
@@ -74,8 +76,8 @@ export const SubHeader = () => {
             <div className="choose-player" onClick={(e) => handleClick(e)}>
                 <h3>Choose Player</h3>
 
-                <span className="1">X</span>
-                <span className="0">O</span>
+                <span id="1">X</span>
+                <span id="0">O</span>
             </div>
         </div>
     );

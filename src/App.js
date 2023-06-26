@@ -4,12 +4,19 @@ import { Route } from "react-router-dom";
 
 import { Header } from "./components/header/Header";
 import { Body } from "./components/body/Body";
+import { Settings } from "./components/settings/Settings";
 
 const App = () => {
+
+
     return (
         <Fragment>
             <Header />
-            <Body />
+
+            <Settings/>
+            <Body/>
+          
+            
         </Fragment>
     );
 };
