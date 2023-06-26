@@ -2,7 +2,7 @@
 import React, { Fragment, useContext } from "react";
 import "./header.scss";
 
-import { SubHeader } from "./sub-header/SubHeader";
+import { Settings } from "../settings/Settings";
 
 export const Header = () => {
     return (
@@ -13,9 +13,9 @@ export const Header = () => {
                 </nav>
             </div>
 
-            <div className='wrapper-subheader'>
-                <SubHeader />
-            </div>
+            {/* <div className='wrapper-subheader'> */}
+                {/* <SubHeader /> */}
+            {/* </div> */}
         </div>
     );
 };

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import React from "react";
+import React , {useEffect} from "react";
 import "./body.scss";
 
-import { checkBoard, winSpots } from "../utils/helper";
+import { checkWin, winSpots, aiPlays, minimax } from "../utils/helper";
 import { boardState, winPositionState, movesState } from "../utils/store";
 import { useRecoilState } from "recoil";
 
@@ -10,7 +10,7 @@ export const Body = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [moves, setMoves] = useRecoilState(movesState);
 
-    const res = checkBoard(board, winPositionState)
+    const res = checkWin(board, winPositionState)
     let totalMoves = moves.ai.moves.length + moves.hu.moves.length;
     let result = [];
     let gameOver= false;
@@ -67,10 +67,19 @@ export const Body = () => {
                 });
             }
 
-        } // ai turn
-        else if (moves.ai.turn) {
-            let index = Number(e.target.className);
-            
+        }
+           
+    };
+
+
+    useEffect(() => {
+
+      setTimeout(() => {
+
+          // ai turn
+          if (moves.ai.turn && !gameOver) {
+            let index = aiPlays(board);
+            // let index = minimax(board, 0)
 
             if (board[index] == "") {
                 let temp = [...board];
@@ -92,7 +101,12 @@ export const Body = () => {
                 });
             }
         }
-    };
+        
+      }, 800);
+
+      return 0;
+        
+    }, [moves.ai.turn]);
 
 
     
