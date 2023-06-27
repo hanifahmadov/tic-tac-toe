@@ -29,8 +29,8 @@ export const Settings = () => {
                 </div>
                 
                 <div className='setting_player'>
-                        <span className="vsPerson">PVP</span>
-                        <span className="vsAi">vs Ai</span>
+                        <span className="aifun">Ai fun</span>
+                        <span className="aismart">Ai smart</span>
                 </div>
 
             </div>
