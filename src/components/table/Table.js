@@ -9,6 +9,7 @@ import {
     getRandomSpot,
     aviableSpots,
     makeMove,
+    getBestIndex_WithMinimax,
 } from "../utils/helper";
 import { boardState, winPositionsState, playerState } from "../utils/store";
 import { minimax } from "../utils/ai";
@@ -47,8 +48,7 @@ export const Table = () => {
     }
 
 
-
-    // handle click/turn
+    // hu turn is true
     const handleClick = (e) => {
         // hu turn
         if (player.hu.turn) {
@@ -57,41 +57,24 @@ export const Table = () => {
         }
     };
 
+    // if ai turn is true, run useEffect
     useEffect(() => {
+
         setTimeout(() => {
-            
             // ai turn
             if (player.ai.turn && !gameOver) {
-          
-                let index;
-                let tempbd = [...board];
-                console.log('tempbd', tempbd)
-                let bestScore = { val: -Infinity, anaz: 0 }
 
-                // console.log(tempbd)
-
-                for (let i = 0; i < tempbd.length; i++) {
-                    if (tempbd[i] === "") {
-
-                        tempbd[i] = "O";
-                        let score = minimax(tempbd, winPositionsState, false, 0, 0);
-                        tempbd[i] = "";
-
-                        bestScore.anaz = bestScore.anaz + score.anaz
-
-                        if (score.val > bestScore.val) {
-                            bestScore .val= score.val;
-                            index = i;
-                        }
-                    }
-                }
-
-                console.log("analize:::", bestScore.anaz)
+                // get valid best index for ai
+                let index = getBestIndex_WithMinimax([...board], winPositionsState, minimax )
+                
+                //ai makes its move
                 makeMove([...board], setBoard, player, setPlayer, index)
             }
-        }, 400);
+        }, 300);
 
-        return 0;
+        // not sure return or not, and why? 
+        // return 0;
+
     }, [player.ai.turn]);
 
     return (
@@ -104,6 +87,8 @@ export const Table = () => {
                         onClick={(e) => {
                             gameOver ? "" : handleClick(e);
                         }}
+
+                        style={{borderRadius: "50px"}}
                     >
                         {/* CHILD 1 */}
                         <div className='child1'>
@@ -111,7 +96,7 @@ export const Table = () => {
                                 id='zero'
                                 className='0'
                                 style={{
-                                    background: winResultIndexes.includes(0)
+                                    background: (winResultIndexes.includes(0))
                                         ? "#aaa"
                                         : "",
                                     borderTopLeftRadius: "50px",
@@ -124,7 +109,7 @@ export const Table = () => {
                                 id='one'
                                 className='1'
                                 style={{
-                                    background: winResultIndexes.includes(1)
+                                    background: (winResultIndexes.includes(1) && gameOver)
                                         ? "#aaa"
                                         : "",
                                 }}

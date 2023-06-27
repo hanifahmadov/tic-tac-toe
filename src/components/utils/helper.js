@@ -1,6 +1,8 @@
 /* eslint-disable */
 
-// checks board if there is win
+
+// HEADER 
+// hecks board if there is win 
 export const checkWin = (board, winPositions) => {
 
     for(let position of winPositions){
@@ -31,7 +33,9 @@ export const checkWin = (board, winPositions) => {
 
 
 
-// get win positions if game is over
+
+// HEADER 
+// get win positions if game is over 
 export const getWinPositions = (winPositions, arr) => {
 
     let res = []
@@ -55,7 +59,10 @@ export const getWinPositions = (winPositions, arr) => {
 
 
 
-// get avialable spots from board
+
+
+// HEADER 
+// get avialable spots from board 
 export const aviableSpots = (board) => {
     let res = []
 
@@ -71,7 +78,8 @@ export const aviableSpots = (board) => {
 
 
 
-// get random spot from available spots from board
+// HEADER 
+// get random spot from available spots from board 
 export const getRandomSpot = (board) => {
 
     // get available spots
@@ -83,7 +91,10 @@ export const getRandomSpot = (board) => {
 }
 
 
-// make move
+
+
+// HEADER 
+// make move 
 export const makeMove = (currentBoardState, setBoard, player, setPlayer, index) => {
 
     // ai plays
@@ -110,7 +121,7 @@ export const makeMove = (currentBoardState, setBoard, player, setPlayer, index) 
 
     }
 
-    // hu plays
+    // hu plays 
     if(player.hu.turn) {
 
         if (currentBoardState[index] === "") {
@@ -138,5 +149,77 @@ export const makeMove = (currentBoardState, setBoard, player, setPlayer, index) 
     }
  
 }
+
+
+
+// HEADER 
+//  getBestIndexWithMinimax 
+export const getBestIndex_WithMinimax = (boardCurrentState, winPositionsState, minimax) => {
+
+    let index = null;
+    let bestScore = { val: -Infinity, anaz: 0 }
+
+
+    for (let i = 0; i < boardCurrentState.length; i++) {
+        if (boardCurrentState[i] === "") {
+
+            boardCurrentState[i] = "O";
+            let score = minimax(boardCurrentState, winPositionsState, false, 0, 0);
+            boardCurrentState[i] = "";
+
+            bestScore.anaz = bestScore.anaz + score.anaz
+
+            if (score.val > bestScore.val) {
+                bestScore.val = score.val;
+                index = i;
+            }
+        }
+    }
+
+    return index;
+
+}
+
+
+
+// HEADER 
+// check board after every move made to see if there is win or not! 
+export const checkBoard_afterEveryMove = (player, board, winPositionsState, getWinPositions, checkWin) => {
+
+    let totalMoves = player.ai.moves.length + player.hu.moves.length;
+    let winResultIndexes = [];
+    let gameOver = false;
+    let draw = false;
+
+
+    // if x wins
+    if (checkWin(board, winPositionsState) == 1) {
+
+        // get array of winsspot for x
+        winResultIndexes = getWinPositions(winPositionsState, player.hu.moves);
+        // end game
+        gameOver = true;
+
+        return { totalMoves, winResultIndexes, draw, gameOver}
+
+
+    } // if o wins
+    else if (checkWin(board, winPositionsState) == 0) {
+        // get array of winspot for o
+        winResultIndexes = getWinPositions(winPositionsState, player.ai.moves);
+        // end game
+        gameOver = true;
+
+        return { totalMoves, winResultIndexes, draw, gameOver}
+
+    } // if game over and it means its a draw
+    else if (totalMoves == 9) {
+        console.log("game DRAWWW");
+        gameOver = true;
+        draw = true;
+    }
+
+}
+
 
 
