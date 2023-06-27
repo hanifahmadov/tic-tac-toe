@@ -2,7 +2,7 @@
 import React from "react";
 import "./settings.scss";
 import { useRecoilState } from "recoil";
-import { movesState } from "../utils/store";
+import { playerState } from "../utils/store";
 
 // import friendly from "../../shared/happy-robot.png";
 // import challenge from "../../shared/smart-robot.png";
@@ -11,7 +11,7 @@ import { movesState } from "../utils/store";
 
 export const Settings = () => {
 
-    const [moves, setMoves] = useRecoilState(movesState)
+    const [player, setPlayer] = useRecoilState(playerState)
 
     const challenge = 'https://icongr.am/feather/frown.svg?size=30&color=ffffff'
     const friendly = 'https://icongr.am/feather/smile.svg?size=30&color=ffffff'
@@ -21,7 +21,7 @@ export const Settings = () => {
 
         if(id == 1){
 
-            setMoves(
+            setPlayer(
                 {
                     hu: {
                         value: "X",
@@ -39,7 +39,7 @@ export const Settings = () => {
 
             
         } else if( id == 0){
-            setMoves(
+            setPlayer(
                 {
                     hu: {
                         value: "X",

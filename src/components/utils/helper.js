@@ -31,8 +31,8 @@ export const checkWin = (board, winPositions) => {
 
 
 
-// returns win postion indexes
-export const winSpots = (winPositions, arr) => {
+// get win positions if game is over
+export const getWinPositions = (winPositions, arr) => {
 
     let res = []
 
@@ -54,12 +54,14 @@ export const winSpots = (winPositions, arr) => {
 }
 
 
-// avialable slots
+
+// get avialable spots from board
 export const aviableSpots = (board) => {
     let res = []
 
+    // store empty spots index
     board.forEach((val, index) => {
-        if(val === '') {
+        if(val === "") {
             res.push(index)
         }
     })
@@ -67,70 +69,74 @@ export const aviableSpots = (board) => {
     return res;
 }
 
-// ai turn and it plays
-export const aiPlays = (board) => {
 
-    console.log('board:::', board)
 
+// get random spot from available spots from board
+export const getRandomSpot = (board) => {
+
+    // get available spots
     let res = aviableSpots(board);
 
+    // return randomly index from available spots
     return res[Math.floor(Math.random() * res.length)];
 
 }
 
 
-// MINIMAX
-export const minimax = (board, position, aiturn) => {
+// make move
+export const makeMove = (currentBoardState, setBoard, player, setPlayer, index) => {
 
-    let emptySpots = aviableSpots(board);
+    // ai plays
+    if(player.ai.turn){
 
-    // console.log(position)
-
-
-
-    // edge cases
-    if(emptySpots.length == 0) {
-        return 0
-    } else if(checkWin(board, position) === 1) {
-        return -1;
-    } else if(checkWin(board, position) === 0){
-        return 1;
-    } 
-
-    if(aiturn) {
-        // ai turn
-        let bestScore = -Infinity;
-
-        for(let i = 0; i < emptySpots.length; i++){
-
-            board[emptySpots[i]] = "O";
-            let score = minimax(board, position, false)
-            board[emptySpots[i]] = "";
-
-            bestScore = Math.max(score, bestScore)
-
-             
-        }
-
-        return bestScore;
+        currentBoardState[index] = "O";
+        setBoard(currentBoardState);
     
-    } else {
+        setPlayer({
+            hu: {
+                value: "X",
+                moves: [...player.hu.moves],
+                turn: true,
+            },
+    
+            ai: {
+                value: "O",
+                moves: [...player.ai.moves, index],
+                turn: false,
+            },
+        });
 
-        // human turn
-        let bestScore = Infinity;
+        return;
 
-        for(let i = 0; i < emptySpots.length; i++){
-
-            board[emptySpots[i]] = "X";
-            let score = minimax(board, position, true)
-            board[emptySpots[i]] = "";
-
-            bestScore = Math.min(score, bestScore)
-
-        }
-
-        return bestScore
     }
 
+    // hu plays
+    if(player.hu.turn) {
 
+        if (currentBoardState[index] === "") {
+
+            currentBoardState[index] = "X";
+            setBoard(currentBoardState);
+
+            setPlayer({
+                hu: {
+                    value: "X",
+                    moves: [...player.hu.moves, index],
+                    turn: false,
+                },
+
+                ai: {
+                    value: "O",
+                    moves: [...player.ai.moves],
+                    turn: true,
+                },
+            });
+        }
+
+        return;
+
+    }
+ 
 }
+
+

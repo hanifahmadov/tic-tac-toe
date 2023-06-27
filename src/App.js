@@ -3,7 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Route } from "react-router-dom";
 
 import { Header } from "./components/header/Header";
-import { Body } from "./components/body/Body";
+import { Table } from "./components/table/Table";
 import { Settings } from "./components/settings/Settings";
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
             <Header />
 
             <Settings/>
-            <Body/>
+            <Table/>
       
         </Fragment>
     );
