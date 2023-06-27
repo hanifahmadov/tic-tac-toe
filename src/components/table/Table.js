@@ -65,6 +65,7 @@ export const Table = () => {
           
                 let index;
                 let tempbd = [...board];
+                console.log('tempbd', tempbd)
                 let bestScore = { val: -Infinity, anaz: 0 }
 
                 // console.log(tempbd)
@@ -73,7 +74,7 @@ export const Table = () => {
                     if (tempbd[i] === "") {
 
                         tempbd[i] = "O";
-                        let score = minimax(tempbd, winPositionsState, false, 0);
+                        let score = minimax(tempbd, winPositionsState, false, 0, 0);
                         tempbd[i] = "";
 
                         bestScore.anaz = bestScore.anaz + score.anaz
