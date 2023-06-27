@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 
-// HEADER 
+// HEADER: checkWin 
 // hecks board if there is win 
 export const checkWin = (board, winPositions) => {
 
@@ -217,9 +217,56 @@ export const checkBoard_afterEveryMove = (player, board, winPositionsState, getW
         console.log("game DRAWWW");
         gameOver = true;
         draw = true;
+
+        return { totalMoves, winResultIndexes, draw, gameOver}
+    } else {
+
+        return { totalMoves, winResultIndexes, draw, gameOver}
+
     }
 
 }
 
 
 
+// TODO: choose player at start
+ // const handleClick = (e) => {
+    //     let id = Number(e.target.className)
+
+    //     if(id == 1){
+
+    //         setPlayer(
+    //             {
+    //                 hu: {
+    //                     value: "X",
+    //                     moves: [...moves.hu.moves],
+    //                     turn: true,
+    //                 },
+                
+    //                 ai: {
+    //                     value: "O",
+    //                     moves: [...moves.ai.moves],
+    //                     turn: false,
+    //                 },
+    //             }
+    //         )
+
+            
+    //     } else if( id == 0){
+    //         setPlayer(
+    //             {
+    //                 hu: {
+    //                     value: "X",
+    //                     moves: [...moves.hu.moves],
+    //                     turn: false,
+    //                 },
+                
+    //                 ai: {
+    //                     value: "O",
+    //                     moves: [...moves.ai.moves],
+    //                     turn: true,
+    //                 },
+    //             }
+    //         )
+    //     }
+    // }
