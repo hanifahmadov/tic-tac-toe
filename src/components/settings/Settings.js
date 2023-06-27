@@ -10,36 +10,28 @@ import { playerState } from "../utils/store";
 export const Settings = () => {
     const [player, setPlayer] = useRecoilState(playerState);
 
-    const challenge =
-        "https://icongr.am/feather/frown.svg?size=30&color=ffffff";
-    const friendly = "https://icongr.am/feather/smile.svg?size=30&color=ffffff";
+    const handleClick = (e) => {
+        console.log(e.target.className)
+    }
+
+  
 
     return (
         <div id='subheader'>
-            <div className='setting-wrapper' onClick={(e) => handleClick(e)}>
-
+            <div className='setting-wrapper' onClick={handleClick}>
                 <div className='resetButton'>
-                    <span>RESET</span>
-                </div>
-
-                <div className='setting_hu'>
-                    <div>
-                        {/* <span>Online</span> */}
-                        <span>PVP</span>
-                    </div>
-                </div>
-
-                <div className='setting_ai'>
-                        <span>vs Ai</span>
+                    <span className="reset">Reset</span>
                 </div>
 
                 <div className='setting_size'>
-                        <span>
-                            3x3
-                        </span>
-
+                    <span className='size3x3'>3x3</span>
+                    <span className='size5x5'>5x5</span>
                 </div>
-
+                
+                <div className='setting_player'>
+                        <span className="vsPerson">PVP</span>
+                        <span className="vsAi">vs Ai</span>
+                </div>
 
             </div>
         </div>

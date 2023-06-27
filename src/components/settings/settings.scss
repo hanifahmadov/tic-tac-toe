@@ -7,7 +7,7 @@
     align-items: center;
 
     
-    background: blue;
+    // background: blue;
 
 }
 
@@ -15,25 +15,136 @@
 
 .setting-wrapper {
 
-    background: red;
-
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
 
+}
+
+
+
+.resetButton {
+
+    background: #ecf0f4;
+    color: rgba(1, 8, 65, 1);
+
+    margin: 0rem .5rem;
+    padding: .3rem 0.5rem;
+    font-weight: 600;
+
+    border: 2px solid black;
+    border-radius: 5px;
+
+    cursor: pointer;
+    
+    &:hover {
+
+        background-color: rgba(1, 8, 65, 1);
+        color: white;
+
+    }
+
+}
+
+
+.setting_size {
+
+
+    background: #ecf0f4;
+    margin: 0rem .5rem;
 
     span {
 
-        display: inline;
-        border: 1px solid black;
-        margin: 0 .5rem;
-        padding: .5rem;
-    
-        border-radius: 5px;
+
+        color: rgba(1, 8, 65, 1);
+        
+        // border-radius: 5px;
+        display: inline-block;
+        padding: .3rem .5rem;
     
         cursor: pointer;
         font-weight: 600;
+
+    }
+
+    .size3x3 {
+        border: 2px solid rgba(1, 8, 65, 1);
+        border-right:5px solid rgb(0, 0, 0);
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    
+    }
+
+    .size5x5 {
+        color: green;
+        border: 2px solid green;
+        border-left:none;
+
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        &:hover {
+            background-color: green;
+            color: white;
+        }
+    }
+
+
+    span:hover {
+        background: rgb(1, 8, 65);
+        color: white;
+    }
+}
+
+.setting_player{
+
+    background: #ecf0f4;
+
+
+    margin: 0rem .5rem;
+
+    span {
+
+
+        color: rgba(1, 8, 65, 1);
+        
+
+        display: inline-block;
+        padding: .3rem .5rem;
+    
+        cursor: pointer;
+        font-weight: 600;
+
+    }
+
+    .vsPerson {
+        border: 2px solid rgba(1, 8, 65, 1);
+        border-right:5px solid rgb(0, 0, 0);
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .vsAi {
+        color: red;
+        border: 2px solid red;
+        border-left:none;
+
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        &:hover {
+            background-color: red;
+            color: white;
+        }
+
+    }
+
+
+    span:hover {
+
+        background: rgba(1, 8, 65, 1);
+        color: white
     }
 
 }
