@@ -8,6 +8,7 @@ import {
     getWinPositions,
     getRandomSpot,
     aviableSpots,
+    makeMove,
 } from "../utils/helper";
 import { boardState, winPositionsState, playerState } from "../utils/store";
 import { minimax } from "../utils/ai";
@@ -52,26 +53,7 @@ export const Table = () => {
         // hu turn
         if (player.hu.turn) {
             let index = Number(e.target.className);
-
-            if (board[index] == "") {
-                let temp = [...board];
-                temp[index] = "X";
-                setBoard(temp);
-
-                setPlayer({
-                    hu: {
-                        value: "X",
-                        moves: [...player.hu.moves, index],
-                        turn: false,
-                    },
-
-                    ai: {
-                        value: "O",
-                        moves: [...player.ai.moves],
-                        turn: true,
-                    },
-                });
-            }
+            makeMove([...board], setBoard, player, setPlayer, index)
         }
     };
 
@@ -104,25 +86,9 @@ export const Table = () => {
                 }
 
                 console.log("analize:::", bestScore.anaz)
-                let temp = [...board];
-                temp[index] = "O";
-                setBoard(temp);
-
-                setPlayer({
-                    hu: {
-                        value: "X",
-                        moves: [...player.hu.moves],
-                        turn: true,
-                    },
-
-                    ai: {
-                        value: "O",
-                        moves: [...player.ai.moves, index],
-                        turn: false,
-                    },
-                });
+                makeMove([...board], setBoard, player, setPlayer, index)
             }
-        }, 500);
+        }, 400);
 
         return 0;
     }, [player.ai.turn]);

@@ -82,14 +82,15 @@ export const getRandomSpot = (board) => {
 
 }
 
+
+// make move
 export const makeMove = (currentBoardState, setBoard, player, setPlayer, index) => {
 
     // ai plays
     if(player.ai.turn){
 
-        let temp = [...currentBoardState];
-        temp[index] = "O";
-        setBoard(temp);
+        currentBoardState[index] = "O";
+        setBoard(currentBoardState);
     
         setPlayer({
             hu: {
@@ -106,16 +107,16 @@ export const makeMove = (currentBoardState, setBoard, player, setPlayer, index) 
         });
 
         return;
+
     }
 
     // hu plays
     if(player.hu.turn) {
 
-        if (board[index] === "") {
+        if (currentBoardState[index] === "") {
 
-            let temp = [...currentBoardState];
-            temp[index] = "X";
-            setBoard(temp);
+            currentBoardState[index] = "X";
+            setBoard(currentBoardState);
 
             setPlayer({
                 hu: {
@@ -131,6 +132,8 @@ export const makeMove = (currentBoardState, setBoard, player, setPlayer, index) 
                 },
             });
         }
+
+        return;
 
     }
  
