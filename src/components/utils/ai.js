@@ -33,6 +33,7 @@ export const minimax = (board, position, aiturn, sum) => {
         }
 
         return bestScore;
+        
     } else {
         // human turn
         let bestScore = { val: Infinity, anaz: 0 };
