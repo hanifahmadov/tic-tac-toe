@@ -2,13 +2,14 @@
 import React, { useEffect } from "react";
 import "./table.scss";
 
-
 import {
     checkWin,
     getWinPositions,
     getRandomSpot,
     aviableSpots,
     makeMove,
+    getBestIndex_WithMinimax,
+    checkBoard_afterEveryMove,
 } from "../utils/helper";
 import { boardState, winPositionsState, playerState } from "../utils/store";
 import { minimax } from "../utils/ai";
@@ -18,37 +19,13 @@ export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [player, setPlayer] = useRecoilState(playerState);
 
+    // HEADER 
+    // check current state after every move made on board
+    let currentState = checkBoard_afterEveryMove(player, board, winPositionsState, getWinPositions, checkWin)
+    
 
-    let totalMoves = player.ai.moves.length + player.hu.moves.length;
-    let winResultIndexes = [];
-    let gameOver = false;
-    let draw = false;
-
-    // check player turn
-    // if x wins
-    if (checkWin(board, winPositionsState) == 1) {
-        // get array of winsspot for x
-        winResultIndexes = getWinPositions(winPositionsState, player.hu.moves);
-        // end game
-        gameOver = true;
-
-    } // if o wins
-    else if (checkWin(board, winPositionsState) == 0) {
-        // get array of winspot for o
-        winResultIndexes = getWinPositions(winPositionsState, player.ai.moves);
-        // end game
-        gameOver = true;
-
-    } // if game over and it means its a draw
-    else if (totalMoves == 9) {
-        console.log("game DRAWWW");
-        gameOver = true;
-        draw = true;
-    }
-
-
-
-    // handle click/turn
+    // HEADER 
+    // hu clicks and if his turn is true
     const handleClick = (e) => {
         // hu turn
         if (player.hu.turn) {
@@ -57,43 +34,33 @@ export const Table = () => {
         }
     };
 
+
+    // HEADER 
+    // if ai turn is true, run useEffect
     useEffect(() => {
+
         setTimeout(() => {
-            
             // ai turn
-            if (player.ai.turn && !gameOver) {
-          
-                let index;
-                let tempbd = [...board];
-                console.log('tempbd', tempbd)
-                let bestScore = { val: -Infinity, anaz: 0 }
+            if (player.ai.turn && !currentState.gameOver) {
 
-                // console.log(tempbd)
-
-                for (let i = 0; i < tempbd.length; i++) {
-                    if (tempbd[i] === "") {
-
-                        tempbd[i] = "O";
-                        let score = minimax(tempbd, winPositionsState, false, 0, 0);
-                        tempbd[i] = "";
-
-                        bestScore.anaz = bestScore.anaz + score.anaz
-
-                        if (score.val > bestScore.val) {
-                            bestScore .val= score.val;
-                            index = i;
-                        }
-                    }
-                }
-
-                console.log("analize:::", bestScore.anaz)
+                // get valid best index for ai
+                let index = getBestIndex_WithMinimax([...board], winPositionsState, minimax )
+                
+                //ai makes its move
                 makeMove([...board], setBoard, player, setPlayer, index)
             }
-        }, 400);
+        }, 300);
 
-        return 0;
+        // WARN 
+        // not sure return or not, and why? 
+        // return 0;
+
     }, [player.ai.turn]);
 
+
+
+    // HEADER 
+    // Table return
     return (
         <div id='body'>
             {/* {console.log(moves)} */}
@@ -102,8 +69,10 @@ export const Table = () => {
                     <div
                         className='custom-body'
                         onClick={(e) => {
-                            gameOver ? "" : handleClick(e);
+                            currentState.gameOver ? "" : handleClick(e);
                         }}
+
+                        style={{borderRadius: "50px"}}
                     >
                         {/* CHILD 1 */}
                         <div className='child1'>
@@ -111,7 +80,7 @@ export const Table = () => {
                                 id='zero'
                                 className='0'
                                 style={{
-                                    background: winResultIndexes.includes(0)
+                                    background: (currentState.winResultIndexes.includes(0))
                                         ? "#aaa"
                                         : "",
                                     borderTopLeftRadius: "50px",
@@ -124,7 +93,7 @@ export const Table = () => {
                                 id='one'
                                 className='1'
                                 style={{
-                                    background: winResultIndexes.includes(1)
+                                    background: (currentState.winResultIndexes.includes(1))
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -136,7 +105,7 @@ export const Table = () => {
                                 id='two'
                                 className='2'
                                 style={{
-                                    background: winResultIndexes.includes(2)
+                                    background: currentState.winResultIndexes.includes(2)
                                         ? "#aaa"
                                         : "",
                                     borderTopRightRadius: "50px",
@@ -152,7 +121,7 @@ export const Table = () => {
                                 id='three'
                                 className='3'
                                 style={{
-                                    background: winResultIndexes.includes(3)
+                                    background: currentState.winResultIndexes.includes(3)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -164,7 +133,7 @@ export const Table = () => {
                                 id='four'
                                 className='4'
                                 style={{
-                                    background: winResultIndexes.includes(4)
+                                    background: currentState.winResultIndexes.includes(4)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -176,7 +145,7 @@ export const Table = () => {
                                 id='five'
                                 className='5'
                                 style={{
-                                    background: winResultIndexes.includes(5)
+                                    background: currentState.winResultIndexes.includes(5)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -191,7 +160,7 @@ export const Table = () => {
                                 id='six'
                                 className='6'
                                 style={{
-                                    background: winResultIndexes.includes(6)
+                                    background: currentState.winResultIndexes.includes(6)
                                         ? "#aaa"
                                         : "",
                                     borderBottomLeftRadius: "50px",
@@ -204,7 +173,7 @@ export const Table = () => {
                                 id='seven'
                                 className='7'
                                 style={{
-                                    background: winResultIndexes.includes(7)
+                                    background: currentState.winResultIndexes.includes(7)
                                         ? "#aaa"
                                         : "",
                                 }}
@@ -216,7 +185,7 @@ export const Table = () => {
                                 id='eight'
                                 className='8'
                                 style={{
-                                    background: winResultIndexes.includes(8)
+                                    background: currentState.winResultIndexes.includes(8)
                                         ? "#aaa"
                                         : "",
                                     borderBottomRightRadius: "50px",

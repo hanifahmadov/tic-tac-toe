@@ -8,14 +8,10 @@ export const Header = () => {
     return (
         <div id='navbar'>
             <div className="wrapper-navbar">
-                <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+                <div className=''>
                     <h1 className='header'>TIC TAC TOE</h1>
-                </nav>
+                </div>
             </div>
-
-            {/* <div className='wrapper-subheader'> */}
-                {/* <SubHeader /> */}
-            {/* </div> */}
         </div>
     );
 };
