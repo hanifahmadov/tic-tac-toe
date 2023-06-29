@@ -1,5 +1,10 @@
 /* eslint-disable */
 
+import { useRecoilState } from "recoil";
+import { gameOverState } from "./store";
+
+
+
 
 // HEADER: checkWin 
 // hecks board if there is win 
@@ -184,11 +189,10 @@ export const getBestIndex_WithMinimax = (boardCurrentState, winPositionsState, m
 
 // HEADER 
 // check board after every move made to see if there is win or not! 
-export const checkBoard_afterEveryMove = (player, board, winPositionsState, getWinPositions, checkWin) => {
+export const checkBoard_afterEveryMove = (player, board, winPositionsState, getWinPositions, checkWin, setGameOver) => {
 
     let totalMoves = player.ai.moves.length + player.hu.moves.length;
     let winResultIndexes = [];
-    let gameOver = false;
     let draw = false;
 
 
@@ -199,8 +203,9 @@ export const checkBoard_afterEveryMove = (player, board, winPositionsState, getW
         winResultIndexes = getWinPositions(winPositionsState, player.hu.moves);
         // end game
         gameOver = true;
+        setGameOver(true)
 
-        return { totalMoves, winResultIndexes, draw, gameOver}
+        return { totalMoves, winResultIndexes, draw }
 
 
     } // if o wins
@@ -208,21 +213,22 @@ export const checkBoard_afterEveryMove = (player, board, winPositionsState, getW
         // get array of winspot for o
         winResultIndexes = getWinPositions(winPositionsState, player.ai.moves);
         // end game
-        gameOver = true;
+        // gameOver = true;
+        setGameOver(true)
 
-        return { totalMoves, winResultIndexes, draw, gameOver}
+        return { totalMoves, winResultIndexes, draw }
 
     } // if game over and it means its a draw
     else if (totalMoves == 9) {
         console.log("game DRAWWW");
-        gameOver = true;
+        // gameOver = true;
+        setGameOver(true)
         draw = true;
 
-        return { totalMoves, winResultIndexes, draw, gameOver}
+        return { totalMoves, winResultIndexes, draw }
     } else {
 
-        return { totalMoves, winResultIndexes, draw, gameOver}
-
+        return { totalMoves, winResultIndexes, draw }
     }
 
 }

@@ -7,7 +7,6 @@ import { atom } from "recoil";
 //   ['6', '7', '8'],
 // ]
 
-
 // win positions matrix
 export const winPositionsState = [
     // left-to-right
@@ -27,30 +26,48 @@ export const winPositionsState = [
 
 // board initial state
 export const boardState = atom({
-    key: 'boardState',
-    default: ["", "", "", "", "", "", "", "", ""]
+    key: "boardState",
+    default: ["", "", "", "", "", "", "", "", ""],
 });
 
-
-
+// gameOver state
+export const gameOverState = atom ({
+    key: 'gameOver',
+    default: false
+})
 
 // 2 players moves states
-export const playerState =  atom({
-    key: 'playersState',
+export const playerState = atom({
+    key: "playersState",
     default: {
         hu: {
             value: "X",
             moves: [],
             turn: true,
         },
-    
+
         ai: {
             value: "O",
             moves: [],
             turn: false,
         },
-    }
-})
+    },
+});
+
+// settings
+export const settingsState = atom({
+  key:'settingsState',
+  default: {
+    reset: 'resetButton_deactive',
+    txt: true,
+    fxf: 'size5x5',
+    aifun: 'aifun_active ',
+    aismart: 'aismart',
+  }
+});
 
 
-
+// // WARN
+// export const manageClassname = (setting, anyMovePlayed) => {
+//     if(sett === )
+// }

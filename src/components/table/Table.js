@@ -11,17 +11,18 @@ import {
     getBestIndex_WithMinimax,
     checkBoard_afterEveryMove,
 } from "../utils/helper";
-import { boardState, winPositionsState, playerState } from "../utils/store";
+import { boardState, winPositionsState, playerState, gameOverState } from "../utils/store";
 import { minimax } from "../utils/ai";
 import { useRecoilState } from "recoil";
 
 export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [player, setPlayer] = useRecoilState(playerState);
+    const [gameOver, setGameOver] = useRecoilState(gameOverState)
 
     // HEADER 
     // check current state after every move made on board
-    let currentState = checkBoard_afterEveryMove(player, board, winPositionsState, getWinPositions, checkWin)
+    let currentState = checkBoard_afterEveryMove(player, board, winPositionsState, getWinPositions, checkWin, setGameOver)
     
 
     // HEADER 
@@ -69,7 +70,7 @@ export const Table = () => {
                     <div
                         className='custom-body'
                         onClick={(e) => {
-                            currentState.gameOver ? "" : handleClick(e);
+                            gameOver ? "" : handleClick(e);
                         }}
 
                         style={{borderRadius: "50px"}}
