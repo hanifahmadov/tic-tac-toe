@@ -2,37 +2,69 @@
 import React from "react";
 import "./settings.scss";
 import { useRecoilState } from "recoil";
-import { playerState } from "../utils/store";
-
-// import friendly from "../../shared/happy-robot.png";
-// import challenge from "../../shared/smart-robot.png";
+import { boardState, gameOverState, playerState, settingsState } from "../utils/store";
+import { handleSettingClicks } from "../utils/helper";
 
 export const Settings = () => {
     const [player, setPlayer] = useRecoilState(playerState);
+    const [setting, setSetting] = useRecoilState(settingsState);
+    const [board, setBoard] = useRecoilState(boardState);
+    const [gameOver, setGameOver] = useRecoilState(gameOverState)
 
-    const handleClick = (e) => {
-        console.log(e.target.className)
+    console.log(setting)
+
+    let anyMovePlayed = board.every((val) => val == "");
+
+    const customClass = {
+        size3x3: setting.txt ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1',
+        size5x5: setting.fxf ? 'btn btn-warning' : 'btn btn-primary',
+        person: setting.person ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1' ,
+        ai: setting.ai ? 'btn btn-warning' : 'btn btn-primary',
     }
 
-  
+    const handleClick = (e) => {
+        let val = e.target.getAttribute("data_value");
+        handleSettingClicks(val, setting, setSetting)
+    };
 
     return (
         <div id='subheader'>
             <div className='setting-wrapper' onClick={handleClick}>
-                <div className='resetButton'>
-                    <span className="reset">Reset</span>
+                <div className="">
+                    <button type='button' className='btn btn-primary' disabled={!anyMovePlayed && !gameOver.over} data_value="reset">
+                        Reset
+                    </button>
                 </div>
 
-                <div className='setting_size'>
-                    <span className='size3x3'>3x3</span>
-                    <span className='size5x5'>5x5</span>
+                <div className='setting_size mx-4'>
+                    <div
+                        className='btn-group'
+                        role='group'
+                        aria-label='Basic example'
+                    >
+                        <button type='button' className={customClass.size3x3} disabled={!anyMovePlayed && !gameOver.over} data_value="size3x3">
+                            3x3
+                        </button>
+                        <button type='button' className={customClass.size5x5} disabled={!anyMovePlayed && !gameOver.over}  data_value="size5x5">
+                            5x5
+                        </button>
+                    </div>
                 </div>
-                
+
                 <div className='setting_player'>
-                        <span className="vsPerson">PVP</span>
-                        <span className="vsAi">vs Ai</span>
+                    <div
+                        className='btn-group'
+                        role='group'
+                        aria-label='Basic example'
+                    >
+                        <button type='button' className={customClass.person} disabled={!anyMovePlayed && !gameOver.over}  data_value="person">
+                            vs Person
+                        </button>
+                        <button type='button' className={customClass.ai} disabled={!anyMovePlayed && !gameOver.over}  data_value="ai">
+                            vs Ai
+                        </button>
+                    </div>
                 </div>
-
             </div>
         </div>
     );

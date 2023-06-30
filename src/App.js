@@ -12,7 +12,6 @@ const App = () => {
     return (
         <Fragment>
             <Header />
-
             <Settings/>
             <Table/>
       

@@ -1,20 +1,15 @@
 #subheader {
-
-    margin: 3rem;
-
+    margin: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    
     // background: blue;
-
 }
 
 
 
 .setting-wrapper {
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,9 +17,9 @@
 
 }
 
-
-
-.resetButton {
+// HEADER 
+// reset button active
+.resetButton  {
 
     background: #ecf0f4;
     color: rgba(1, 8, 65, 1);
@@ -38,114 +33,47 @@
 
     cursor: pointer;
     
-    &:hover {
-
-        background-color: rgba(1, 8, 65, 1);
-        color: white;
+    &:active {
+        border: 2px solid rgb(196, 196, 196);
+        box-shadow: 0px 0px 1px 1px rgb(142, 142, 142) inset;
+        color:#434546
 
     }
 
 }
 
+// HEADER 
+// reset button deactive
+.resetButton_deactive  {
 
+    background: #e8e8e8;
+    color: rgb(161, 161, 161);
+
+    margin: 0rem .5rem;
+    padding: .3rem 0.5rem;
+    font-weight: 500;
+
+    border: 2px solid rgb(123, 139, 174);
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 5px 1px rgb(249, 249, 249) inset;
+}
+
+
+// HEADER 
+// setting size 
 .setting_size {
 
-
-    background: #ecf0f4;
-    margin: 0rem .5rem;
-
-    span {
+  
 
 
-        color: rgba(1, 8, 65, 1);
-        
-        // border-radius: 5px;
-        display: inline-block;
-        padding: .3rem .5rem;
-    
-        cursor: pointer;
-        font-weight: 600;
-
-    }
-
-    .size3x3 {
-        border: 2px solid rgba(1, 8, 65, 1);
-        border-right:5px solid rgb(0, 0, 0);
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    
-    }
-
-    .size5x5 {
-        color: green;
-        border: 2px solid green;
-        border-left:none;
-
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-
-        &:hover {
-            background-color: green;
-            color: white;
-        }
-    }
-
-
-    span:hover {
-        background: rgb(1, 8, 65);
-        color: white;
-    }
 }
 
+// HEADER
+// settings players ai fun and smart
 .setting_player{
 
-    background: #ecf0f4;
-
-
-    margin: 0rem .5rem;
-
-    span {
-
-
-        color: rgba(1, 8, 65, 1);
-        
-
-        display: inline-block;
-        padding: .3rem .5rem;
-    
-        cursor: pointer;
-        font-weight: 600;
-
-    }
-
-    .vsPerson {
-        border: 2px solid rgba(1, 8, 65, 1);
-        border-right:5px solid rgb(0, 0, 0);
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
-
-    .vsAi {
-        color: red;
-        border: 2px solid red;
-        border-left:none;
-
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-
-        &:hover {
-            background-color: red;
-            color: white;
-        }
-
-    }
-
-
-    span:hover {
-
-        background: rgba(1, 8, 65, 1);
-        color: white
-    }
+  
 
 }
 
