@@ -3,13 +3,16 @@ import React from "react";
 import './table3.scss'
 
 export const Table3 = ({board, gameOver, currentState, handleClick}) => {
+
+    // console.log('Table3:: gameOver.over', gameOver.over)
+
     return (
         <div id='table3'>
             <div className='table3_content_wrapper'>
                 <div
                     className='table3_content'
                     onClick={(e) => {
-                        gameOver.over ? "" : handleClick(e);
+                        gameOver.over ? '': handleClick(e);
                     }}
                     style={{ borderRadius: "50px" }}
                 >

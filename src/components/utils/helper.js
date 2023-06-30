@@ -169,7 +169,7 @@ export const checkBoard_afterEveryMove = (
     board,
     winPositionsState,
     getWinPositions,
-    checkWin
+    checkWin,
 ) => {
     let totalMoves = player.ai.moves.length + player.hu.moves.length;
     let winResultIndexes = [];
@@ -193,7 +193,7 @@ export const checkBoard_afterEveryMove = (
 
         return { totalMoves, winResultIndexes, draw, gameOver };
     } // if game over and it means its a draw
-    else if (totalMoves == 9) {
+    else if (totalMoves == 8) {
         gameOver = true;
         draw = true;
 
@@ -206,7 +206,7 @@ export const checkBoard_afterEveryMove = (
 
 
 // INFO: handle settings click 
-export const handleSettingClicks = (val, setting, setSetting, board, setBoard, gameOver, setGameOver) => {
+export const handleSettingClicks = (val, setting, setSetting, gameOver) => {
     if (val === "size5x5") {
         setSetting({
             ...setting,
@@ -233,27 +233,13 @@ export const handleSettingClicks = (val, setting, setSetting, board, setBoard, g
         });
     } else if (val === "reset") {
 
-
-
-        setBoard(["", "", "", "", "", "", "", "", ""])
-        setGameOver({
-            over: false,
-            draw: false
-        })
-
         setSetting({
+            reset: gameOver.over ? true : false,
             txt: true,
             fxf: false,
             person: true,
             ai: false,
         });
-
-        console.log('val::', val)
-
-        console.log('board::', board)
-        console.log('gameOver::', gameOver)
-
-
         
     }
 };

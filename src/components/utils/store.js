@@ -24,6 +24,15 @@ export const winPositionsState = [
     [2, 5, 8],
 ];
 
+export const currentState3 = atom({
+    key: 'currentState3',
+    default: {
+        totalMoves: 0,
+        winResultIndexes: [],
+        gameOver: false,
+        draw: false
+    }
+})
 
 
 // INFO: board state 
@@ -67,6 +76,7 @@ export const playerState = atom({
 export const settingsState = atom({
   key:'settingsState',
   default: {
+    reset: false,
     txt: true,
     fxf: false,
     person: true,

@@ -24,7 +24,7 @@ export const Settings = () => {
 
     const handleClick = (e) => {
         let val = e.target.getAttribute("data_value");
-        handleSettingClicks(val, setting, setSetting, board,setBoard, gameOver, setGameOver)
+        handleSettingClicks(val, setting, setSetting, gameOver)
     };
 
     return (
