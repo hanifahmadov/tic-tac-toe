@@ -11,18 +11,21 @@ import {
     getBestIndex_WithMinimax,
     checkBoard_afterEveryMove,
 } from "../utils/helper";
-import { boardState, winPositionsState, playerState, gameOverState } from "../utils/store";
+import { boardState, winPositionsState, playerState, gameOverState, settingsState } from "../utils/store";
 import { minimax } from "../utils/ai";
 import { useRecoilState } from "recoil";
 import { Table3 } from "./table3/Table3";
+import { Table5 } from "./table5/Table5";
+
 
 export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [player, setPlayer] = useRecoilState(playerState);
     const [gameOver, setGameOver] = useRecoilState(gameOverState)
+    const [setting, setSetting] = useRecoilState(settingsState)
 
     // INFO: check current state after every move made on board 
-    let currentState = checkBoard_afterEveryMove(player, board, winPositionsState, getWinPositions, checkWin)
+    let currentState = checkBoard_afterEveryMove(player, board, winPositionsState, getWinPositions, checkWin, setGameOver)
    
     // console.log('currentState', currentState)
 
@@ -35,17 +38,15 @@ export const Table = () => {
         }
     };
 
-    useEffect(()=> {
+    // useEffect(()=> {
 
-     
+    //     setGameOver({
+    //         ...gameOver,
+    //         over: currentState.gameOver,
+    //         draw: currentState.draw
+    //     })
 
-        setGameOver({
-            ...gameOver,
-            over: currentState.gameOver,
-            draw: currentState.draw
-        })
-
-    }, [currentState.gameOver, currentState.draw])
+    // }, [currentState.gameOver, currentState.draw])
 
 
     // INFO: if ai turn is true, run useEffect 
@@ -73,8 +74,9 @@ export const Table = () => {
 
     // INFO: Table return 
     return (
-        <div id='body'>
-            <Table3 board={board} gameOver={gameOver} currentState={currentState} handleClick={handleClick}/>
+        <div id='table_main'>
+          { setting.txt &&  <Table3 board={board} gameOver={gameOver} currentState={currentState} handleClick={handleClick}/> }
+          { setting.fxf && <Table5 /> }
         </div>
     );
 };

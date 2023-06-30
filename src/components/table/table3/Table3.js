@@ -7,7 +7,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
         <div id='table3'>
             <div className='table3_content_wrapper'>
                 <div
-                    className='custom_content'
+                    className='table3_content'
                     onClick={(e) => {
                         gameOver.over ? "" : handleClick(e);
                     }}

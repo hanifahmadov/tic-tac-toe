@@ -11,7 +11,7 @@ export const Settings = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [gameOver, setGameOver] = useRecoilState(gameOverState)
 
-    console.log(setting)
+    // console.log(setting)
 
     let anyMovePlayed = board.every((val) => val == "");
 
@@ -24,7 +24,7 @@ export const Settings = () => {
 
     const handleClick = (e) => {
         let val = e.target.getAttribute("data_value");
-        handleSettingClicks(val, setting, setSetting)
+        handleSettingClicks(val, setting, setSetting, board,setBoard, gameOver, setGameOver)
     };
 
     return (

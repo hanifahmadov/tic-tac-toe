@@ -206,7 +206,7 @@ export const checkBoard_afterEveryMove = (
 
 
 // INFO: handle settings click 
-export const handleSettingClicks = (val, setting, setSetting) => {
+export const handleSettingClicks = (val, setting, setSetting, board, setBoard, gameOver, setGameOver) => {
     if (val === "size5x5") {
         setSetting({
             ...setting,
@@ -233,11 +233,27 @@ export const handleSettingClicks = (val, setting, setSetting) => {
         });
     } else if (val === "reset") {
 
+
+
+        setBoard(["", "", "", "", "", "", "", "", ""])
+        setGameOver({
+            over: false,
+            draw: false
+        })
+
         setSetting({
             txt: true,
             fxf: false,
             person: true,
             ai: false,
         });
+
+        console.log('val::', val)
+
+        console.log('board::', board)
+        console.log('gameOver::', gameOver)
+
+
+        
     }
 };
