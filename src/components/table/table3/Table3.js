@@ -1,15 +1,24 @@
 /* eslint-disable */
 import React from "react";
 import './table3.scss'
+import { useRecoilValue } from "recoil";
+import { boardState, currentState } from "../../utils/store";
 
-export const Table3 = ({board, gameOver, currentState, handleClick}) => {
+export const Table3 = ({ handleClick }) => {
+
+    const board = useRecoilValue(boardState)
+    const current = useRecoilValue(currentState)
+
+
+
+
     return (
         <div id='table3'>
             <div className='table3_content_wrapper'>
                 <div
-                    className='custom_content'
+                    className='table3_content'
                     onClick={(e) => {
-                        gameOver.over ? "" : handleClick(e);
+                        current.gameOver ? '': handleClick(e);
                     }}
                     style={{ borderRadius: "50px" }}
                 >
@@ -20,7 +29,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='0'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(0)
+                                    current.winResultIndexes.includes(0)
                                         ? "#aaa"
                                         : "",
                                 borderTopLeftRadius: "50px",
@@ -34,7 +43,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='1'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(1)
+                                    current.winResultIndexes.includes(1)
                                         ? "#aaa"
                                         : "",
                             }}
@@ -47,7 +56,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='2'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(2)
+                                    current.winResultIndexes.includes(2)
                                         ? "#aaa"
                                         : "",
                                 borderTopRightRadius: "50px",
@@ -64,7 +73,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='3'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(3)
+                                    current.winResultIndexes.includes(3)
                                         ? "#aaa"
                                         : "",
                             }}
@@ -77,7 +86,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='4'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(4)
+                                    current.winResultIndexes.includes(4)
                                         ? "#aaa"
                                         : "",
                             }}
@@ -90,7 +99,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='5'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(5)
+                                    current.winResultIndexes.includes(5)
                                         ? "#aaa"
                                         : "",
                             }}
@@ -106,7 +115,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='6'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(6)
+                                    current.winResultIndexes.includes(6)
                                         ? "#aaa"
                                         : "",
                                 borderBottomLeftRadius: "50px",
@@ -120,7 +129,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='7'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(7)
+                                    current.winResultIndexes.includes(7)
                                         ? "#aaa"
                                         : "",
                             }}
@@ -133,7 +142,7 @@ export const Table3 = ({board, gameOver, currentState, handleClick}) => {
                             className='8'
                             style={{
                                 background:
-                                    currentState.winResultIndexes.includes(8)
+                                    current.winResultIndexes.includes(8)
                                         ? "#aaa"
                                         : "",
                                 borderBottomRightRadius: "50px",

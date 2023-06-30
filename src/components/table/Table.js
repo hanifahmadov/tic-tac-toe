@@ -10,71 +10,97 @@ import {
     makeMove,
     getBestIndex_WithMinimax,
     checkBoard_afterEveryMove,
+    resetAll,
 } from "../utils/helper";
-import { boardState, winPositionsState, playerState, gameOverState } from "../utils/store";
+import {
+    boardState,
+    winPositionsState,
+    playerState,
+    settingsState,
+    currentState,
+} from "../utils/store";
 import { minimax } from "../utils/ai";
 import { useRecoilState } from "recoil";
 import { Table3 } from "./table3/Table3";
+import { Table5 } from "./table5/Table5";
 
 export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [player, setPlayer] = useRecoilState(playerState);
-    const [gameOver, setGameOver] = useRecoilState(gameOverState)
+    const [setting, setSetting] = useRecoilState(settingsState);
+    const [current, setCurrent] = useRecoilState(currentState);
 
-    // INFO: check current state after every move made on board 
-    let currentState = checkBoard_afterEveryMove(player, board, winPositionsState, getWinPositions, checkWin)
-   
-    // console.log('currentState', currentState)
+    console.log('current.gameOver:::', current.gameOver)
 
-    // INFO: hu clicks and if his turn is true 
+    useEffect(() => {
+        // update current board state
+        // console.log("first");
+
+        let temp = checkBoard_afterEveryMove(
+            player,
+            board,
+            winPositionsState,
+            getWinPositions,
+            checkWin
+        );
+
+        console.log('temp:::' ,temp)
+        // update current board state
+        setCurrent(temp);
+
+    }, [player.hu.turn]);
+
+
+
+    // INFO: hu turn
     const handleClick = (e) => {
         // hu turn
-        if (player.hu.turn) {
+        if (player.hu.turn && !current.gameOver) {
             let index = Number(e.target.className);
-            makeMove([...board], setBoard, player, setPlayer, index)
+
+            // hu makes move
+            makeMove([...board], setBoard, player, setPlayer, index);
         }
     };
 
-    useEffect(()=> {
-
-     
-
-        setGameOver({
-            ...gameOver,
-            over: currentState.gameOver,
-            draw: currentState.draw
-        })
-
-    }, [currentState.gameOver, currentState.draw])
-
-
-    // INFO: if ai turn is true, run useEffect 
+    // INFO: reset all states when reset button clicked
     useEffect(() => {
+        // reset all
+        if (setting.reset) {
+            resetAll(
+                setBoard,
+                setSetting,
+                setPlayer,
+                setCurrent,
+                setting,
+                current
+            );
+        }
+    }, [setting.reset]);
 
+    // INFO: Ai turn 
+    useEffect(() => {
         setTimeout(() => {
             // ai turn
-            if (player.ai.turn && !currentState.gameOver) {
-
+            if (player.ai.turn && !current.gameOver) {
                 // get valid best index for ai
-                let index = getBestIndex_WithMinimax([...board], winPositionsState, minimax )
-                
-                //ai makes its move
-                makeMove([...board], setBoard, player, setPlayer, index)
+                let index = getBestIndex_WithMinimax(
+                    [...board],
+                    winPositionsState,
+                    minimax
+                );
+
+                //ai makes move
+                makeMove([...board], setBoard, player, setPlayer, index);
             }
         }, 300);
-
-        // INFO: 
-        // not sure return or not, and why? 
-        // return 0;
-
     }, [player.ai.turn]);
 
-
-
-    // INFO: Table return 
+    // INFO: Table return
     return (
-        <div id='body'>
-            <Table3 board={board} gameOver={gameOver} currentState={currentState} handleClick={handleClick}/>
+        <div id='table_main'>
+            {setting.txt && <Table3 handleClick={handleClick} />}
+            {setting.fxf && <Table5 />}
         </div>
     );
 };

@@ -24,6 +24,15 @@ export const winPositionsState = [
     [2, 5, 8],
 ];
 
+export const currentState = atom({
+    key: 'currentState3',
+    default: {
+        totalMoves: 0,
+        winResultIndexes: [],
+        gameOver: false,
+        draw: false
+    }
+})
 
 
 // INFO: board state 
@@ -32,16 +41,6 @@ export const boardState = atom({
     default: ["", "", "", "", "", "", "", "", ""],
 });
 
-
-
-// INFO: game over state 
-export const gameOverState = atom ({
-    key: 'gameOver',
-    default: {
-        over: false,
-        draw: false
-    }
-})
 
 
 // INFO: player state 
@@ -67,6 +66,7 @@ export const playerState = atom({
 export const settingsState = atom({
   key:'settingsState',
   default: {
+    reset: false,
     txt: true,
     fxf: false,
     person: true,
@@ -74,4 +74,34 @@ export const settingsState = atom({
   }
 });
 
+
+
+// FIXME: TABLE 5 STATES                                                         
+export const boardState5 = atom({
+    key: 'boardState5',
+    default: [
+        ['X', '', '', '', ''],
+        ['', 'X', '', '', ''],
+        ['', '', 'X', '', ''],
+        ['', '', '', 'X', ''],
+        ['', '', '', '', 'X']
+    ]
+})
+
+
+export const winPositionsState5 = [
+    // left-to-right
+    [[0,0], [0,1], [0,2]]
+    [[1,0], [1,1], [1,2]],
+    [[2,0], [2,1], [2,2]],
+
+    // dioganals
+    [[0,0], [1,1], [2,2]],
+    [[0,2], [1,1], [2,0]],
+
+    // top-to-bottom
+    [[0,0], [1,0], [2,0]],
+    [[0,1], [1,1], [2,1]],
+    [[0,2], [1,2], [2,2]],
+];
 

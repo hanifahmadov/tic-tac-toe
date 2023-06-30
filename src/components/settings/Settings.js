@@ -2,16 +2,16 @@
 import React from "react";
 import "./settings.scss";
 import { useRecoilState } from "recoil";
-import { boardState, gameOverState, playerState, settingsState } from "../utils/store";
+import { boardState, currentState, gameOverState, playerState, settingsState } from "../utils/store";
 import { handleSettingClicks } from "../utils/helper";
 
 export const Settings = () => {
     const [player, setPlayer] = useRecoilState(playerState);
     const [setting, setSetting] = useRecoilState(settingsState);
     const [board, setBoard] = useRecoilState(boardState);
-    const [gameOver, setGameOver] = useRecoilState(gameOverState)
+    const [current, setCurrent] = useRecoilState(currentState)
 
-    console.log(setting)
+    // console.log(setting)
 
     let anyMovePlayed = board.every((val) => val == "");
 
@@ -24,14 +24,14 @@ export const Settings = () => {
 
     const handleClick = (e) => {
         let val = e.target.getAttribute("data_value");
-        handleSettingClicks(val, setting, setSetting)
+        handleSettingClicks(val, setting, setSetting, current)
     };
 
     return (
         <div id='subheader'>
             <div className='setting-wrapper' onClick={handleClick}>
                 <div className="">
-                    <button type='button' className='btn btn-primary' disabled={!anyMovePlayed && !gameOver.over} data_value="reset">
+                    <button type='button' className='btn btn-primary' disabled={!anyMovePlayed && !current.gameOver} data_value="reset">
                         Reset
                     </button>
                 </div>
@@ -42,10 +42,10 @@ export const Settings = () => {
                         role='group'
                         aria-label='Basic example'
                     >
-                        <button type='button' className={customClass.size3x3} disabled={!anyMovePlayed && !gameOver.over} data_value="size3x3">
+                        <button type='button' className={customClass.size3x3} disabled={!anyMovePlayed && !current.gameOver} data_value="size3x3">
                             3x3
                         </button>
-                        <button type='button' className={customClass.size5x5} disabled={!anyMovePlayed && !gameOver.over}  data_value="size5x5">
+                        <button type='button' className={customClass.size5x5} disabled={!anyMovePlayed && !current.gameOver}  data_value="size5x5">
                             5x5
                         </button>
                     </div>
@@ -57,10 +57,10 @@ export const Settings = () => {
                         role='group'
                         aria-label='Basic example'
                     >
-                        <button type='button' className={customClass.person} disabled={!anyMovePlayed && !gameOver.over}  data_value="person">
+                        <button type='button' className={customClass.person} disabled={!anyMovePlayed && !current.gameOver}  data_value="person">
                             vs Person
                         </button>
-                        <button type='button' className={customClass.ai} disabled={!anyMovePlayed && !gameOver.over}  data_value="ai">
+                        <button type='button' className={customClass.ai} disabled={!anyMovePlayed && !current.gameOver}  data_value="ai">
                             vs Ai
                         </button>
                     </div>
