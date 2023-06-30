@@ -14,19 +14,19 @@ import {
 import { boardState, winPositionsState, playerState, gameOverState } from "../utils/store";
 import { minimax } from "../utils/ai";
 import { useRecoilState } from "recoil";
+import { Table3 } from "./table3/Table3";
 
 export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [player, setPlayer] = useRecoilState(playerState);
     const [gameOver, setGameOver] = useRecoilState(gameOverState)
 
-    // HEADER 
-    // check current state after every move made on board
-    let currentState = checkBoard_afterEveryMove(player, board, winPositionsState, getWinPositions, checkWin, setGameOver)
-    
+    // INFO: check current state after every move made on board 
+    let currentState = checkBoard_afterEveryMove(player, board, winPositionsState, getWinPositions, checkWin)
+   
+    // console.log('currentState', currentState)
 
-    // HEADER 
-    // hu clicks and if his turn is true
+    // INFO: hu clicks and if his turn is true 
     const handleClick = (e) => {
         // hu turn
         if (player.hu.turn) {
@@ -35,9 +35,20 @@ export const Table = () => {
         }
     };
 
+    useEffect(()=> {
 
-    // HEADER 
-    // if ai turn is true, run useEffect
+     
+
+        setGameOver({
+            ...gameOver,
+            over: currentState.gameOver,
+            draw: currentState.draw
+        })
+
+    }, [currentState.gameOver, currentState.draw])
+
+
+    // INFO: if ai turn is true, run useEffect 
     useEffect(() => {
 
         setTimeout(() => {
@@ -52,7 +63,7 @@ export const Table = () => {
             }
         }, 300);
 
-        // WARN 
+        // INFO: 
         // not sure return or not, and why? 
         // return 0;
 
@@ -60,144 +71,10 @@ export const Table = () => {
 
 
 
-    // HEADER 
-    // Table return
+    // INFO: Table return 
     return (
         <div id='body'>
-            {/* {console.log(moves)} */}
-            <div className='wrapper-table'>
-                <div className='custom-table'>
-                    <div
-                        className='custom-body'
-                        onClick={(e) => {
-                            gameOver ? "" : handleClick(e);
-                        }}
-
-                        style={{borderRadius: "50px"}}
-                    >
-                        {/* CHILD 1 */}
-                        <div className='child1'>
-                            <div
-                                id='zero'
-                                className='0'
-                                style={{
-                                    background: (currentState.winResultIndexes.includes(0))
-                                        ? "#aaa"
-                                        : "",
-                                    borderTopLeftRadius: "50px",
-                                }}
-                            >
-                                <span>{board[0]}</span>
-                            </div>
-
-                            <div
-                                id='one'
-                                className='1'
-                                style={{
-                                    background: (currentState.winResultIndexes.includes(1))
-                                        ? "#aaa"
-                                        : "",
-                                }}
-                            >
-                                <span>{board[1]}</span>
-                            </div>
-
-                            <div
-                                id='two'
-                                className='2'
-                                style={{
-                                    background: currentState.winResultIndexes.includes(2)
-                                        ? "#aaa"
-                                        : "",
-                                    borderTopRightRadius: "50px",
-                                }}
-                            >
-                                <span>{board[2]}</span>
-                            </div>
-                        </div>
-
-                        {/* CHILD 2 */}
-                        <div className='child2'>
-                            <div
-                                id='three'
-                                className='3'
-                                style={{
-                                    background: currentState.winResultIndexes.includes(3)
-                                        ? "#aaa"
-                                        : "",
-                                }}
-                            >
-                                <span>{board[3]}</span>
-                            </div>
-
-                            <div
-                                id='four'
-                                className='4'
-                                style={{
-                                    background: currentState.winResultIndexes.includes(4)
-                                        ? "#aaa"
-                                        : "",
-                                }}
-                            >
-                                <span>{board[4]}</span>
-                            </div>
-
-                            <div
-                                id='five'
-                                className='5'
-                                style={{
-                                    background: currentState.winResultIndexes.includes(5)
-                                        ? "#aaa"
-                                        : "",
-                                }}
-                            >
-                                <span>{board[5]}</span>
-                            </div>
-                        </div>
-
-                        {/* CHILD 3 */}
-                        <div className='child3'>
-                            <div
-                                id='six'
-                                className='6'
-                                style={{
-                                    background: currentState.winResultIndexes.includes(6)
-                                        ? "#aaa"
-                                        : "",
-                                    borderBottomLeftRadius: "50px",
-                                }}
-                            >
-                                <span>{board[6]}</span>
-                            </div>
-
-                            <div
-                                id='seven'
-                                className='7'
-                                style={{
-                                    background: currentState.winResultIndexes.includes(7)
-                                        ? "#aaa"
-                                        : "",
-                                }}
-                            >
-                                <span>{board[7]}</span>
-                            </div>
-
-                            <div
-                                id='eight'
-                                className='8'
-                                style={{
-                                    background: currentState.winResultIndexes.includes(8)
-                                        ? "#aaa"
-                                        : "",
-                                    borderBottomRightRadius: "50px",
-                                }}
-                            >
-                                <span>{board[8]}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Table3 board={board} gameOver={gameOver} currentState={currentState} handleClick={handleClick}/>
         </div>
     );
 };

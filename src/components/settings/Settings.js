@@ -3,37 +3,35 @@ import React from "react";
 import "./settings.scss";
 import { useRecoilState } from "recoil";
 import { boardState, gameOverState, playerState, settingsState } from "../utils/store";
+import { handleSettingClicks } from "../utils/helper";
 
 export const Settings = () => {
     const [player, setPlayer] = useRecoilState(playerState);
     const [setting, setSetting] = useRecoilState(settingsState);
     const [board, setBoard] = useRecoilState(boardState);
-    // const [gameOver, setGameOver] = useRecoilState(gameOverState)
+    const [gameOver, setGameOver] = useRecoilState(gameOverState)
+
+    console.log(setting)
 
     let anyMovePlayed = board.every((val) => val == "");
 
+    const customClass = {
+        size3x3: setting.txt ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1',
+        size5x5: setting.fxf ? 'btn btn-warning' : 'btn btn-primary',
+        person: setting.person ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1' ,
+        ai: setting.ai ? 'btn btn-warning' : 'btn btn-primary',
+    }
+
     const handleClick = (e) => {
-        console.log(e.target.getAttribute("data_value"));
-        // if (e.target.className === "size5x5") {
-        //     setSetting({
-        //         ...setting,
-        //         fxf: false,
-        //         txt: false,
-        //     });
-        // } else if (e.target.className === "size3x3") {
-        //     setSetting({
-        //         ...setting,
-        //         fxf: true,
-        //         txt: true,
-        //     });
-        // }
+        let val = e.target.getAttribute("data_value");
+        handleSettingClicks(val, setting, setSetting)
     };
 
     return (
         <div id='subheader'>
             <div className='setting-wrapper' onClick={handleClick}>
                 <div className="">
-                    <button type='button' className='btn btn-primary' data_value="reset">
+                    <button type='button' className='btn btn-primary' disabled={!anyMovePlayed && !gameOver.over} data_value="reset">
                         Reset
                     </button>
                 </div>
@@ -44,10 +42,10 @@ export const Settings = () => {
                         role='group'
                         aria-label='Basic example'
                     >
-                        <button type='button' className='btn btn-primary mx-1' data_value="size3x3">
+                        <button type='button' className={customClass.size3x3} disabled={!anyMovePlayed && !gameOver.over} data_value="size3x3">
                             3x3
                         </button>
-                        <button type='button' className='btn btn-primary' data_value="size5x5">
+                        <button type='button' className={customClass.size5x5} disabled={!anyMovePlayed && !gameOver.over}  data_value="size5x5">
                             5x5
                         </button>
                     </div>
@@ -59,11 +57,11 @@ export const Settings = () => {
                         role='group'
                         aria-label='Basic example'
                     >
-                        <button type='button' className='btn btn-primary mx-1' data_value="aifun">
-                            Ai fun
+                        <button type='button' className={customClass.person} disabled={!anyMovePlayed && !gameOver.over}  data_value="person">
+                            vs Person
                         </button>
-                        <button type='button' className='btn btn-primary' data_value="aismart">
-                            Ai smart
+                        <button type='button' className={customClass.ai} disabled={!anyMovePlayed && !gameOver.over}  data_value="ai">
+                            vs Ai
                         </button>
                     </div>
                 </div>
