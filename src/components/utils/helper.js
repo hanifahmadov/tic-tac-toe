@@ -3,8 +3,8 @@
 import { useRecoilState } from "recoil";
 import { gameOverState } from "./store";
 
-// HEADER: checkWin
-// hecks board if there is win
+// INFO:checkWin 
+// checks board if there is win
 export const checkWin = (board, winPositions) => {
     for (let position of winPositions) {
         let x = 3;
@@ -26,8 +26,7 @@ export const checkWin = (board, winPositions) => {
     }
 };
 
-// HEADER
-// get win positions if game is over
+// INFO:getWinPositions 
 export const getWinPositions = (winPositions, arr) => {
     let res = [];
 
@@ -46,7 +45,7 @@ export const getWinPositions = (winPositions, arr) => {
     return res;
 };
 
-// HEADER
+// INFO: aviableSpots 
 // get avialable spots from board
 export const aviableSpots = (board) => {
     let res = [];
@@ -61,7 +60,7 @@ export const aviableSpots = (board) => {
     return res;
 };
 
-// HEADER
+// INFO: getRandomSpot 
 // get random spot from available spots from board
 export const getRandomSpot = (board) => {
     // get available spots
@@ -72,7 +71,7 @@ export const getRandomSpot = (board) => {
 };
 
 
-// INFO: make move ai 
+// INFO: make move 
 export const makeMove = (
     currentBoardState,
     setBoard,
@@ -176,6 +175,8 @@ export const checkBoard_afterEveryMove = (
     let gameOver = false;
     let draw = false;
 
+   
+
     // if x wins
     if (checkWin(board, winPositionsState) == 1) {
         // get array of winsspot for x
@@ -193,7 +194,7 @@ export const checkBoard_afterEveryMove = (
 
         return { totalMoves, winResultIndexes, draw, gameOver };
     } // if game over and it means its a draw
-    else if (totalMoves == 8) {
+    else if (totalMoves >= 9) {
         gameOver = true;
         draw = true;
 
@@ -206,7 +207,7 @@ export const checkBoard_afterEveryMove = (
 
 
 // INFO: handle settings click 
-export const handleSettingClicks = (val, setting, setSetting, gameOver) => {
+export const handleSettingClicks = (val, setting, setSetting, current) => {
     if (val === "size5x5") {
         setSetting({
             ...setting,
@@ -234,7 +235,7 @@ export const handleSettingClicks = (val, setting, setSetting, gameOver) => {
     } else if (val === "reset") {
 
         setSetting({
-            reset: gameOver.over ? true : false,
+            reset: current.gameOver ? true : false,
             txt: true,
             fxf: false,
             person: true,
@@ -243,3 +244,43 @@ export const handleSettingClicks = (val, setting, setSetting, gameOver) => {
         
     }
 };
+
+
+
+//  INFO: reset all
+export const resetAll = (setBoard, setSetting, setPlayer, setCurrent, setting, current) => {
+
+    if(setting.reset && current.gameOver){
+
+        setBoard(["", "", "", "", "", "", "", "", ""])
+
+        setCurrent({
+            totalMoves: 0,
+            winResultIndexes: [],
+            gameOver: false,
+            draw: false
+        })
+
+        setPlayer({
+            hu: {
+                value: "X",
+                moves: [],
+                turn: true,
+            },
+    
+            ai: {
+                value: "O",
+                moves: [],
+                turn: false,
+            },
+        })
+
+        setSetting({
+            reset: false,
+            txt: true,
+            fxf: false,
+            person: true,
+            ai: false,
+        })
+    }
+}

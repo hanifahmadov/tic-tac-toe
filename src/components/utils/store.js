@@ -24,7 +24,7 @@ export const winPositionsState = [
     [2, 5, 8],
 ];
 
-export const currentState3 = atom({
+export const currentState = atom({
     key: 'currentState3',
     default: {
         totalMoves: 0,
@@ -41,16 +41,6 @@ export const boardState = atom({
     default: ["", "", "", "", "", "", "", "", ""],
 });
 
-
-
-// INFO: game over state 
-export const gameOverState = atom ({
-    key: 'gameOver',
-    default: {
-        over: false,
-        draw: false
-    }
-})
 
 
 // INFO: player state 
@@ -85,7 +75,8 @@ export const settingsState = atom({
 });
 
 
-// FIXME: TABLE 5 STATES 
+
+// FIXME: TABLE 5 STATES                                                         
 export const boardState5 = atom({
     key: 'boardState5',
     default: [
