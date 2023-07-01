@@ -122,7 +122,7 @@ export const getBestIndex_WithMinimax5 = (tempBoard, winPositionsState5, memo, s
                 tempBoard[i][j] = "O";
 
     let currentBoardState  = getBoardPlayedValues(tempBoard);
-    let score = minimax5(, cache, [i, j], tempBoard, winPositionsState5, false, 0 );
+    let score = minimax5(currentBoardState, cache, [i, j], tempBoard, winPositionsState5, false, 0 );
 
                 tempBoard[i][j] = "";
 
