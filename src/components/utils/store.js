@@ -24,8 +24,10 @@ export const winPositionsState = [
     [2, 5, 8],
 ];
 
+
+// INFO: currentState 
 export const currentState = atom({
-    key: 'currentState3',
+    key: 'currentState',
     default: {
         totalMoves: 0,
         winResultIndexes: [],
@@ -77,6 +79,8 @@ export const settingsState = atom({
 
 
 // FIXME: TABLE 5 STATES                                                         
+
+// INFO: board 5 
 export const boardState5 = atom({
     key: 'boardState5',
     default: [
@@ -88,7 +92,7 @@ export const boardState5 = atom({
     ]
 })
 
-
+// INFO: win positions 5 
 export const winPositionsState5 = [
     // left-to-right
     [[0,0], [0,1], [0,2]]
@@ -104,4 +108,36 @@ export const winPositionsState5 = [
     [[0,1], [1,1], [2,1]],
     [[0,2], [1,2], [2,2]],
 ];
+
+
+// INFO: player 5 
+export const playerState5= atom({
+    key: "playersState5",
+    default: {
+        hu: {
+            value: "X",
+            moves: [],
+            turn: true,
+        },
+
+        ai: {
+            value: "O",
+            moves: [],
+            turn: false,
+        },
+    },
+});
+
+
+// INFO: current 
+export const currentState5 = atom({
+    key: 'currentState5',
+    default: {
+        totalMoves: 0,
+        winIndexes: [],
+        gameOver: false,
+        draw: false
+    }
+})
+
 

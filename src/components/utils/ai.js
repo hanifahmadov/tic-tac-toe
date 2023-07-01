@@ -1,7 +1,8 @@
 /* eslint-disable */
 import { checkWin, aviableSpots } from "./helper";
+import { aviableSpots5, checkWin5 } from "./helper5";
 
-// ai challange MINIMAX
+// INFO: 3x3 ai challange MINIMAX
 export const minimax = (board, position, aiturn, sum, depth) => {
     let emptySpots = aviableSpots(board);
 
@@ -64,5 +65,59 @@ export const minimax = (board, position, aiturn, sum, depth) => {
     add depth value and return val/index with min depth to play the shorttest win index
  */
 
+
+    // INFO: 5x5 ai 
+    export const minimax5 = (board, winposition, aiturn, sum) => {
+        let emptySpots5 = aviableSpots5(board);
+    
+        // every possible move( ai or human) calculates 1
+        sum++;
+    
+        // edge cases
+        if (checkWin5(board, winposition) === 1) {
+            return { val: -1, anaz: sum };
+        } else if (checkWin5(board, winposition) === 0) {
+            return { val: 1, anaz: sum  };
+        } else if (emptySpots5.length === 0) {
+            return { val: 0, anaz: sum  };
+        }
+    
+        if (aiturn) {
+            // ai turn
+            let bestScore = { val: -Infinity, anaz: 0 };
+    
+            for (let [i,j] of emptySpots5) {
+                board[i,j] = "O";
+                let score = minimax(board, position, false, sum );
+                board[i][j] = "";
+    
+                bestScore = {
+                    val: Math.max(score.val, bestScore.val),
+                    anaz: score.anaz + bestScore.anaz,
+                    depth
+                };
+            }
+    
+            return bestScore;
+            
+        } else {
+            // human turn
+            let bestScore = { val: Infinity, anaz: 0 };
+    
+            for (let [i, j] of emptySpots5) {
+
+                board[i][j] = "X";
+                let score = minimax(board, position, true, sum );
+                board[i][j] = "";
+    
+                bestScore = {
+                    val: Math.min(score.val, bestScore.val),
+                    anaz: score.anaz + bestScore.anaz,
+                };
+            }
+    
+            return bestScore;
+        }
+    };
 
 
