@@ -2,6 +2,7 @@
 
 import { useRecoilState } from "recoil";
 import { gameOverState } from "./store";
+import { shuffle } from "./helper5";
 
 // INFO:checkWin 
 // checks board if there is win
@@ -56,8 +57,8 @@ export const aviableSpots = (board) => {
             res.push(index);
         }
     });
-
-    return res;
+    
+    return shuffle(res);
 };
 
 
@@ -195,7 +196,7 @@ export const checkBoard_afterEveryMove = (
 
         return { totalMoves, winResultIndexes, draw, gameOver };
     } // if game over and it means its a draw
-    else if (totalMoves >= 9) {
+    else if (totalMoves === 9) {
         gameOver = true;
         draw = true;
 

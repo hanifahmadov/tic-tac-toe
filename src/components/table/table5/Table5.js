@@ -2,14 +2,22 @@
 import React, { useEffect } from "react";
 import "./table5.scss";
 import { useRecoilState } from "recoil";
-import { boardState5, currentState5, playerState5, winPositionsState5 } from "../../utils/store";
+import {
+    boardState5,
+    currentState5,
+    memoState,
+    playerState5,
+    winPositionsState5,
+} from "../../utils/store";
 import { getBestIndex_WithMinimax5, makeMove5 } from "../../utils/helper5";
-import { minimax } from "../../utils/ai";
 
 export const Table5 = () => {
     const [board, setBoard] = useRecoilState(boardState5);
     const [player, setPlayer] = useRecoilState(playerState5);
     const [current, setCurrent] = useRecoilState(currentState5);
+    const [memo, setMemo] = useRecoilState(memoState);
+
+    let gameOver = false;
 
     const handleClick = (e) => {
         let index = e.target.getAttribute("data_index");
@@ -24,29 +32,32 @@ export const Table5 = () => {
         );
     };
 
-
-
     // INFO: Ai turn
     useEffect(() => {
         setTimeout(() => {
             // ai turn
-            if (player.ai.turn && !current.gameOver) {
+            if (player.ai.turn && !gameOver) {
                 // get valid best index for ai
                 let index = getBestIndex_WithMinimax5(
                     board.map((val) => [...val]),
                     winPositionsState5,
-                    minimax
+                    memo,
+                    setMemo
                 );
 
-                console.log(index)
+                console.log("index", index);
 
-                //ai makes move
-                // makeMove5([...board], setBoard, player, setPlayer, index);
+                // ai makes move
+                // makeMove5(
+                //     board.map((val) => [...val]),
+                //     setBoard,
+                //     player,
+                //     setPlayer,
+                //     index
+                // );
             }
         }, 300);
     }, [player.ai.turn]);
-
-
 
     return (
         <div id='table5'>

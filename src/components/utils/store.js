@@ -68,9 +68,9 @@ export const playerState = atom({
 export const settingsState = atom({
   key:'settingsState',
   default: {
-    reset: false,
-    txt: true,
-    fxf: false,
+    reset: true,
+    txt: false,
+    fxf: true,
     person: true,
     ai: false,
   }
@@ -84,29 +84,33 @@ export const settingsState = atom({
 export const boardState5 = atom({
     key: 'boardState5',
     default: [
-        ['X', '', '', '', ''],
-        ['', 'X', '', '', ''],
-        ['', '', 'X', '', ''],
-        ['', '', '', 'X', ''],
-        ['', '', '', '', 'X']
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', '']
     ]
 })
 
 // INFO: win positions 5 
 export const winPositionsState5 = [
     // left-to-right
-    [[0,0], [0,1], [0,2]]
-    [[1,0], [1,1], [1,2]],
-    [[2,0], [2,1], [2,2]],
+    [[0,0], [0,1], [0,2], [0,3], [0,4]],
+    [[1,0], [1,1], [1,2], [1,3], [1,4]],
+    [[2,0], [2,1], [2,2], [2,3], [2,4]],
+    [[3,0], [3,1], [3,2], [3,3], [3,4]],
+    [[4,0], [4,1], [4,2], [4,3], [4,4]],
 
     // dioganals
-    [[0,0], [1,1], [2,2]],
-    [[0,2], [1,1], [2,0]],
+    [[0,0], [1,1], [2,2], [3,3], [4,4]],
+    [[0,4], [1,3], [2,2], [3,1], [4,0]],
 
     // top-to-bottom
-    [[0,0], [1,0], [2,0]],
-    [[0,1], [1,1], [2,1]],
-    [[0,2], [1,2], [2,2]],
+    [[0,0], [1,0], [2,0], [3,0], [4,0]],
+    [[0,1], [1,1], [2,1], [3,1], [4,1]],
+    [[0,2], [1,2], [2,2], [3,2], [4,2]],
+    [[0,3], [1,3], [2,3], [3,3], [4,3]],
+    [[0,4], [1,4], [2,4], [3,4], [4,4]],
 ];
 
 
@@ -137,6 +141,21 @@ export const currentState5 = atom({
         winIndexes: [],
         gameOver: false,
         draw: false
+    }
+})
+
+export const memoState = atom({
+    key:'memo',
+    default:  {
+        ai: {
+            turn: false,
+            store: [],
+        },
+
+        hu: {
+            turn: false,
+            store: [],
+        },
     }
 })
 

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { checkWin, aviableSpots } from "./helper";
-import { aviableSpots5, checkWin5 } from "./helper5";
+import { aviableSpots5, checkWin5, shuffle } from "./helper5";
 
 // INFO: 3x3 ai challange MINIMAX
 export const minimax = (board, position, aiturn, sum, depth) => {
@@ -67,18 +67,22 @@ export const minimax = (board, position, aiturn, sum, depth) => {
 
 
     // INFO: 5x5 ai 
-    export const minimax5 = (board, winposition, aiturn, sum) => {
-        let emptySpots5 = aviableSpots5(board);
+    export const minimax5 = (currentBoardState, cache, index, board, winposition, aiturn, sum ) => {
+        let avail = aviableSpots5(board);
+
+
+        console.log(avail, "emptySpots5::")
     
         // every possible move( ai or human) calculates 1
         sum++;
-    
+        if(sum == 2) return;
+
         // edge cases
-        if (checkWin5(board, winposition) === 1) {
+        if (checkWin5(board, winposition) == 1) {
             return { val: -1, anaz: sum };
-        } else if (checkWin5(board, winposition) === 0) {
+        } else if (checkWin5(board, winposition) == 0) {
             return { val: 1, anaz: sum  };
-        } else if (emptySpots5.length === 0) {
+        } else if (avail.length == 0) {
             return { val: 0, anaz: sum  };
         }
     
@@ -86,15 +90,14 @@ export const minimax = (board, position, aiturn, sum, depth) => {
             // ai turn
             let bestScore = { val: -Infinity, anaz: 0 };
     
-            for (let [i,j] of emptySpots5) {
-                board[i,j] = "O";
-                let score = minimax(board, position, false, sum );
+            for (let [i,j] of avail) {
+                board[i][j] = "O";
+                let score = minimax5(board, winposition, false, sum );
                 board[i][j] = "";
     
                 bestScore = {
                     val: Math.max(score.val, bestScore.val),
                     anaz: score.anaz + bestScore.anaz,
-                    depth
                 };
             }
     
@@ -104,10 +107,10 @@ export const minimax = (board, position, aiturn, sum, depth) => {
             // human turn
             let bestScore = { val: Infinity, anaz: 0 };
     
-            for (let [i, j] of emptySpots5) {
+            for (let [i, j] of avail) {
 
                 board[i][j] = "X";
-                let score = minimax(board, position, true, sum );
+                let score = minimax5(board, winposition, true, sum);
                 board[i][j] = "";
     
                 bestScore = {
