@@ -125,6 +125,7 @@ export const aviableSpots5 = (board, index) => {
 
 // INFO:checkWin 
 export const checkWin5 = (board, winPositions) => {
+    
     for (let position of winPositions) {
         let x = 3;
         let o = 3;

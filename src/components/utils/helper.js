@@ -45,8 +45,8 @@ export const getWinPositions = (winPositions, arr) => {
     return res;
 };
 
+
 // INFO: aviableSpots 
-// get avialable spots from board
 export const aviableSpots = (board) => {
     let res = [];
 
@@ -59,6 +59,7 @@ export const aviableSpots = (board) => {
 
     return res;
 };
+
 
 // INFO: getRandomSpot 
 // get random spot from available spots from board
