@@ -1,7 +1,8 @@
 /* eslint-disable */
 import { checkWin, aviableSpots } from "./helper";
+import { aviableSpots5, checkWin5, shuffle } from "./helper5";
 
-// ai challange MINIMAX
+// INFO: 3x3 ai challange MINIMAX
 export const minimax = (board, position, aiturn, sum, depth) => {
     let emptySpots = aviableSpots(board);
 
@@ -64,5 +65,62 @@ export const minimax = (board, position, aiturn, sum, depth) => {
     add depth value and return val/index with min depth to play the shorttest win index
  */
 
+
+    // INFO: 5x5 ai 
+    export const minimax5 = (currentBoardState, cache, index, board, winposition, aiturn, sum ) => {
+        let avail = aviableSpots5(board);
+
+
+        console.log(avail, "emptySpots5::")
+    
+        // every possible move( ai or human) calculates 1
+        sum++;
+        if(sum == 2) return;
+
+        // edge cases
+        if (checkWin5(board, winposition) == 1) {
+            return { val: -1, anaz: sum };
+        } else if (checkWin5(board, winposition) == 0) {
+            return { val: 1, anaz: sum  };
+        } else if (avail.length == 0) {
+            return { val: 0, anaz: sum  };
+        }
+    
+        if (aiturn) {
+            // ai turn
+            let bestScore = { val: -Infinity, anaz: 0 };
+    
+            for (let [i,j] of avail) {
+                board[i][j] = "O";
+                let score = minimax5(board, winposition, false, sum );
+                board[i][j] = "";
+    
+                bestScore = {
+                    val: Math.max(score.val, bestScore.val),
+                    anaz: score.anaz + bestScore.anaz,
+                };
+            }
+    
+            return bestScore;
+            
+        } else {
+            // human turn
+            let bestScore = { val: Infinity, anaz: 0 };
+    
+            for (let [i, j] of avail) {
+
+                board[i][j] = "X";
+                let score = minimax5(board, winposition, true, sum);
+                board[i][j] = "";
+    
+                bestScore = {
+                    val: Math.min(score.val, bestScore.val),
+                    anaz: score.anaz + bestScore.anaz,
+                };
+            }
+    
+            return bestScore;
+        }
+    };
 
 

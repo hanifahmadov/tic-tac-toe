@@ -31,7 +31,7 @@ export const Settings = () => {
         <div id='subheader'>
             <div className='setting-wrapper' onClick={handleClick}>
                 <div className="">
-                    <button type='button' className='btn btn-primary' disabled={!anyMovePlayed && !current.gameOver} data_value="reset">
+                    <button type='button' className='btn btn-primary' disabled={ anyMovePlayed && !current.gameOver} data_value="reset">
                         Reset
                     </button>
                 </div>

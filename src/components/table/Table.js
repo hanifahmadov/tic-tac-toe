@@ -23,6 +23,7 @@ import { minimax } from "../utils/ai";
 import { useRecoilState } from "recoil";
 import { Table3 } from "./table3/Table3";
 import { Table5 } from "./table5/Table5";
+import { shuffle } from "../utils/helper5";
 
 export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
@@ -30,7 +31,9 @@ export const Table = () => {
     const [setting, setSetting] = useRecoilState(settingsState);
     const [current, setCurrent] = useRecoilState(currentState);
 
-    console.log('current.gameOver:::', current.gameOver)
+    // console.log("current.gameOver:::", current.gameOver);
+
+    let external = false;
 
     useEffect(() => {
         // update current board state
@@ -44,13 +47,14 @@ export const Table = () => {
             checkWin
         );
 
-        console.log('temp:::' ,temp)
+        external = temp.gameOver;
+
+        // console.log("temp:::", temp);
         // update current board state
         setCurrent(temp);
+    }, [board]);
 
-    }, [player.hu.turn]);
-
-
+    // console.log(board)
 
     // INFO: hu turn
     const handleClick = (e) => {
@@ -60,6 +64,20 @@ export const Table = () => {
 
             // hu makes move
             makeMove([...board], setBoard, player, setPlayer, index);
+
+            
+
+            // setCurrent(
+            //     checkBoard_afterEveryMove(
+            //         player,
+            //         board,
+            //         winPositionsState,
+            //         getWinPositions,
+            //         checkWin
+            //     )
+            // );
+
+            // console.log(current, "hu current");
         }
     };
 
@@ -78,22 +96,42 @@ export const Table = () => {
         }
     }, [setting.reset]);
 
-    // INFO: Ai turn 
+    
+
+    // INFO: Ai turn
     useEffect(() => {
-        setTimeout(() => {
-            // ai turn
-            if (player.ai.turn && !current.gameOver) {
+        // console.log(current, 'current inside ai')
+
+        if (player.ai.turn && !external) {
+            setTimeout(() => {
+                // ai turn
+
                 // get valid best index for ai
-                let index = getBestIndex_WithMinimax(
-                    [...board],
-                    winPositionsState,
-                    minimax
-                );
+
+                let index =
+                    !player.ai.moves.length < 3
+                        ? shuffle(aviableSpots([...board]))[0]
+                        : getBestIndex_WithMinimax(
+                              [...board],
+                              winPositionsState,
+                              minimax
+                          );
 
                 //ai makes move
-                makeMove([...board], setBoard, player, setPlayer, index);
-            }
-        }, 300);
+                makeMove([...board], setBoard, player, setPlayer, index );
+            }, 300);
+
+            // setCurrent(
+            //     checkBoard_afterEveryMove(
+            //         player,
+            //         board,
+            //         winPositionsState,
+            //         getWinPositions,
+            //         checkWin
+            //     )
+            // );
+
+        }
     }, [player.ai.turn]);
 
     // INFO: Table return
