@@ -88,19 +88,19 @@ export const Table = () => {
             // ai turn
             if (player.ai.turn && !current.gameOver) {
                 // get valid best index for ai
-                let index = !player.ai.moves.length 
-                    ? shuffle(aviableSpots([...board]))[0]
-                    : getBestIndex_WithMinimax(
+
+                console.log(player)
+
+                let index = getBestIndex_WithMinimax(
                     [...board],
                     winPositionsState,
-                    minimax5x5,
-                    checkWin
+                    minimax
                 );
 
                 //ai makes move
                 makeMove([...board], setBoard, player, setPlayer, index);
             }
-        }, 300);
+        });
     }, [player.ai.turn]);
 
     // INFO: Table return

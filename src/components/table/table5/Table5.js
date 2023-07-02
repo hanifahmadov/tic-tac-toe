@@ -4,7 +4,7 @@ import "./table5.scss";
 import { arr5x5, boardState5x5, currentState5x5, playerState5x5, winPositionsState5x5 } from "../../utils/5x5/store5";
 import { minimax5x5 } from "../../utils/5x5/ai5";
 import { useRecoilState } from "recoil";
-import { getBestIndex_WithMinimax5x5, makeMove5x5 } from "../../utils/5x5/helper5";
+import { aviableSpots5x5, getBestIndex_WithMinimax5x5, makeMove5x5, shuffle } from "../../utils/5x5/helper5";
 
 
 export const Table5 = () => {
@@ -43,7 +43,9 @@ export const Table5 = () => {
                 // get valid best index for ai
 
                 
-                let index = getBestIndex_WithMinimax5x5(
+                let index = (player5.ai.moves.length < 3 ) 
+                ? [...shuffle(aviableSpots5x5([...board5]))][0]
+                :getBestIndex_WithMinimax5x5(
                     [...board5],
                     winPositionsState5x5,
                     minimax5x5
@@ -51,7 +53,7 @@ export const Table5 = () => {
 
                 console.log('index:::', index)
                 //ai makes move
-                // makeMove([...board], setBoard, player, setPlayer, index);
+                makeMove5x5([...board5], setBoard5, player5, setPlayer5, index);
             }
         }, 300);
     }, [player5.ai.turn]);
