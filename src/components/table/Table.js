@@ -11,18 +11,23 @@ import {
     getBestIndex_WithMinimax,
     checkBoard_afterEveryMove,
     resetAll,
-} from "../utils/helper";
+} from "../utils/3x3/helper";
 import {
     boardState,
     winPositionsState,
     playerState,
     settingsState,
     currentState,
-} from "../utils/store";
-import { minimax } from "../utils/ai";
+} from "../utils/3x3/store";
+
 import { useRecoilState } from "recoil";
 import { Table3 } from "./table3/Table3";
+import { minimax } from "../utils/3x3/ai";
 import { Table5 } from "./table5/Table5";
+import { minimax5x5 } from "../utils/5x5/ai5";
+import { checkWin5x5, shuffle } from "../utils/5x5/helper5";
+
+
 
 export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
@@ -30,7 +35,7 @@ export const Table = () => {
     const [setting, setSetting] = useRecoilState(settingsState);
     const [current, setCurrent] = useRecoilState(currentState);
 
-    console.log('current.gameOver:::', current.gameOver)
+
 
     useEffect(() => {
         // update current board state
@@ -44,7 +49,6 @@ export const Table = () => {
             checkWin
         );
 
-        console.log('temp:::' ,temp)
         // update current board state
         setCurrent(temp);
 
@@ -84,10 +88,13 @@ export const Table = () => {
             // ai turn
             if (player.ai.turn && !current.gameOver) {
                 // get valid best index for ai
-                let index = getBestIndex_WithMinimax(
+                let index = !player.ai.moves.length 
+                    ? shuffle(aviableSpots([...board]))[0]
+                    : getBestIndex_WithMinimax(
                     [...board],
                     winPositionsState,
-                    minimax
+                    minimax5x5,
+                    checkWin
                 );
 
                 //ai makes move

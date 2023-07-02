@@ -2,7 +2,7 @@
 import React from "react";
 import './table3.scss'
 import { useRecoilValue } from "recoil";
-import { boardState, currentState } from "../../utils/store";
+import { boardState, currentState } from "../../utils/3x3/store";
 
 export const Table3 = ({ handleClick }) => {
 

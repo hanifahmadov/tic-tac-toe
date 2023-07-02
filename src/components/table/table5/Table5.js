@@ -1,95 +1,88 @@
 /* eslint-disable */
 import React, { useEffect } from "react";
 import "./table5.scss";
+import { arr5x5, boardState5x5, currentState5x5, playerState5x5, winPositionsState5x5 } from "../../utils/5x5/store5";
+import { minimax5x5 } from "../../utils/5x5/ai5";
 import { useRecoilState } from "recoil";
-import { boardState5, currentState5, playerState5, winPositionsState5 } from "../../utils/store";
-import { getBestIndex_WithMinimax5, makeMove5 } from "../../utils/helper5";
-import { minimax } from "../../utils/ai";
+import { getBestIndex_WithMinimax5x5, makeMove5x5 } from "../../utils/5x5/helper5";
+
 
 export const Table5 = () => {
-    const [board, setBoard] = useRecoilState(boardState5);
-    const [player, setPlayer] = useRecoilState(playerState5);
-    const [current, setCurrent] = useRecoilState(currentState5);
 
+    const [board5, setBoard5] = useRecoilState(boardState5x5);
+    const [player5, setPlayer5] = useRecoilState(playerState5x5);
+    const [current5, setCurrent5] = useRecoilState(currentState5x5);
+
+    // INFO: handleClick hu turn
     const handleClick = (e) => {
-        let index = e.target.getAttribute("data_index");
+        // hu turn
+        if (player5.hu.turn && !current5.gameOver) {
 
-        // hu makes move
-        makeMove5(
-            board.map((val) => [...val]),
-            setBoard,
-            player,
-            setPlayer,
-            index
-        );
+            let index = Number(e.target.getAttribute("data"));
+
+            // console.log(index);
+            console.log(' click handle hu turn')
+
+            // hu makes move
+            makeMove5x5([...board5], setBoard5, player5, setPlayer5, index);
+        }
     };
-
-
 
     // INFO: Ai turn
     useEffect(() => {
+
+        console.log(' use state ai turn')
+
         setTimeout(() => {
+
+            console.log('set time outttt')
             // ai turn
-            if (player.ai.turn && !current.gameOver) {
+            if (player5.ai.turn && !current5.gameOver) {
+
+                console.log('ai serachs index')
                 // get valid best index for ai
-                let index = getBestIndex_WithMinimax5(
-                    board.map((val) => [...val]),
-                    winPositionsState5,
-                    minimax
+
+                
+                let index = getBestIndex_WithMinimax5x5(
+                    [...board5],
+                    winPositionsState5x5,
+                    minimax5x5
                 );
 
-                console.log(index)
-
+                console.log('index:::', index)
                 //ai makes move
-                // makeMove5([...board], setBoard, player, setPlayer, index);
+                // makeMove([...board], setBoard, player, setPlayer, index);
             }
         }, 300);
-    }, [player.ai.turn]);
-
-
+    }, [player5.ai.turn]);
 
     return (
         <div id='table5'>
             <div className='table5_content_wrapper'>
                 <div className='table5_content'>
-                    {board.map((child, child_index) => (
-                        <div id={"child" + child_index} key={child_index}>
-                            {child.map((slot, slot_index) => (
-                                <div
-                                    key={slot_index}
-                                    id={"id_" + child_index + "_" + slot_index}
-                                    data_index={child_index + "," + slot_index}
-                                    onClick={handleClick}
-                                >
-                                    <span
-                                        data_index={
-                                            child_index + "," + slot_index
-                                        }
+                    {arr5x5.map((val, index) => {
+                        let [i, j] = val;
+                        return (
+                            <div
+                                id={"child" + index}
+                                key={index}
+                                onClick={handleClick}
+                            >
+                                {board5.slice(i, j).map((val, index) => (
+                                    <div
+                                        id={"id_" + (i + index)}
+                                        key={index}
+                                        data={i + index}
                                     >
-                                        {slot}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    ))}
+                                        <span>{val}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>
     );
 };
 
-{
-    /* <div
-id='eight'
-className='8'
-style={{
-    background:
-        currentState.winResultIndexes.includes(8)
-            ? "#aaa"
-            : "",
-    borderBottomRightRadius: "50px",
-}}
->
-<span>{board[8]}</span>
-</div> */
-}

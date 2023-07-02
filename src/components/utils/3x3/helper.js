@@ -1,11 +1,30 @@
 /* eslint-disable */
 
-import { useRecoilState } from "recoil";
-import { gameOverState } from "./store";
+// INFO: shuffle array 
+export function shuffle (array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
 
-// INFO:checkWin 
-// checks board if there is win
-export const checkWin = (board, winPositions) => {
+
+
+
+
+// INFO: checkWin 
+export function checkWin (board, winPositions) {
     for (let position of winPositions) {
         let x = 3;
         let o = 3;
@@ -26,8 +45,11 @@ export const checkWin = (board, winPositions) => {
     }
 };
 
+
+
+
 // INFO:getWinPositions 
-export const getWinPositions = (winPositions, arr) => {
+export function getWinPositions (winPositions, arr) {
     let res = [];
 
     for (let position of winPositions) {
@@ -46,8 +68,10 @@ export const getWinPositions = (winPositions, arr) => {
 };
 
 
+
+
 // INFO: aviableSpots 
-export const aviableSpots = (board) => {
+export function aviableSpots(board) {
     let res = [];
 
     // store empty spots index
@@ -61,9 +85,10 @@ export const aviableSpots = (board) => {
 };
 
 
+
+
 // INFO: getRandomSpot 
-// get random spot from available spots from board
-export const getRandomSpot = (board) => {
+export function getRandomSpot(board) {
     // get available spots
     let res = aviableSpots(board);
 
@@ -72,14 +97,17 @@ export const getRandomSpot = (board) => {
 };
 
 
+
 // INFO: make move 
-export const makeMove = (
+export function makeMove(
     currentBoardState,
     setBoard,
     player,
     setPlayer,
     index
-) => {
+) {
+
+    console.log(' make move function ')
     // ai plays
     if (player.ai.turn) {
         currentBoardState[index] = "O";
@@ -128,26 +156,29 @@ export const makeMove = (
 };
 
 
-// INFO: minimax 
-export const getBestIndex_WithMinimax = (
-    boardCurrentState,
+// INFO: getBestIndex_WithMinimax 
+export function getBestIndex_WithMinimax (
+    currentBoard,
     winPositionsState,
-    minimax
-) => {
+    minimax,
+    checkwin
+) {
     let index = null;
     let bestScore = { val: -Infinity, anaz: 0 };
 
-    for (let i = 0; i < boardCurrentState.length; i++) {
-        if (boardCurrentState[i] === "") {
-            boardCurrentState[i] = "O";
+    console.log('getBestIndex_WithMinimax 3333')
+
+    for (let i = 0; i < currentBoard.length; i++) {
+        if (currentBoard[i] == "") {
+            currentBoard[i] = "O";
             let score = minimax(
-                boardCurrentState,
+                currentBoard,
                 winPositionsState,
                 false,
                 0,
-                0
+                checkWin
             );
-            boardCurrentState[i] = "";
+            currentBoard[i] = "";
 
             bestScore.anaz = bestScore.anaz + score.anaz;
 
@@ -164,13 +195,13 @@ export const getBestIndex_WithMinimax = (
 
 
 // INFO: check board after every move made to see if there is win or not!
-export const checkBoard_afterEveryMove = (
+export function checkBoard_afterEveryMove (
     player,
     board,
     winPositionsState,
     getWinPositions,
     checkWin,
-) => {
+) {
     let totalMoves = player.ai.moves.length + player.hu.moves.length;
     let winResultIndexes = [];
     let gameOver = false;
@@ -208,7 +239,7 @@ export const checkBoard_afterEveryMove = (
 
 
 // INFO: handle settings click 
-export const handleSettingClicks = (val, setting, setSetting, current) => {
+export function handleSettingClicks(val, setting, setSetting, current) {
     if (val === "size5x5") {
         setSetting({
             ...setting,
@@ -249,7 +280,7 @@ export const handleSettingClicks = (val, setting, setSetting, current) => {
 
 
 //  INFO: reset all
-export const resetAll = (setBoard, setSetting, setPlayer, setCurrent, setting, current) => {
+export function resetAll (setBoard, setSetting, setPlayer, setCurrent, setting, current){
 
     if(setting.reset && current.gameOver){
 
