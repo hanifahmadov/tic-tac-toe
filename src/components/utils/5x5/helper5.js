@@ -1,15 +1,34 @@
 /* eslint-disable */
 
-import { useRecoilState } from "recoil";
-import { gameOverState } from "./store";
-import { shuffle } from "./helper5";
+// INFO: shuffle array 
+export function shuffle (array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
 
-// INFO:checkWin 
-// checks board if there is win
-export const checkWin = (board, winPositions) => {
+
+
+
+
+// INFO: checkWin 5x5 
+export function checkWin5x5 (board, winPositions) {
+
     for (let position of winPositions) {
-        let x = 3;
-        let o = 3;
+        let x = 5;
+        let o = 5;
 
         for (let val of position) {
             if (board[val] == "X") {
@@ -27,8 +46,11 @@ export const checkWin = (board, winPositions) => {
     }
 };
 
-// INFO:getWinPositions 
-export const getWinPositions = (winPositions, arr) => {
+
+
+
+// INFO: getWinPositions 5x5 
+export function getWinPositions5x5(winPositions, arr) {
     let res = [];
 
     for (let position of winPositions) {
@@ -47,8 +69,10 @@ export const getWinPositions = (winPositions, arr) => {
 };
 
 
-// INFO: aviableSpots 
-export const aviableSpots = (board) => {
+
+
+// INFO: aviableSpots 5x5 
+export function aviableSpots5x5(board) {
     let res = [];
 
     // store empty spots index
@@ -57,34 +81,26 @@ export const aviableSpots = (board) => {
             res.push(index);
         }
     });
-    
-    return shuffle(res);
+
+    return res;
 };
 
 
-// INFO: getRandomSpot 
-// get random spot from available spots from board
-export const getRandomSpot = (board) => {
-    // get available spots
-    let res = aviableSpots(board);
-
-    // return randomly index from available spots
-    return res[Math.floor(Math.random() * res.length)];
-};
 
 
-// INFO: make move 
-export const makeMove = (
-    currentBoardState,
+// INFO: make move 5x5 
+export function makeMove5x5(
+    currentBoard,
     setBoard,
     player,
     setPlayer,
     index
-) => {
+) {
+
     // ai plays
     if (player.ai.turn) {
-        currentBoardState[index] = "O";
-        setBoard(currentBoardState);
+        currentBoard[index] = "O";
+        setBoard(currentBoard);
 
         setPlayer({
             hu: {
@@ -105,9 +121,9 @@ export const makeMove = (
 
     // hu plays
     if (player.hu.turn) {
-        if (currentBoardState[index] === "") {
-            currentBoardState[index] = "X";
-            setBoard(currentBoardState);
+        if (currentBoard[index] === "") {
+            currentBoard[index] = "X";
+            setBoard(currentBoard);
 
             setPlayer({
                 hu: {
@@ -129,26 +145,27 @@ export const makeMove = (
 };
 
 
-// INFO: minimax 
-export const getBestIndex_WithMinimax = (
-    boardCurrentState,
+// INFO: getBestIndex_WithMinimax 5x5  
+export function getBestIndex_WithMinimax5x5 (
+    currentBoard,
     winPositionsState,
     minimax
-) => {
+) {
     let index = null;
     let bestScore = { val: -Infinity, anaz: 0 };
 
-    for (let i = 0; i < boardCurrentState.length; i++) {
-        if (boardCurrentState[i] === "") {
-            boardCurrentState[i] = "O";
+    console.log('getBestIndex_WithMinimax 555')
+
+    for (let i = 0; i < currentBoard.length; i++) {
+        if (currentBoard[i] === "") {
+            currentBoard[i] = "O";
             let score = minimax(
-                boardCurrentState,
+                currentBoard,
                 winPositionsState,
                 false,
                 0,
-                0
             );
-            boardCurrentState[i] = "";
+            currentBoard[i] = "";
 
             bestScore.anaz = bestScore.anaz + score.anaz;
 
@@ -165,13 +182,13 @@ export const getBestIndex_WithMinimax = (
 
 
 // INFO: check board after every move made to see if there is win or not!
-export const checkBoard_afterEveryMove = (
+export function checkBoard_afterEveryMove5x5 (
     player,
     board,
     winPositionsState,
     getWinPositions,
     checkWin,
-) => {
+) {
     let totalMoves = player.ai.moves.length + player.hu.moves.length;
     let winResultIndexes = [];
     let gameOver = false;
@@ -196,7 +213,7 @@ export const checkBoard_afterEveryMove = (
 
         return { totalMoves, winResultIndexes, draw, gameOver };
     } // if game over and it means its a draw
-    else if (totalMoves === 9) {
+    else if (totalMoves >= 9) {
         gameOver = true;
         draw = true;
 
@@ -208,49 +225,49 @@ export const checkBoard_afterEveryMove = (
 
 
 
-// INFO: handle settings click 
-export const handleSettingClicks = (val, setting, setSetting, current) => {
-    if (val === "size5x5") {
-        setSetting({
-            ...setting,
-            fxf: true,
-            txt: false,
-        });
-    } else if (val === "size3x3") {
-        setSetting({
-            ...setting,
-            fxf: false,
-            txt: true,
-        });
-    } else if (val === "person") {
-        setSetting({
-            ...setting,
-            person: true,
-            ai: false,
-        });
-    } else if (val === "ai") {
-        setSetting({
-            ...setting,
-            person: false,
-            ai: true,
-        });
-    } else if (val === "reset") {
+// // INFO: handle settings click 
+// export function handleSettingClicks(val, setting, setSetting, current) {
+//     if (val === "size5x5") {
+//         setSetting({
+//             ...setting,
+//             fxf: true,
+//             txt: false,
+//         });
+//     } else if (val === "size3x3") {
+//         setSetting({
+//             ...setting,
+//             fxf: false,
+//             txt: true,
+//         });
+//     } else if (val === "person") {
+//         setSetting({
+//             ...setting,
+//             person: true,
+//             ai: false,
+//         });
+//     } else if (val === "ai") {
+//         setSetting({
+//             ...setting,
+//             person: false,
+//             ai: true,
+//         });
+//     } else if (val === "reset") {
 
-        setSetting({
-            reset: current.gameOver ? true : false,
-            txt: true,
-            fxf: false,
-            person: true,
-            ai: false,
-        });
+//         setSetting({
+//             reset: current.gameOver ? true : false,
+//             txt: true,
+//             fxf: false,
+//             person: true,
+//             ai: false,
+//         });
         
-    }
-};
+//     }
+// };
 
 
 
 //  INFO: reset all
-export const resetAll = (setBoard, setSetting, setPlayer, setCurrent, setting, current) => {
+export function resetAll5x5(setBoard, setSetting, setPlayer, setCurrent, setting, current){
 
     if(setting.reset && current.gameOver){
 
@@ -286,3 +303,4 @@ export const resetAll = (setBoard, setSetting, setPlayer, setCurrent, setting, c
         })
     }
 }
+

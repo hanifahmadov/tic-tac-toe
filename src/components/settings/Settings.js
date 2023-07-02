@@ -2,8 +2,8 @@
 import React from "react";
 import "./settings.scss";
 import { useRecoilState } from "recoil";
-import { boardState, currentState, gameOverState, playerState, settingsState } from "../utils/store";
-import { handleSettingClicks } from "../utils/helper";
+import { boardState, currentState, playerState, settingsState } from "../utils/3x3/store";
+import { handleSettingClicks } from "../utils/3x3/helper";
 
 export const Settings = () => {
     const [player, setPlayer] = useRecoilState(playerState);
