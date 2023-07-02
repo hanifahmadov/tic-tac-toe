@@ -102,6 +102,12 @@ export const Table = () => {
                 // ai turn
 
                 // get valid best index for ai
+<<<<<<< HEAD
+=======
+
+                console.log(player)
+
+>>>>>>> 8540662 (horrible desing)
                 let index = getBestIndex_WithMinimax(
                     [...board],
                     winPositionsState,
@@ -109,6 +115,7 @@ export const Table = () => {
                 );
 
                 //ai makes move
+<<<<<<< HEAD
                 makeMove([...board], setBoard, player, setPlayer, index );
             }, 300);
 
@@ -123,6 +130,11 @@ export const Table = () => {
             // );
 
         }
+=======
+                makeMove([...board], setBoard, player, setPlayer, index);
+            }
+        });
+>>>>>>> 8540662 (horrible desing)
     }, [player.ai.turn]);
 
     // INFO: Table return

@@ -1,9 +1,9 @@
 /* eslint-disable */
 
-import { aviableSpots } from "./helper";
+import { aviableSpots, checkWin } from "./helper";
 
 // INFO: 3x3 ai challange MINIMAX
-export const minimax = (board, position, aiturn, sum, checkWin) => {
+export const minimax = (board, position, aiturn, sum ) => {
     let emptySpots = aviableSpots(board);
 
     // every possible move( ai or human) calculates 1
@@ -26,7 +26,7 @@ export const minimax = (board, position, aiturn, sum, checkWin) => {
 
         for (let i = 0; i < emptySpots.length; i++) {
             board[emptySpots[i]] = "O";
-            let score = minimax(board, position, false, sum, checkWin);
+            let score = minimax(board, position, false, sum );
             board[emptySpots[i]] = "";
 
             bestScore = {
@@ -42,7 +42,7 @@ export const minimax = (board, position, aiturn, sum, checkWin) => {
 
         for (let i = 0; i < emptySpots.length; i++) {
             board[emptySpots[i]] = "X";
-            let score = minimax(board, position, true, sum, checkWin);
+            let score = minimax(board, position, true, sum );
             board[emptySpots[i]] = "";
 
             bestScore = {

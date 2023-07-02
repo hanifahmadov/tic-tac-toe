@@ -77,7 +77,7 @@ export function getWinPositions (winPositions, arr) {
 
 
 // INFO: aviableSpots 
-export function aviableSpots(board) {
+export const  aviableSpots = (board) => {
     let res = [];
 
     // store empty spots index
