@@ -1,19 +1,15 @@
 /* eslint-disable */
 
 // INFO: shuffle array 
-export function shuffle (array) {
+export function shuffleArray (array) {
     let currentIndex = array.length,  randomIndex;
   
-    // While there remain elements to shuffle.
     while (currentIndex != 0) {
   
-      // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
   
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
   
     return array;
@@ -23,12 +19,12 @@ export function shuffle (array) {
 
 
 
-// INFO: checkWin 5x5 
-export function checkWin5x5 (board, winPositions) {
+// INFO: checkWinner 
+export function checkWinner (small, board, positions) {
 
-    for (let position of winPositions) {
-        let x = 5;
-        let o = 5;
+    for (let position of positions) {
+        let x = small ? 3 : 5;
+        let o = small ? 3 : 5;
 
         for (let val of position) {
             if (board[val] == "X") {
@@ -38,22 +34,23 @@ export function checkWin5x5 (board, winPositions) {
             }
         }
 
-        if (x == 0) {
-            return 1;
+        if (x == 0 ) {
+            return 1
         } else if (o == 0) {
-            return 0;
+            return 0
         }
     }
+
 };
 
 
 
 
-// INFO: getWinPositions 5x5 
-export function getWinPositions5x5(winPositions, arr) {
-    let res = [];
+// INFO:getWinPositions 
+export function getWinPositions (arr, positions ) {
+    let temp = [];
 
-    for (let position of winPositions) {
+    for (let position of positions) {
         let count = 3;
 
         for (let val of position) {
@@ -61,24 +58,24 @@ export function getWinPositions5x5(winPositions, arr) {
         }
 
         if (count == 0) {
-            res = [...res, ...position];
+            temp = [...res, ...position];
         }
     }
 
-    return res;
+    return temp;
 };
 
 
 
 
-// INFO: aviableSpots 5x5 
-export function aviableSpots5x5(board) {
-    let res = [];
+// INFO: aviableSpots 
+export function getAvailableCells (board) {
+    let temp = [];
 
     // store empty spots index
     board.forEach((val, index) => {
         if (val === "") {
-            res.push(index);
+            temp.push(index);
         }
     });
 
@@ -88,19 +85,32 @@ export function aviableSpots5x5(board) {
 
 
 
-// INFO: make move 5x5 
-export function makeMove5x5(
-    currentBoard,
+// INFO: getRandomCell
+export function getRandomCell(board) {
+    // get available spots
+    let res = aviableSpots(board);
+
+    // return randomly index from available spots
+    return res[Math.floor(Math.random() * res.length)];
+};
+
+
+
+// INFO: make move 
+export function makeMove(
+    board,
     setBoard,
     player,
     setPlayer,
+    current,
     index
 ) {
 
+
     // ai plays
-    if (player.ai.turn) {
-        currentBoard[index] = "O";
-        setBoard(currentBoard);
+    if (player.ai.turn && !current.gameOver) {
+        board[index] = "O";
+        setBoard(board);
 
         setPlayer({
             hu: {
@@ -120,10 +130,10 @@ export function makeMove5x5(
     }
 
     // hu plays
-    if (player.hu.turn) {
-        if (currentBoard[index] === "") {
-            currentBoard[index] = "X";
-            setBoard(currentBoard);
+    if (player.hu.turn && !current.gameOver) {
+        if (board[index] === "") {
+            board[index] = "X";
+            setBoard(board);
 
             setPlayer({
                 hu: {
@@ -145,25 +155,28 @@ export function makeMove5x5(
 };
 
 
-// INFO: getBestIndex_WithMinimax 5x5  
-export function getBestIndex_WithMinimax5x5 (
+
+// INFO: getBestIndex_WithMinimax 
+export function getBestIndex_WithMinimax (
     currentBoard,
     winPositionsState,
-    minimax
+    minimax,
+    checkwin
 ) {
     let index = null;
     let bestScore = { val: -Infinity, anaz: 0 };
 
-    console.log('getBestIndex_WithMinimax 555')
+    console.log('getBestIndex_WithMinimax 3333')
 
     for (let i = 0; i < currentBoard.length; i++) {
-        if (currentBoard[i] === "") {
+        if (currentBoard[i] == "") {
             currentBoard[i] = "O";
             let score = minimax(
                 currentBoard,
                 winPositionsState,
                 false,
                 0,
+                checkWin
             );
             currentBoard[i] = "";
 
@@ -182,7 +195,7 @@ export function getBestIndex_WithMinimax5x5 (
 
 
 // INFO: check board after every move made to see if there is win or not!
-export function checkBoard_afterEveryMove5x5 (
+export function checkBoard_afterEveryMove (
     player,
     board,
     winPositionsState,
@@ -225,49 +238,49 @@ export function checkBoard_afterEveryMove5x5 (
 
 
 
-// // INFO: handle settings click 
-// export function handleSettingClicks(val, setting, setSetting, current) {
-//     if (val === "size5x5") {
-//         setSetting({
-//             ...setting,
-//             fxf: true,
-//             txt: false,
-//         });
-//     } else if (val === "size3x3") {
-//         setSetting({
-//             ...setting,
-//             fxf: false,
-//             txt: true,
-//         });
-//     } else if (val === "person") {
-//         setSetting({
-//             ...setting,
-//             person: true,
-//             ai: false,
-//         });
-//     } else if (val === "ai") {
-//         setSetting({
-//             ...setting,
-//             person: false,
-//             ai: true,
-//         });
-//     } else if (val === "reset") {
+// INFO: handle settings click 
+export function handleSettingClicks(val, setting, setSetting, current) {
+    if (val === "size5x5") {
+        setSetting({
+            ...setting,
+            fxf: true,
+            txt: false,
+        });
+    } else if (val === "size3x3") {
+        setSetting({
+            ...setting,
+            fxf: false,
+            txt: true,
+        });
+    } else if (val === "person") {
+        setSetting({
+            ...setting,
+            person: true,
+            ai: false,
+        });
+    } else if (val === "ai") {
+        setSetting({
+            ...setting,
+            person: false,
+            ai: true,
+        });
+    } else if (val === "reset") {
 
-//         setSetting({
-//             reset: current.gameOver ? true : false,
-//             txt: true,
-//             fxf: false,
-//             person: true,
-//             ai: false,
-//         });
+        setSetting({
+            reset: current.gameOver ? true : false,
+            txt: true,
+            fxf: false,
+            person: true,
+            ai: false,
+        });
         
-//     }
-// };
+    }
+};
 
 
 
 //  INFO: reset all
-export function resetAll5x5(setBoard, setSetting, setPlayer, setCurrent, setting, current){
+export function resetAll (setBoard, setSetting, setPlayer, setCurrent, setting, current){
 
     if(setting.reset && current.gameOver){
 
@@ -303,4 +316,5 @@ export function resetAll5x5(setBoard, setSetting, setPlayer, setCurrent, setting
         })
     }
 }
+
 

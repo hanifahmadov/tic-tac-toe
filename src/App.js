@@ -2,9 +2,9 @@
 import React, { Fragment, useState } from "react";
 import { Route } from "react-router-dom";
 
-import { Header } from "./components/header/Header";
-import { Table } from "./components/table/Table";
-import { Settings } from "./components/settings/Settings";
+import { Header } from "./comps/header/Header";
+import { Table } from "./comps/table/Table";
+import { Settings } from "./comps/settings/Settings";
 
 const App = () => {
 

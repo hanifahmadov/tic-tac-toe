@@ -2,30 +2,12 @@
 import React, { useEffect } from "react";
 import "./table.scss";
 
-import {
-    checkWin,
-    getWinPositions,
-    getRandomSpot,
-    aviableSpots,
-    makeMove,
-    getBestIndex_WithMinimax,
-    checkBoard_afterEveryMove,
-    resetAll,
-} from "../utils/3x3/helper";
-import {
-    boardState,
-    winPositionsState,
-    playerState,
-    settingsState,
-    currentState,
-} from "../utils/3x3/store";
+
 
 import { useRecoilState } from "recoil";
-import { Table3 } from "./table3/Table3";
-import { minimax } from "../utils/3x3/ai";
-import { Table5 } from "./table5/Table5";
-import { minimax5x5 } from "../utils/5x5/ai5";
-import { checkWin5x5, shuffle } from "../utils/5x5/helper5";
+import { minimax } from "../utils/ai";
+import * as helper from "../utils/helper";
+import * as store from "../utils/store";
 
 
 
@@ -103,11 +85,10 @@ export const Table = () => {
         });
     }, [player.ai.turn]);
 
-    // INFO: Table return
+    // INFO: Table return 
     return (
         <div id='table_main'>
             {setting.txt && <Table3 handleClick={handleClick} />}
-            {setting.fxf && <Table5 />}
         </div>
     );
 };
