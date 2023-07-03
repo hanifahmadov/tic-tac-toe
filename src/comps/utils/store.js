@@ -7,8 +7,8 @@ import { atom } from "recoil";
 //   ['6', '7', '8'],
 // ]
 
-// INFO: win position state 
-export const winPositionsState = [
+// INFO: win position state 3x3 
+export const winPositionsState3x3 = [
     // left-to-right
     [0, 1, 2],
     [3, 4, 5],
@@ -24,28 +24,32 @@ export const winPositionsState = [
     [2, 5, 8],
 ];
 
-// INFO: currentState 
-export const currentState = atom({
-    key: "currentState",
-    default: {
-        totalMoves: 0,
-        winResultIndexes: [],
-        gameOver: false,
-        draw: false,
-    },
-});
-
-// INFO: board state 
+// INFO: board state 3x3 
 export const boardState = atom({
     key: "boardState",
     default: ["", "", "", "", "", "", "", "", ""],
 });
 
+
+// INFO: currentState 
+export const currentState = atom({
+    key: "currentState",
+    default: {
+        totalMoves: 0,
+        winResult: [],
+        gameOver: false,
+        draw: false,
+    },
+});
+
+
+
+
 // INFO: player state 
 export const playerState = atom({
     key: "playersState",
     default: {
-        hu: {
+        person: {
             value: "X",
             moves: [],
             turn: true,
@@ -59,11 +63,12 @@ export const playerState = atom({
     },
 });
 
+
 // INFO: setting state 
 export const settingsState = atom({
     key: "settingsState",
     default: {
-        reset: false,
+        reset: true,
         txt: true,
         fxf: false,
         person: true,

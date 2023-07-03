@@ -1,36 +1,31 @@
 /* eslint-disable */
-import { aviableSpots5x5, checkWin5x5 } from "./helper5";
+import { aviableSpots, checkWin } from "./helper";
 
+// INFO: minimax 
+export const minimax = (board, position, aiturn, sum) => {
+    let emptySpots = aviableSpots(board);
 
-// INFO: 5x5 ai challange MINIMAX 
-export const minimax5x5 = (board, win_position, aiturn, sum ) => {
-    let emptySpots = aviableSpots5x5(board)
-
-    console.log('MINIMAX 555555')
     // every possible move( ai or human) calculates 1
     sum++;
 
+    console.log('loooppp')
+
     // edge cases
-    if (checkWin5x5(board, win_position) === 1) {
-        console.log('xxxx winnnns')
-        return { val: -1, anaz: sum };
-    } else if (checkWin5x5(board, win_position) === 0) {
-        console.log('oooo winnnss')
+    if (checkWin(board, position) === 1) {
+        return { val: -1, anaz: sum  };
+    } else if (checkWin(board, position) === 0) {
         return { val: 1, anaz: sum };
     } else if (emptySpots.length === 0) {
-        'drawwwwww'
         return { val: 0, anaz: sum };
     }
 
     if (aiturn) {
-
-        console.log('aii inside ai turne')
         // ai turn
         let bestScore = { val: -Infinity, anaz: 0 };
 
         for (let i = 0; i < emptySpots.length; i++) {
             board[emptySpots[i]] = "O";
-            let score = minimax5x5(board, win_position, false, sum );
+            let score = minimax(board, position, false, sum );
             board[emptySpots[i]] = "";
 
             bestScore = {
@@ -40,15 +35,13 @@ export const minimax5x5 = (board, win_position, aiturn, sum ) => {
         }
 
         return bestScore;
-        
     } else {
         // human turn
-        console.log('humana humana turn')
         let bestScore = { val: Infinity, anaz: 0 };
 
         for (let i = 0; i < emptySpots.length; i++) {
             board[emptySpots[i]] = "X";
-            let score = minimax5x5(board, win_position, true, sum );
+            let score = minimax(board, position, true, sum );
             board[emptySpots[i]] = "";
 
             bestScore = {
@@ -60,3 +53,13 @@ export const minimax5x5 = (board, win_position, aiturn, sum ) => {
         return bestScore;
     }
 };
+
+/* WARNING 
+    in board position [ 'x', 'o', 'x', '', 'o', '', 'x', '' ,'' ]
+    minimax take index 3 and make itself 2 winning position and wins
+    but index 6 wins directly
+
+    TODO 
+    add depth value and return val/index with min depth to play the shorttest win index
+ */
+

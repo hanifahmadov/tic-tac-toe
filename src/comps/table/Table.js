@@ -2,28 +2,20 @@
 import React, { useEffect } from "react";
 import "./table.scss";
 
-import {
-    checkWin,
-    getWinPositions,
-    getRandomSpot,
-    aviableSpots,
-    makeMove,
-    getBestIndex_WithMinimax,
-    checkBoard_afterEveryMove,
-    resetAll,
-} from "../utils/3x3/helper";
-import {
-    boardState,
-    winPositionsState,
-    playerState,
-    settingsState,
-    currentState,
-} from "../utils/3x3/store";
+
 
 import { useRecoilState } from "recoil";
+<<<<<<< HEAD:src/components/table/Table.js
 import { Table3 } from "./table3/Table3";
 import { minimax } from "../utils/3x3/ai";
 import { Table5 } from "./table5/Table5";
+=======
+import { minimax } from "../utils/ai";
+import * as helper from "../utils/helper";
+import * as store from "../utils/store";
+
+
+>>>>>>> 5328523 (re-build):src/comps/table/Table.js
 
 export const Table = () => {
     const [board, setBoard] = useRecoilState(boardState);
@@ -137,11 +129,10 @@ export const Table = () => {
 >>>>>>> 8540662 (horrible desing)
     }, [player.ai.turn]);
 
-    // INFO: Table return
+    // INFO: Table return 
     return (
         <div id='table_main'>
             {setting.txt && <Table3 handleClick={handleClick} />}
-            {setting.fxf && <Table5 />}
         </div>
     );
 };
