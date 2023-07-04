@@ -2,19 +2,18 @@
 import React, { Fragment, useState } from "react";
 import { Route } from "react-router-dom";
 
-import { Header } from "./comps/header/Header";
 import { Table } from "./comps/table/Table";
 import { Settings } from "./comps/settings/Settings";
 
 const App = () => {
-
-
     return (
         <Fragment>
-            <Header />
-            <Settings/>
-            <Table/>
-      
+            <div id='navbar'>
+                <h1>Tic Tac Toe</h1>
+                <h3>Login</h3>
+            </div>
+            <Settings />
+            <Table />
         </Fragment>
     );
 };

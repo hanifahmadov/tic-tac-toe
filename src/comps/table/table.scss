@@ -1,19 +1,102 @@
+#table {
+    margin-top: 5rem;
 
-#body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
+    #table_body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
 
+        width: 400px;
+        height: 400px;
 
+        padding: 0 !important;
 
+        // border: 6px solid rgb(5, 5, 5);
+        // border-radius: 50px;
 
-   
+        #child_0,
+        #child_1,
+        #child_2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
 
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
+                width: 100px;
+                height: 100px;
+                border: 3px solid rgb(0, 0, 0);
+
+                cursor: pointer;
+                font-size: 3.5rem;
+                font-weight: 600;
+            }
+
+            .active {
+                &:hover {
+                    background-color: rgb(0, 162, 255);
+                }
+            }
+
+            #id_0 {
+                border-left: none;
+                border-top: none;
+                border-top-left-radius: 30px;
+            }
+
+            #id_1 {
+                border-top: none;
+            }
+
+            #id_2 {
+                border-right: none;
+                border-top: none;
+                border-top-right-radius: 30px;
+            }
+
+            #id_3 {
+                border-left: none;
+            }
+
+            #id_5 {
+                border-right: none;
+            }
+
+            #id_6 {
+                border-left: none;
+                border-bottom: none;
+                border-bottom-left-radius: 30px;
+            }
+
+            #id_7 {
+                border-bottom: none;
+            }
+
+            #id_8 {
+                border-right: none;
+                border-bottom: none;
+                border-bottom-right-radius: 30px;
+            }
+        }
+
+        #child_0 {
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+        }
+
+        #child_2 {
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+    }
 }
-
-
-
-
-
-
-
-

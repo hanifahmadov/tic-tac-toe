@@ -1,11 +1,68 @@
 /* eslint-disable */
 import { atom } from "recoil";
 
-// const board = [
-//   ['0', '1', '2'],
-//   ['3', '4', '5'],
-//   ['6', '7', '8'],
-// ]
+
+/*  5x5
+
+        '',  '',  '',  '',  '',
+        '',  '',  '',  '',  '',
+        '',  '',  '',  '',  '',
+        '',  '',  '',  '',  '',
+        '',  '',  '',  '',  '', 
+
+
+*/
+
+// INFO: boardState 
+export const boardState5x5= atom({
+    key: "boardState5x5",
+    default: [
+
+        '',  '',  '',  '',  '',
+        '',  '',  '',  '',  '',
+        '',  '',  '',  '',  '',
+        '',  '',  '',  '',  '',
+        '',  '',  '',  '',  '', 
+   
+    ],
+});
+
+
+// INFO: win positions 5
+export const winPositionsState5x5 = [
+    // left-to-right
+    [0,  1,  2,  3,  4],
+    [5,  6,  7,  8,  9],
+    [10, 11, 12, 13, 14],
+    [15, 16, 17, 18, 19],
+    [20, 21, 22, 23, 24],
+
+    // dioganals
+    [0, 6, 12, 18, 24],
+    [4, 8, 12, 16, 20],
+
+    // top-to-bottom
+    [0, 5, 10, 15, 20],
+    [1, 6, 11, 16, 21],
+    [2, 7, 12, 17, 22],
+    [3, 8, 13, 18, 23],
+    [4, 9, 14, 19, 23],
+];
+
+
+// INFO: board state 3x3 
+export const boardState3x3 = atom({
+    key: "boardState3x3",
+    default: ["", "", "", "", "", "", "", "", ""],
+});
+
+
+// INFO: board state 3x3 
+export const boardIndexes3x3 = atom({
+    key: "boardIndexes3x3",
+    default: [[0, 3], [3, 6], [6,9]],
+});
+
 
 // INFO: win position state 3x3 
 export const winPositionsState3x3 = [
@@ -24,11 +81,8 @@ export const winPositionsState3x3 = [
     [2, 5, 8],
 ];
 
-// INFO: board state 3x3 
-export const boardState = atom({
-    key: "boardState",
-    default: ["", "", "", "", "", "", "", "", ""],
-});
+
+
 
 
 // INFO: currentState 
@@ -36,11 +90,15 @@ export const currentState = atom({
     key: "currentState",
     default: {
         totalMoves: 0,
-        winResult: [],
+        winPositions: [],
         gameOver: false,
         draw: false,
+        easyMode: true
     },
 });
+
+// TODO: try this 
+//  draw: totalMoves == 9 && !gameOver ? true : false,
 
 
 
@@ -49,7 +107,7 @@ export const currentState = atom({
 export const playerState = atom({
     key: "playersState",
     default: {
-        person: {
+        hu: {
             value: "X",
             moves: [],
             turn: true,
@@ -71,7 +129,7 @@ export const settingsState = atom({
         reset: true,
         txt: true,
         fxf: false,
-        person: true,
+        hu: true,
         ai: false,
     },
 });

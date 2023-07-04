@@ -2,29 +2,25 @@
 import React from "react";
 import "./settings.scss";
 import { useRecoilState } from "recoil";
-import { boardState, currentState, playerState, settingsState } from "../utils/3x3/store";
-import { handleSettingClicks } from "../utils/3x3/helper";
+import * as store from "../utils/store";
+import * as helper from "../utils/helper";
 
 export const Settings = () => {
-    const [player, setPlayer] = useRecoilState(playerState);
-    const [setting, setSetting] = useRecoilState(settingsState);
-    const [board, setBoard] = useRecoilState(boardState);
-    const [current, setCurrent] = useRecoilState(currentState)
-
-    // console.log(setting)
-
-    let anyMovePlayed = board.every((val) => val == "");
+    const [player, setPlayer] = useRecoilState(store.playerState);
+    const [setting, setSetting] = useRecoilState(store.settingsState);
+    const [board, setBoard] = useRecoilState(store.boardState3x3);
+    const [current, setCurrent] = useRecoilState(store.currentState)
 
     const customClass = {
         size3x3: setting.txt ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1',
         size5x5: setting.fxf ? 'btn btn-warning' : 'btn btn-primary',
-        person: setting.person ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1' ,
+        hu: setting.hu ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1' ,
         ai: setting.ai ? 'btn btn-warning' : 'btn btn-primary',
     }
 
     const handleClick = (e) => {
         let val = e.target.getAttribute("data_value");
-        handleSettingClicks(val, setting, setSetting, current)
+        
     };
 
     return (
