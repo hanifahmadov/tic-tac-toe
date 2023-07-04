@@ -1,5 +1,5 @@
 #table {
-    margin-top: 5rem;
+    margin-top: 3rem;
 
     display: flex;
     justify-content: center;
@@ -44,7 +44,7 @@
 
             .active {
                 &:hover {
-                    background-color: rgb(0, 162, 255);
+                    background-color: #0d6efdd6
                 }
             }
 

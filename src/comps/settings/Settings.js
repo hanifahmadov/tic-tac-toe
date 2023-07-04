@@ -6,28 +6,32 @@ import * as store from "../utils/store";
 import * as helper from "../utils/helper";
 
 export const Settings = () => {
-    const [player, setPlayer] = useRecoilState(store.playerState);
+    const [player, setPlayer] = useRecoilState(store.vsAiState);
     const [setting, setSetting] = useRecoilState(store.settingsState);
     const [board, setBoard] = useRecoilState(store.boardState3x3);
     const [current, setCurrent] = useRecoilState(store.currentState)
 
-    const customClass = {
-        size3x3: setting.txt ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1',
-        size5x5: setting.fxf ? 'btn btn-warning' : 'btn btn-primary',
-        hu: setting.hu ? 'btn btn-warning mx-1' : 'btn btn-primary mx-1' ,
-        ai: setting.ai ? 'btn btn-warning' : 'btn btn-primary',
-    }
-
     const handleClick = (e) => {
+
         let val = e.target.getAttribute("data_value");
+        let temp = helper.handleSettingClicks(val, board, setting, current, player);
+
+        if(val == "reset"){
+            setBoard(temp.board)
+            setSetting(temp.setting)
+            setCurrent(temp.current)
+            setPlayer(temp.player)
+        } else {
+            setSetting(temp.setting)
+        }
         
     };
 
     return (
-        <div id='subheader'>
-            <div className='setting-wrapper' onClick={handleClick}>
+        <div id='settings'>
+            <div className='settings-body' onClick={handleClick}>
                 <div className="">
-                    <button type='button' className='btn btn-primary' disabled={!anyMovePlayed && !current.gameOver} data_value="reset">
+                    <button type='button' id='resetButton' className='fw-bold btn btn-primary' disabled={!current.totalMoves ? true : false } data_value="reset">
                         Reset
                     </button>
                 </div>
@@ -38,10 +42,10 @@ export const Settings = () => {
                         role='group'
                         aria-label='Basic example'
                     >
-                        <button type='button' className={customClass.size3x3} disabled={!anyMovePlayed && !current.gameOver} data_value="size3x3">
+                        <button type='button' className={setting.txt ? 'fw-bold btn btn-warning' : 'fw-bold btn btn-outline-primary'} disabled={current.totalMoves ? true : false } data_value="size3x3">
                             3x3
                         </button>
-                        <button type='button' className={customClass.size5x5} disabled={!anyMovePlayed && !current.gameOver}  data_value="size5x5">
+                        <button type='button' className={setting.fxf ? 'fw-bold btn btn-warning' : 'fw-bold btn btn-outline-primary'}  disabled={current.totalMoves ? true : false }  data_value="size5x5">
                             5x5
                         </button>
                     </div>
@@ -53,10 +57,10 @@ export const Settings = () => {
                         role='group'
                         aria-label='Basic example'
                     >
-                        <button type='button' className={customClass.person} disabled={!anyMovePlayed && !current.gameOver}  data_value="person">
-                            vs Person
+                        <button type='button' className={setting.pvp ? 'fw-bold btn btn-warning' : 'fw-bold btn btn-outline-primary'}  disabled={current.totalMoves ? true : false }  data_value="pvp">
+                            PvP
                         </button>
-                        <button type='button' className={customClass.ai} disabled={!anyMovePlayed && !current.gameOver}  data_value="ai">
+                        <button type='button' className={setting.ai ? 'fw-bold btn btn-warning' : 'fw-bold btn btn-outline-primary'}  disabled={current.totalMoves ? true : false }  data_value="ai">
                             vs Ai
                         </button>
                     </div>

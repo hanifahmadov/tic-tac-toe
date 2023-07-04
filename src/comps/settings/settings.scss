@@ -1,80 +1,27 @@
-#subheader {
-    margin: 2rem;
+#settings {
+    margin: .1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+
+   
+
 
     // background: blue;
 }
 
 
-
-.setting-wrapper {
+.settings-body {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
 
-}
-
-// HEADER 
-// reset button active
-.resetButton  {
-
-    background: #ecf0f4;
-    color: rgba(1, 8, 65, 1);
-
-    margin: 0rem .5rem;
-    padding: .3rem 0.5rem;
-    font-weight: 600;
-
-    border: 2px solid black;
-    border-radius: 5px;
-
-    cursor: pointer;
     
-    &:active {
-        border: 2px solid rgb(196, 196, 196);
-        box-shadow: 0px 0px 1px 1px rgb(142, 142, 142) inset;
-        color:#434546
-
-    }
-
-}
-
-// HEADER 
-// reset button deactive
-.resetButton_deactive  {
-
-    background: #e8e8e8;
-    color: rgb(161, 161, 161);
-
-    margin: 0rem .5rem;
-    padding: .3rem 0.5rem;
-    font-weight: 500;
-
-    border: 2px solid rgb(123, 139, 174);
-    border-radius: 5px;
-
-    box-shadow: 0px 0px 5px 1px rgb(249, 249, 249) inset;
+    padding: 1rem 2rem;
+    border-radius: 10px;
 }
 
 
-// HEADER 
-// setting size 
-.setting_size {
-
-  
-
-
-}
-
-// HEADER
-// settings players ai fun and smart
-.setting_player{
-
-  
-
-}
 
 

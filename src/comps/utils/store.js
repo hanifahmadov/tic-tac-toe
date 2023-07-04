@@ -104,8 +104,8 @@ export const currentState = atom({
 
 
 // INFO: player state 
-export const playerState = atom({
-    key: "playersState",
+export const vsAiState = atom({
+    key: "vsAiState",
     default: {
         hu: {
             value: "X",
@@ -126,10 +126,10 @@ export const playerState = atom({
 export const settingsState = atom({
     key: "settingsState",
     default: {
-        reset: true,
+        reset: false,
         txt: true,
         fxf: false,
-        hu: true,
+        pvp: true,
         ai: false,
     },
 });

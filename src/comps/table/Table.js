@@ -8,9 +8,11 @@ import * as store from "../utils/store";
 export const Table = () => {
     const [board, setBoard] = useRecoilState(store.boardState3x3);
     const [boardIndex, setBoadrIndex] = useRecoilState(store.boardIndexes3x3);
-    const [player, setPlayer] = useRecoilState(store.playerState);
+    const [player, setPlayer] = useRecoilState(store.vsAiState);
     const [setting, setSetting] = useRecoilState(store.settingsState);
     const [current, setCurrent] = useRecoilState(store.currentState);
+
+
 
 
     // person plays
@@ -18,7 +20,8 @@ export const Table = () => {
         // hu turn
         let index = Number(e.target.getAttribute("data"));
 
-        if (player.hu.turn && !current.gameOver && board[index] == "") {
+        // WARN: vs Ai
+        if (setting.ai && player.hu.turn && !current.gameOver && board[index] == "") {
 
             // hu makes move
             let temp = helper.makeMove(
@@ -26,7 +29,28 @@ export const Table = () => {
                 {...player},
                 {...current},
                 index,
-                store.winPositionsState3x3
+                store.winPositionsState3x3,
+                setting
+            );
+
+
+            setBoard(temp.board);
+            setCurrent(temp.current);
+            setPlayer(temp.player)
+
+        }
+
+        // WARN: PvP
+        if (setting.pvp && !current.gameOver && board[index] == "") {
+
+            // hu makes move
+            let temp = helper.makeMove(
+                [...board],
+                {...player},
+                {...current},
+                index,
+                store.winPositionsState3x3,
+                setting
             );
 
 
@@ -37,11 +61,11 @@ export const Table = () => {
         }
     };
 
+
+
     // ai plays
     useEffect(() => {
-
-        console.log("curren::: ai PLAYSSS", current)
-        if (player.ai.turn && !current.gameOver) {
+        if (player.ai.turn && !current.gameOver && setting.ai) {
             setTimeout(async () => {
                 // get valid best index for ai
                 let index =
@@ -62,7 +86,8 @@ export const Table = () => {
                     {...player},
                     {...current},
                     index,
-                    store.winPositionsState3x3
+                    store.winPositionsState3x3,
+                    setting
                 );
 
 
@@ -123,7 +148,7 @@ export const Table = () => {
                                         data={i + ind}
                                         className={current.gameOver ? '' : 'active'}
 
-                                        style={{ background: current.winPositions.includes(i+ ind) ? 'rgb(0, 162, 255)' : ''}}
+                                        style={{ background: current.winPositions.includes(i+ ind) ? '#0d6efdd6' : '' }}
                                     >
                                         {el}
                                     </div>
