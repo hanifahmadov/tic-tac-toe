@@ -1,33 +1,10 @@
 /* eslint-disable */
 import React, { useEffect } from "react";
 import "./table.scss";
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-
-import { useRecoilState } from "recoil";
-<<<<<<< HEAD:src/components/table/Table.js
-import { Table3 } from "./table3/Table3";
-import { minimax } from "../utils/3x3/ai";
-import { Table5 } from "./table5/Table5";
-=======
-=======
->>>>>>> 7caeed5 (rebuilt 3x3 and ai also)
-import { minimax } from "../utils/ai";
-import { reject, resolve } from "promise";
-=======
->>>>>>> eeb55ee (2nd best and safe stop)
 import { useRecoilState } from "recoil";
 import * as helper from "../utils/helper";
 import * as store from "../utils/store";
 
-<<<<<<< HEAD
-
->>>>>>> 5328523 (re-build):src/comps/table/Table.js
-
-=======
->>>>>>> 7caeed5 (rebuilt 3x3 and ai also)
 export const Table = () => {
     const [board, setBoard] = useRecoilState(store.boardState3x3);
     const [boardIndex, setBoadrIndex] = useRecoilState(store.boardIndexes3x3);
@@ -35,41 +12,10 @@ export const Table = () => {
     const [setting, setSetting] = useRecoilState(store.settingsState);
     const [current, setCurrent] = useRecoilState(store.currentState);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    console.log('current.gameOver:::', current.gameOver)
-
-<<<<<<< HEAD
-    useEffect(() => {
-        // update current board state
-        // console.log("first");
-
-        let temp = checkBoard_afterEveryMove(
-            player,
-            board,
-            winPositionsState,
-            getWinPositions,
-            checkWin
-        );
-
-        // update current board state
-        setCurrent(temp);
-    }, [board]);
-
-    // console.log(board)
-
-    // INFO: hu turn
-=======
-    let state = false;
-=======
-
->>>>>>> eeb55ee (2nd best and safe stop)
-=======
 
 
->>>>>>> 2bbea08 (3x3 is done, ui, algo and pvp, ready to prod)
+
     // person plays
->>>>>>> 7caeed5 (rebuilt 3x3 and ai also)
     const handleClick = (e) => {
         // hu turn
         let index = Number(e.target.getAttribute("data"));
@@ -78,23 +24,6 @@ export const Table = () => {
         if (setting.ai && player.hu.turn && !current.gameOver && board[index] == "") {
 
             // hu makes move
-<<<<<<< HEAD
-            makeMove([...board], setBoard, player, setPlayer, index);
-
-            
-
-            // setCurrent(
-            //     checkBoard_afterEveryMove(
-            //         player,
-            //         board,
-            //         winPositionsState,
-            //         getWinPositions,
-            //         checkWin
-            //     )
-            // );
-
-            // console.log(current, "hu current");
-=======
             let temp = helper.makeMove(
                 [...board],
                 {...player},
@@ -129,7 +58,6 @@ export const Table = () => {
             setCurrent(temp.current);
             setPlayer(temp.player)
 
->>>>>>> 7caeed5 (rebuilt 3x3 and ai also)
         }
     };
 
@@ -137,59 +65,7 @@ export const Table = () => {
 
     // ai plays
     useEffect(() => {
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-    
-
-    // INFO: Ai turn
-    useEffect(() => {
-        // console.log(current, 'current inside ai')
-
-        if (player.ai.turn && !external) {
-            setTimeout(() => {
-                // ai turn
-
-                // get valid best index for ai
-<<<<<<< HEAD
-=======
-
-                console.log(player)
-
->>>>>>> 8540662 (horrible desing)
-                let index = getBestIndex_WithMinimax(
-                    [...board],
-                    winPositionsState,
-                    minimax
-                );
-
-                //ai makes move
-<<<<<<< HEAD
-                makeMove([...board], setBoard, player, setPlayer, index );
-            }, 300);
-
-            // setCurrent(
-            //     checkBoard_afterEveryMove(
-            //         player,
-            //         board,
-            //         winPositionsState,
-            //         getWinPositions,
-            //         checkWin
-            //     )
-            // );
-
-        }
-=======
-                makeMove([...board], setBoard, player, setPlayer, index);
-            }
-        });
->>>>>>> 8540662 (horrible desing)
-=======
-        console.log("curren::: ai PLAYSSS", current)
-        if (player.ai.turn && !current.gameOver) {
-=======
         if (player.ai.turn && !current.gameOver && setting.ai) {
->>>>>>> 2bbea08 (3x3 is done, ui, algo and pvp, ready to prod)
             setTimeout(async () => {
                 // get valid best index for ai
                 let index =
@@ -221,7 +97,6 @@ export const Table = () => {
 
             }, 300);
         }
->>>>>>> 7caeed5 (rebuilt 3x3 and ai also)
     }, [player.ai.turn]);
 
     // // INFO: reset all states when reset button clicked
