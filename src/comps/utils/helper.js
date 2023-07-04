@@ -1,23 +1,9 @@
 /* eslint-disable */
 import { minimax } from "./ai";
 
-// INFO: shuffle array
-export function shuffleArray(array) {
-    let currentIndex = array.length,
-        randomIndex;
-
-<<<<<<< HEAD
-<<<<<<< HEAD:src/components/utils/helper.js
-import { useRecoilState } from "recoil";
-import { gameOverState } from "./store";
-import { shuffle } from "./helper5";
-=======
-// INFO: shuffle array 
 export function shuffleArray (array) {
     let currentIndex = array.length,  randomIndex;
   
-=======
->>>>>>> 7caeed5 (rebuilt 3x3 and ai also)
     while (currentIndex != 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
@@ -29,19 +15,7 @@ export function shuffleArray (array) {
     }
 
     return array;
-<<<<<<< HEAD
-  }
->>>>>>> fb9955b (5x5 minimax loop problem):src/components/utils/3x3/helper.js
-
-
-
-
-
-// INFO: checkWinner 
-export function checkWinner (small, board, positions) {
-=======
 }
->>>>>>> 7caeed5 (rebuilt 3x3 and ai also)
 
 // INFO: checkWinner
 export function checkWinner(small, board, positions) {
@@ -94,18 +68,9 @@ export function getAvailableCells(board) {
             temp.push(index);
         }
     });
-<<<<<<< HEAD
-    
-    return shuffle(res);
-};
-
-
-
-=======
 
     return temp;
 }
->>>>>>> 7caeed5 (rebuilt 3x3 and ai also)
 
 // INFO: getRandomCell
 export function getRandomCell(board) {
@@ -281,19 +246,11 @@ export function getBestIndex(currentBoard, winPositions) {
 //         // end game
 //         gameOver = true;
 
-<<<<<<< HEAD
-        return { totalMoves, winResultIndexes, draw, gameOver };
-    } // if game over and it means its a draw
-    else if (totalMoves === 9) {
-        gameOver = true;
-        draw = true;
-=======
 //         return { totalMoves, winResultIndexes, draw, gameOver };
 //     } // if game over and it means its a draw
 //     else if (totalMoves >= 9) {
 //         gameOver = true;
 //         draw = true;
->>>>>>> 2bbea08 (3x3 is done, ui, algo and pvp, ready to prod)
 
 //         return { totalMoves, winResultIndexes, draw, gameOver };
 //     } else {
