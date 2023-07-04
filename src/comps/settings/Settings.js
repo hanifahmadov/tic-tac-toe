@@ -43,7 +43,7 @@ export const Settings = () => {
                         role='group'
                         aria-label='Basic example'
                     >
-                        <button type='button' className={setting.txt ? 'fw-bold btn btn-warning' : 'fw-bold btn btn-outline-primary'} disabled={current.totalMoves ? true : false } data_value="size3x3">
+                        <button type='button' className={setting.txt ? 'fw-bold btn btn-warning mx-1' : 'fw-bold btn btn-outline-primary  mx-1'} disabled={current.totalMoves ? true : false } data_value="size3x3">
                             3x3
                         </button>
                         <button type='button' className={setting.fxf ? 'fw-bold btn btn-warning' : 'fw-bold btn btn-outline-primary'}  disabled={current.totalMoves ? true : false }  data_value="size5x5">
@@ -58,7 +58,7 @@ export const Settings = () => {
                         role='group'
                         aria-label='Basic example'
                     >
-                        <button type='button' className={setting.pvp ? 'fw-bold btn btn-warning' : 'fw-bold btn btn-outline-primary'}  disabled={current.totalMoves ? true : false }  data_value="pvp">
+                        <button type='button' className={setting.pvp ? 'fw-bold btn btn-warning mx-1' : 'fw-bold btn btn-outline-primary mx-1'}  disabled={current.totalMoves ? true : false }  data_value="pvp">
                             PvP
                         </button>
                         <button type='button' className={setting.ai ? 'fw-bold btn btn-warning' : 'fw-bold btn btn-outline-primary'}  disabled={current.totalMoves ? true : false }  data_value="ai">
