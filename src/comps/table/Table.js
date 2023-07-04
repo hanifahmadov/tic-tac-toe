@@ -62,8 +62,7 @@ export const Table = () => {
     };
 
 
-
-    // ai plays
+    // ai turn
     useEffect(() => {
         if (player.ai.turn && !current.gameOver && setting.ai) {
             setTimeout(async () => {
@@ -99,38 +98,6 @@ export const Table = () => {
         }
     }, [player.ai.turn]);
 
-    // // INFO: reset all states when reset button clicked
-    // useEffect(() => {
-    //     // reset all
-    //     if (setting.reset) {
-    //         resetAll(
-    //             setBoard,
-    //             setSetting,
-    //             setPlayer,
-    //             setCurrent,
-    //             setting,
-    //             current
-    //         );
-    //     }
-    // }, [setting.reset]);
-
-    // useEffect(() => {
-    //     let status = helper.getStatus(
-    //         { ...current },
-    //         player,
-    //         [...board],
-    //         store.winPositionsState3x3,
-    //         helper.checkWinner,
-    //         helper.getWinnerCells
-    //     );
-
-    //     // console.log(status, 'statuss:::')
-
-        
-            
-
-    //     // console.log('current:::', current)
-    // }, [current.totalMoves, current.winPositions.length]);
 
     // INFO: Table return
     return (

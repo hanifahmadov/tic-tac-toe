@@ -31,11 +31,8 @@ export const Settings = () => {
         <div id='settings'>
             <div className='settings-body' onClick={handleClick}>
                 <div className="">
-<<<<<<< HEAD
-                    <button type='button' className='btn btn-primary' disabled={ anyMovePlayed && !current.gameOver} data_value="reset">
-=======
+
                     <button type='button' id='resetButton' className='fw-bold btn btn-primary' disabled={!current.totalMoves ? true : false } data_value="reset">
->>>>>>> 2bbea08 (3x3 is done, ui, algo and pvp, ready to prod)
                         Reset
                     </button>
                 </div>
