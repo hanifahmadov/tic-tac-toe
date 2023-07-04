@@ -1,8 +1,6 @@
 /* eslint-disable */
 import React, { useEffect } from "react";
 import "./table.scss";
-import { minimax } from "../utils/ai";
-import { reject, resolve } from "promise";
 import { useRecoilState } from "recoil";
 import * as helper from "../utils/helper";
 import * as store from "../utils/store";
@@ -11,10 +9,10 @@ export const Table = () => {
     const [board, setBoard] = useRecoilState(store.boardState3x3);
     const [boardIndex, setBoadrIndex] = useRecoilState(store.boardIndexes3x3);
     const [player, setPlayer] = useRecoilState(store.playerState);
-    const [setting, setSetting] = useRecoilState(store.settingState);
+    const [setting, setSetting] = useRecoilState(store.settingsState);
     const [current, setCurrent] = useRecoilState(store.currentState);
 
-    let state = false;
+
     // person plays
     const handleClick = (e) => {
         // hu turn
@@ -31,7 +29,6 @@ export const Table = () => {
                 store.winPositionsState3x3
             );
 
-            console.log(temp)
 
             setBoard(temp.board);
             setCurrent(temp.current);
@@ -68,9 +65,6 @@ export const Table = () => {
                     store.winPositionsState3x3
                 );
 
-
-
-                console.log(temp)
 
                 setBoard(temp.board);
                 setCurrent(temp.current);
