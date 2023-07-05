@@ -71,7 +71,6 @@ export const Table = () => {
                           helper.getAvailableCells([...board])
                       )[0]
                     : helper.getBestIndex(
-                        setting.txt,
                         [...board],
                         setting.txt ? store.winPositionsState3x3 : store.winPositionsState5x5
                     )
@@ -120,10 +119,9 @@ export const Table = () => {
     // INFO: Table return
     return (
         <div id='table'>
-              {/* {  console.log('hu:::::', player)}
-               { console.log('curret::::', current)} */}
+     
             <div id='table_header'>
-                {/* {console.log(boardIndex, 'boardIndexes::::')} */}
+
                 <div
                     id={setting.txt ? "table_body_3x3" : "table_body_5x5"}
                     onClick={handleClick}
@@ -138,6 +136,7 @@ export const Table = () => {
                                 key={index}
                                 style={{
                                     background: current.gameOver ? "#eee" : "",
+                                    cursor: current.gameOver ? 'not-allowed' : 'pointer'
                                 }}
                             >
                                 {board.slice(i, j).map((el, ind) => (
@@ -149,6 +148,7 @@ export const Table = () => {
                                             current.gameOver ? "" : "active"
                                         }
                                         style={{
+                                            cursor: current.gameOver ? 'not-allowed' : 'pointer',
                                             background:
                                                 current.winPositions.includes(
                                                     i + ind
