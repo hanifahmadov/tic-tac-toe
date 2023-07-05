@@ -13,10 +13,15 @@ export const Settings = () => {
 
     const handleClick = (e) => {
 
+        console.log(board, 'board:::')
+
         let val = e.target.getAttribute("data_value");
         let temp = helper.handleSettingClicks(val, board, setting, current, player);
 
+        
+
         if(val == "reset"){
+
             setBoard(temp.board)
             setSetting(temp.setting)
             setCurrent(temp.current)

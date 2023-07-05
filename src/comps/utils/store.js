@@ -13,6 +13,18 @@ import { atom } from "recoil";
 
 */
 
+export const b5 = [
+
+    '',  '',  '',  '',  '',
+    '',  '',  '',  '',  '',
+    '',  '',  '',  '',  '',
+    '',  '',  '',  '',  '',
+    '',  '',  '',  '',  '', 
+
+]
+
+export const ind5 = [[0, 5], [5, 10], [10, 15], [15, 20], [20, 25]];
+
 // INFO: boardState 
 export const boardState5x5= atom({
     key: "boardState5x5",
@@ -57,10 +69,17 @@ export const boardState3x3 = atom({
 });
 
 
-// INFO: board state 3x3 
-export const boardIndexes3x3 = atom({
-    key: "boardIndexes3x3",
+// INFO: board INDEX 3x3 
+export const boardIndex3x3 = atom({
+    key: "boardIndex3x3",
     default: [[0, 3], [3, 6], [6,9]],
+});
+
+
+// INFO: board INDEX 5x5
+export const boardIndex5x5 = atom({
+    key: "boardIndex5x5",
+    default: [[0, 5], [5, 10], [10, 15], [15, 20], [20, 25]],
 });
 
 

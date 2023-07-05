@@ -40,11 +40,11 @@ export function checkWinner(small, board, positions) {
 }
 
 // INFO: getWinnerCells
-export function getWinnerCells(arr, positions) {
+export function getWinnerCells(small, arr, positions) {
     let temp = [];
 
     for (let position of positions) {
-        let count = 3;
+        let count = small ? 3 : 5;
 
         for (let val of position) {
             if (arr.includes(val)) count -= 1;
@@ -81,10 +81,13 @@ export function getRandomCell(board) {
     return res[Math.floor(Math.random() * res.length)];
 }
 
+
 // INFO: make move
 export function makeMove(board, player, current, index, positions, setting) {
     player = JSON.parse(JSON.stringify(player));
+    current = JSON.parse(JSON.stringify(current));
 
+    // INFO: vs Ai
     // WARN: player ai
     if (player.ai.turn && !current.gameOver && setting.ai) {
         board[index] = "O";
@@ -94,11 +97,12 @@ export function makeMove(board, player, current, index, positions, setting) {
         player.ai.turn = false;
         player.hu.turn = true;
 
-        let win = checkWinner(true, board, positions);
+        let win = checkWinner(setting.txt, board, positions);
 
         if (win == 0) {
             current.gameOver = true;
             current.winPositions = getWinnerCells(
+                setting.txt,
                 [...player.ai.moves],
                 positions
             );
@@ -108,7 +112,7 @@ export function makeMove(board, player, current, index, positions, setting) {
         return { board, current, player };
     }
 
-    // WARN: hu
+    // WARN: player hu 
     if (player.hu.turn && !current.gameOver && setting.ai) {
         board[index] = "X";
         current.totalMoves += 1;
@@ -117,14 +121,16 @@ export function makeMove(board, player, current, index, positions, setting) {
         player.hu.turn = false;
         player.ai.turn = true;
 
-        let win = checkWinner(true, board, positions);
+        let win = checkWinner(setting.txt, board, positions);
 
         if (win == 1) {
             current.gameOver = true;
             current.winPositions = getWinnerCells(
+                setting.txt,
                 [...player.hu.moves],
                 positions
             );
+
             return { board, current, player };
         }
 
@@ -133,8 +139,8 @@ export function makeMove(board, player, current, index, positions, setting) {
 
 
 
-
-    // WARN: setting ai && pvp
+    // INFO: PvP 
+    // WARN: player ai && pvp
     if (player.ai.turn && !current.gameOver && setting.pvp) {
         board[index] = "O";
         current.totalMoves += 1;
@@ -143,14 +149,16 @@ export function makeMove(board, player, current, index, positions, setting) {
         player.ai.turn = false;
         player.hu.turn = true;
 
-        let win = checkWinner(true, board, positions);
+        let win = checkWinner(setting.txt, board, positions);
 
         if (win == 0) {
             current.gameOver = true;
             current.winPositions = getWinnerCells(
+                setting.txt,
                 [...player.ai.moves],
                 positions
             );
+
             return { board, current, player };
         }
 
@@ -159,8 +167,7 @@ export function makeMove(board, player, current, index, positions, setting) {
 
 
 
-
-     // WARN: player hu && setting
+     // WARN: player hu && pvp
      if (player.hu.turn && !current.gameOver && setting.pvp) {
         board[index] = "X";
         current.totalMoves += 1;
@@ -169,14 +176,18 @@ export function makeMove(board, player, current, index, positions, setting) {
         player.hu.turn = false;
         player.ai.turn = true;
 
-        let win = checkWinner(true, board, positions);
+        let win = checkWinner(setting.txt, board, positions);
+
+        // console.log('win inside hu:::', win)
 
         if (win == 1) {
             current.gameOver = true;
             current.winPositions = getWinnerCells(
+                setting.txt,
                 [...player.hu.moves],
                 positions
             );
+
             return { board, current, player };
         }
 
@@ -185,7 +196,10 @@ export function makeMove(board, player, current, index, positions, setting) {
 }
 
 // INFO: getBestIndex
-export function getBestIndex(currentBoard, winPositions) {
+export function getBestIndex(small, currentBoard, winPositions) {
+
+    console.log('samlll::: bestIndex', small)
+
     let index = null;
     let bestScore = { val: -Infinity, anaz: 0, depth: 0 };
 
@@ -194,6 +208,7 @@ export function getBestIndex(currentBoard, winPositions) {
             currentBoard[i] = "O";
 
             let score = minimax(
+                small,
                 currentBoard,
                 winPositions,
                 false, // ai turn
@@ -206,7 +221,14 @@ export function getBestIndex(currentBoard, winPositions) {
             bestScore.anaz = bestScore.anaz + score.anaz;
 
             // WARN: console
-            // console.log(score);
+            console.log(score);
+
+            if(score.val == 100){
+                console.log('score:::', score)
+                score.val = 1;
+            }
+
+            
 
             if (score.val > bestScore.val) {
                 bestScore.val = score.val;
@@ -218,45 +240,7 @@ export function getBestIndex(currentBoard, winPositions) {
     return index;
 }
 
-// INFO: check board after every move made to see if there is win or not!
-// export function checkBoard_afterEveryMove(
-//     player,
-//     board,
-//     winPositionsState,
-//     getWinPositions,
-//     checkWin
-// ) {
-//     let totalMoves = player.ai.moves.length + player.hu.moves.length;
-//     let winResultIndexes = [];
-//     let gameOver = false;
-//     let draw = false;
 
-//     // if x wins
-//     if (checkWin(board, winPositionsState) == 1) {
-//         // get array of winsspot for x
-//         winResultIndexes = getWinPositions(winPositionsState, player.hu.moves);
-//         // end game
-//         gameOver = true;
-
-//         return { totalMoves, winResultIndexes, draw, gameOver };
-//     } // if o wins
-//     else if (checkWin(board, winPositionsState) == 0) {
-//         // get array of winspot for o
-//         winResultIndexes = getWinPositions(winPositionsState, player.ai.moves);
-//         // end game
-//         gameOver = true;
-
-//         return { totalMoves, winResultIndexes, draw, gameOver };
-//     } // if game over and it means its a draw
-//     else if (totalMoves >= 9) {
-//         gameOver = true;
-//         draw = true;
-
-//         return { totalMoves, winResultIndexes, draw, gameOver };
-//     } else {
-//         return { totalMoves, winResultIndexes, draw, gameOver };
-//     }
-// }
 
 // INFO: handle settings click
 export function handleSettingClicks(val, board, setting, current, player ) {
@@ -280,7 +264,18 @@ export function handleSettingClicks(val, board, setting, current, player ) {
         setting.ai = true;
     } else if (val === "reset") {
 
-        board = ["", "", "", "", "", "", "", "", ""]
+        let b3 = ["", "", "", "", "", "", "", "", ""];
+        let b5 = [
+
+            '',  '',  '',  '',  '',
+            '',  '',  '',  '',  '',
+            '',  '',  '',  '',  '',
+            '',  '',  '',  '',  '',
+            '',  '',  '',  '',  '', 
+       
+        ];
+
+        board = setting.txt ? b3 : b5;
         
         setting.reset = false;
 
@@ -310,76 +305,34 @@ export function handleSettingClicks(val, board, setting, current, player ) {
     return { board, setting, current, player};
 }
 
-//  INFO: reset all
-export function resetAll(
-    setBoard,
-    setSetting,
-    setPlayer,
-    setCurrent,
-    setting,
-    current
-) {
-    if (setting.reset && current.gameOver) {
-        setBoard(["", "", "", "", "", "", "", "", ""]);
 
-        setCurrent({
-            totalMoves: 0,
-            winResultIndexes: [],
-            gameOver: false,
-            draw: false,
-        });
+// // INFO: get status
+// export async function getStatus(
+//     current,
+//     player,
+//     board,
+//     positions,
+//     checkWinner,
+//     getWinnerCells
+// ) {
+//     let temp = checkWinner(true, [...board], positions);
 
-        setPlayer({
-            hu: {
-                value: "X",
-                moves: [],
-                turn: true,
-            },
+//     if (temp == 1) {
+//         current.winPositions = getWinnerCells([...player.hu.moves], positions);
+//         current.gameOver = true;
 
-            ai: {
-                value: "O",
-                moves: [],
-                turn: false,
-            },
-        });
+//         return current;
+//     } else if (temp == 0) {
+//         current.winPositions = getWinnerCells([...player.ai.moves], positions);
+//         current.gameOver = true;
 
-        setSetting({
-            reset: false,
-            txt: true,
-            fxf: false,
-            person: true,
-            ai: false,
-        });
-    }
-}
+//         return current;
+//     } else if (current.totalMoves == 9) {
+//         current.draw = true;
+//         current.gameOver = true;
 
-// INFO: get status
-export async function getStatus(
-    current,
-    player,
-    board,
-    positions,
-    checkWinner,
-    getWinnerCells
-) {
-    let temp = checkWinner(true, [...board], positions);
-
-    if (temp == 1) {
-        current.winPositions = getWinnerCells([...player.hu.moves], positions);
-        current.gameOver = true;
-
-        return current;
-    } else if (temp == 0) {
-        current.winPositions = getWinnerCells([...player.ai.moves], positions);
-        current.gameOver = true;
-
-        return current;
-    } else if (current.totalMoves == 9) {
-        current.draw = true;
-        current.gameOver = true;
-
-        return current;
-    } else {
-        return true;
-    }
-}
+//         return current;
+//     } else {
+//         return true;
+//     }
+// }

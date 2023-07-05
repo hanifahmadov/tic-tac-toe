@@ -10,7 +10,7 @@ const App = () => {
         <Fragment>
             <div id='navbar'>
                 <h1>Tic Tac Toe</h1>
-                <h3>Login</h3>
+                <h3>DEMO</h3>
             </div>
             <Settings />
             <Table />

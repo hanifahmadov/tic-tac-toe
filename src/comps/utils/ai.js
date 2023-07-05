@@ -1,22 +1,27 @@
 /* eslint-disable */
 import * as helper from "./helper";
 
+
+
 // INFO: minimax
-export const minimax = (board, positions, aiturn, sum, depth) => {
+export const minimax = (small, board, positions, aiturn, sum, depth) => {
     let emptyCells = helper.getAvailableCells(board);
 
     // every possible move( ai or human) calculates 1
     sum++;
 
     // edge cases
-    if (helper.checkWinner(true, board, positions) === 1) {
+
+    if (helper.checkWinner(small, board, positions) === 1) {
         // if(depth == 3) return { val: 10, anaz: sum, depth };
         return { val: -1, anaz: sum, depth };
-    } else if (helper.checkWinner(true, board, positions) === 0) {
+    } else if (helper.checkWinner(small, board, positions) === 0) {
         return { val: 1, anaz: sum, depth };
     } else if (emptyCells.length === 0) {
         return { val: 0, anaz: sum, depth };
     }
+
+  
 
     if (aiturn) {
         // ai turn
@@ -24,15 +29,21 @@ export const minimax = (board, positions, aiturn, sum, depth) => {
 
         for (let i = 0; i < board.length; i++) {
             if (board[i] === "") {
-
                 board[i] = "O";
-                let score = minimax(board, positions, false, sum, depth + 1);
+                let score = minimax(
+                    small,
+                    board,
+                    positions,
+                    false,
+                    sum,
+                    depth + 1
+                );
                 board[i] = "";
 
                 bestScore = {
                     val: Math.max(score.val, bestScore.val),
                     anaz: score.anaz + bestScore.anaz,
-                    depth: Math.max(score.depth, bestScore.depth)
+                    depth,
                 };
             }
         }
@@ -45,13 +56,21 @@ export const minimax = (board, positions, aiturn, sum, depth) => {
         for (let i = 0; i < board.length; i++) {
             if (board[i] === "") {
                 board[i] = "X";
-                let score = minimax(board, positions, true, sum, depth + 1);
+                let score = minimax(
+                    small,
+                    board,
+                    positions,
+                    true,
+                    sum,
+                    depth + 1
+                );
+
                 board[i] = "";
 
                 bestScore = {
                     val: Math.min(score.val, bestScore.val),
                     anaz: score.anaz + bestScore.anaz,
-                    depth: Math.max(score.depth, bestScore.depth)
+                    depth,
                 };
             }
         }
@@ -68,3 +87,4 @@ export const minimax = (board, positions, aiturn, sum, depth) => {
     TODO 
     add depth value and return val/index with min depth to play the shorttest win index
  */
+
