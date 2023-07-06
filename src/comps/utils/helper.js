@@ -21,7 +21,6 @@ export function shuffleArray(array) {
 // INFO: checkWinner
 export function checkWinner(board, positions) {
     for (let position of positions) {
-
         let win = true;
 
         for (let i of position) {
@@ -190,39 +189,25 @@ export function makeMove(board, player, current, index, positions, setting) {
 }
 
 // INFO: getBestIndex
-export function getBestIndex(currentBoard, winPositions) {
+export function getBestIndex(board, positions) {
 
     let index = null;
-    let bestScore = -Infinity;
-    let depth = 0;
-    let sum = 0;
+    let best = -100;
 
-    for (let i = 0; i < currentBoard.length; i++) {
 
-        if (currentBoard[i] == "") {
+    console.log(emptyCells, 'emptycells')
 
-            currentBoard[i] = "O";
+    for (let i of emptyCells) {
 
-            let score = minimax(
-                -Infinity,
-                Infinity,
-                currentBoard,
-                winPositions,
-                false, // ai turn
-                sum,
-                depth
-            );
+        board[i] = "O";
 
-            currentBoard[i] = "";
+        let score = minimax(board, positions, false);
 
-            // WARN: console
-            console.log("i:::::::::: ", i, 'score::::: ', score);
-  
+        board[i] = "";
 
-            if (score > bestScore) {
-                bestScore = score
-                index = i;
-            }
+        if (score > best) {
+            best = score;
+            index = i;
         }
     }
 
@@ -307,14 +292,11 @@ export function handleSettingClicks(val, board, setting, current, player) {
     }
 
     return { board, setting, current, player };
-
 }
 
-
-export function isBordFull (b) {
-
-    for(let i of b){
-        if(i == '') return false
+export function isBordFull(b) {
+    for (let i of b) {
+        if (i == "") return false;
     }
 
     return true;

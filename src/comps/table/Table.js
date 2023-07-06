@@ -64,11 +64,11 @@ export const Table = () => {
         if (player.ai.turn && !current.gameOver && setting.ai) {
             
         
-            setTimeout(async () => {
+            setTimeout(() => {
                 // get valid best index for ai
             
 
-                let index = player.ai.moves.length < 1 && current.easyMode
+                let index = player.ai.moves.length < 0 && current.easyMode
                     ? helper.shuffleArray(
                           helper.getAvailableCells([...board])
                       )[0]
@@ -92,6 +92,7 @@ export const Table = () => {
                 setBoard(temp.board);
                 setCurrent(temp.current);
                 setPlayer(temp.player);
+                
             }, 300);
         }
     }, [player.ai.turn]);

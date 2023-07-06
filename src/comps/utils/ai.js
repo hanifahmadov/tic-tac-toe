@@ -4,90 +4,50 @@ import * as helper from "./helper";
 
 
 // INFO: minimax
-export const minimax = (alfa, betta, board, positions, aiturn, sum, depth) => {
+export const minimax = (board, positions, aiturn) => {
+    
     let isFull = helper.isBordFull(board);
     let win = helper.checkWinner(board, positions);
+    let emptyCells = helper.getAvailableCells(board)
 
-    // every possible move( ai or human) calculates 1
-
-    sum++;
-
-    console.log('depth::::', depth)
-
-    // edge cases
-
-    // draw
-    if (isFull) return 0;
 
     // if x wins
-    if (win == 1) return -1;
+    if (win == 1) return -1
 
     // if ai: o wins
-    if (win == 0) return 1;
+    if (win == 0) return 1
 
-    // stop after depth 7
-    // else if (depth >= 7) return 0;
+    // draw
+    if (isFull) return 0
 
-    if (aiturn) {
-        // ai turn
-        let bestScore = -Infinity;
+    
+    if(aiturn){
 
-        for (let i in board) {
-            if (board[i] == "") {
-                board[i] = "O";
+        let best = -100;
 
-                // call minimax recursivle
-                let score = minimax(
-                    alfa,
-                    betta,
-                    board,
-                    positions,
-                    false,
-                    sum,
-                    depth + 1
-                );
+        for(let i of emptyCells){
 
-                board[i] = "";
-
-                // maximize bestscore for ai
-                bestScore = Math.max(score, bestScore);
-
-                // alfa = Math.max(alfa, bestScore);
-                // if (betta <= alfa) break;
-            }
+            board[i] = 'O';
+            best = Math.max(best, minimax(board, positions, false))
+            board[i] = '';
         }
 
-        return bestScore;
+        return best;
 
     } else {
-        // human turn
-        let bestScore = Infinity;
 
-        for (let i in board) {
-            if (board[i] == "") {
-                board[i] = "X";
-                // call minimax recursivle
+        let best = 100;
 
-                let score = minimax(
-                    alfa,
-                    betta,
-                    board,
-                    positions,
-                    true,
-                    sum,
-                    depth + 1
-                );
+        for(let i of emptyCells){
 
-                board[i] = "";
-
-                // minimize hu scores ( -10 is best spot than -1)
-                bestScore = Math.min(score, bestScore);
-
-                // betta = Math.min(betta, bestScore);
-                // if (betta <= alfa) break;
-            }
+            board[i] = 'X';
+            best = Math.min(best, minimax(board, positions, false))
+            board[i] = '';
         }
 
-        return bestScore;
+        return best;
+
     }
+
+       
 };
