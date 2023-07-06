@@ -30,7 +30,7 @@ export const Table = () => {
                 { ...player },
                 { ...current },
                 index,
-                setting.txt ? store.winPositionsState3x3 : store.winPositionsState5x5,
+                setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4,
                 setting
             );
 
@@ -47,9 +47,11 @@ export const Table = () => {
                 { ...player },
                 { ...current },
                 index,
-                setting.txt ? store.winPositionsState3x3 : store.winPositionsState5x5,
+                setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4,
                 setting
             );
+
+            console.log(temp)
 
             setBoard(temp.board);
             setCurrent(temp.current);
@@ -66,13 +68,13 @@ export const Table = () => {
                 // get valid best index for ai
             
 
-                let index = player.ai.moves.length < 2 && current.easyMode
+                let index = player.ai.moves.length < 1 && current.easyMode
                     ? helper.shuffleArray(
                           helper.getAvailableCells([...board])
                       )[0]
                     : helper.getBestIndex(
                         [...board],
-                        setting.txt ? store.winPositionsState3x3 : store.winPositionsState5x5
+                        setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4
                     )
                     
                  
@@ -83,7 +85,7 @@ export const Table = () => {
                     { ...player },
                     { ...current },
                     index,
-                    setting.txt ? store.winPositionsState3x3 : store.winPositionsState5x5,
+                    setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4,
                     setting
                 );
 
@@ -153,7 +155,7 @@ export const Table = () => {
                                                 current.winPositions.includes(
                                                     i + ind
                                                 )
-                                                    ? "#0d6efdd6"
+                                                    ? "rgba(253, 13, 13, 0.39)"
                                                     : "",
                                         }}
                                     >
@@ -168,3 +170,5 @@ export const Table = () => {
         </div>
     );
 };
+
+// "rgb(253 13 13 / 39%)"

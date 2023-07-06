@@ -43,7 +43,7 @@ export function getWinnerCells(small, arr, positions) {
     let temp = [];
 
     for (let position of positions) {
-        let count = small ? 3 : 5;
+        let count = small ? 3 : 4;
 
         for (let val of position) {
             if (arr.includes(val)) count -= 1;
@@ -193,10 +193,14 @@ export function makeMove(board, player, current, index, positions, setting) {
 export function getBestIndex(currentBoard, winPositions) {
 
     let index = null;
-    let bestScore = { val: -Infinity, anaz: 0, depth: 0 };
+    let bestScore = -Infinity;
+    let depth = 0;
+    let sum = 0;
 
     for (let i = 0; i < currentBoard.length; i++) {
+
         if (currentBoard[i] == "") {
+
             currentBoard[i] = "O";
 
             let score = minimax(
@@ -205,24 +209,18 @@ export function getBestIndex(currentBoard, winPositions) {
                 currentBoard,
                 winPositions,
                 false, // ai turn
-                0, // sum,
-                0 // depth
+                sum,
+                depth
             );
 
             currentBoard[i] = "";
 
-            bestScore.anaz = bestScore.anaz + score.anaz;
-
             // WARN: console
-            console.log(score);
+            console.log("i:::::::::: ", i, 'score::::: ', score);
+  
 
-            if (score.val == 100) {
-                console.log("score:::", score);
-                score.val = 1;
-            }
-
-            if (score.val > bestScore.val) {
-                bestScore.val = score.val;
+            if (score > bestScore) {
+                bestScore = score
                 index = i;
             }
         }
@@ -309,6 +307,17 @@ export function handleSettingClicks(val, board, setting, current, player) {
     }
 
     return { board, setting, current, player };
+
+}
+
+
+export function isBordFull (b) {
+
+    for(let i of b){
+        if(i == '') return false
+    }
+
+    return true;
 }
 
 // // INFO: get status
