@@ -190,24 +190,26 @@ export function makeMove(board, player, current, index, positions, setting) {
 
 // INFO: getBestIndex
 export function getBestIndex(board, positions) {
+    board = JSON.parse(JSON.stringify(board));
 
     let index = null;
-    let best = -100;
+    let best = { val: -Infinity, move_count: 0, depth: 0 };
+
+    for (let i in board) {
+
+        console.log(i, 'i::::')
+        
+        if (board[i] == "") {
 
 
-    console.log(emptyCells, 'emptycells')
+            board[i] = "O";
+            let score = minimax([...board], positions, false, 0, 0);
+            board[i] = "";
 
-    for (let i of emptyCells) {
-
-        board[i] = "O";
-
-        let score = minimax(board, positions, false);
-
-        board[i] = "";
-
-        if (score > best) {
-            best = score;
-            index = i;
+            if (score.val > best.val) {
+                best = score;
+                index = i;
+            }
         }
     }
 

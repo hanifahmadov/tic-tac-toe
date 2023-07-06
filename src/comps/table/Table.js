@@ -70,10 +70,10 @@ export const Table = () => {
 
                 let index = player.ai.moves.length < 0 && current.easyMode
                     ? helper.shuffleArray(
-                          helper.getAvailableCells([...board])
+                          helper.getAvailableCells(board)
                       )[0]
                     : helper.getBestIndex(
-                        [...board],
+                        board,
                         setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4
                     )
                     
