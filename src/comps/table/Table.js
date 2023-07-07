@@ -68,7 +68,7 @@ export const Table = () => {
                 // get valid best index for ai
             
 
-                let index = player.ai.moves.length < 0 && current.easyMode
+                let index = player.ai.moves.length < 1 && current.easyMode
                     ? helper.shuffleArray(
                           helper.getAvailableCells(board)
                       )[0]

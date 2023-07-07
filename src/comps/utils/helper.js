@@ -193,31 +193,35 @@ export function getBestIndex(board, positions) {
     board = JSON.parse(JSON.stringify(board));
 
     let index = null;
-    let best = { val: -Infinity, move_count: 0, depth: 0 };
+    let best = -Infinity
+    let d = 0;
+    let c = 0;
 
-    for (let i in board) {
-
-        console.log(i, 'i::::')
-        
+    for (let i = 0; i < board.length; i++) {
         if (board[i] == "") {
-
-
             board[i] = "O";
-            let score = minimax([...board], positions, false, 0, 0);
+            let score = minimax(board, positions, false, d);
+
+            c += d;
+
             board[i] = "";
 
-            if (score.val > best.val) {
+            if (score > best ) {
                 best = score;
                 index = i;
             }
         }
     }
 
+    console.log('c::', c)
+
     return index;
 }
 
 // INFO: handle settings click
 export function handleSettingClicks(val, board, setting, current, player) {
+    console.log(val)
+
     setting = JSON.parse(JSON.stringify(setting));
     current = JSON.parse(JSON.stringify(current));
     board = JSON.parse(JSON.stringify(board));
@@ -236,6 +240,9 @@ export function handleSettingClicks(val, board, setting, current, player) {
     } else if (val === "ai") {
         setting.pvp = false;
         setting.ai = true;
+    }
+    else if (val == "easy") {
+        setting.easy = !setting.easy;
     } else if (val === "reset") {
         let b3 = ["", "", "", "", "", "", "", "", ""];
         let b5 = [
@@ -275,7 +282,7 @@ export function handleSettingClicks(val, board, setting, current, player) {
             winPositions: [],
             gameOver: false,
             draw: false,
-            easyMode: true,
+            easy: true,
         };
 
         player = {

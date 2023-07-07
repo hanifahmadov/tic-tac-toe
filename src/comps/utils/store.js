@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { atom } from "recoil";
 
+
 /*  5x5
 
         '',  '',  '',  '',  '',
@@ -187,8 +188,7 @@ export const currentState = atom({
         totalMoves: 0,
         winPositions: [],
         gameOver: false,
-        draw: false,
-        easyMode: true,
+        draw: false
     },
 });
 
@@ -222,5 +222,6 @@ export const settingsState = atom({
         fxf: false,
         pvp: true,
         ai: false,
+        easy: false
     },
 });
