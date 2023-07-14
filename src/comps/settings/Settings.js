@@ -5,17 +5,17 @@ import { useRecoilState } from "recoil";
 import * as store from "../utils/store";
 import * as helper from "../utils/helper";
 
-
 export const Settings = () => {
-    const [player, setPlayer] = useRecoilState(store.vsAiState);
+    const [player, setPlayer] = useRecoilState(store.playerState);
     const [setting, setSetting] = useRecoilState(store.settingsState);
     const [board, setBoard] = useRecoilState(store.boardState3x3);
     const [current, setCurrent] = useRecoilState(store.currentState);
 
     const handleClick = (e) => {
-        console.log(board, "board:::");
+        // console.log(board, "board:::");
 
         let val = e.target.getAttribute("data_value");
+
         let temp = helper.handleSettingClicks(
             val,
             board,
@@ -29,10 +29,15 @@ export const Settings = () => {
             setSetting(temp.setting);
             setCurrent(temp.current);
             setPlayer(temp.player);
-        } else {
+        } else if (val == "size3x3" || val == "size5x5" || val == "pvp" || val == "ai") {
             setSetting(temp.setting);
         }
     };
+
+
+
+
+
 
     return (
         <div id='settings'>
@@ -112,26 +117,28 @@ export const Settings = () => {
                         >
                             vs Ai
                         </button>
-
-                        {setting.ai && (
-                            <button
-                                type='button'
-                                className={
-                                    setting.easy
-                                        ? "fw-bold btn btn-danger mx-1"
-                                        : "fw-bold btn btn-info mx-1"
-                                }
-                                disabled={current.totalMoves ? true : false}
-                                data_value='easy'
-                            >
-                                {!setting.easy ? (
-                                    <span data_value='easy'>{"😺"}</span>
-                                ) : (
-                                    <span data_value='easy'>{"🙀"}</span>
-                                )}
-                            </button>
-                        )}
                     </div>
+                </div>
+            </div>
+
+            {/* TODO: STYLE THIS  */}
+            <div
+                className={setting.txt ? 'my-3' : 'my-1'}
+                style={{ visibility: current.gameOver ? "visible" : "hidden" }}
+                data_value='endGameEmoj'
+            >
+                <div
+                    className='fw-bold border border-info p-2 mb-3 rounded'
+                    data_value='easy'
+                >
+                    <img
+                        src={helper.shuffleArray(store.randomEmoj)[0]}
+                        alt='Girl in a jacket'
+                        width='30'
+                        height='35'
+                        id='challange'
+                        data_value='easy'
+                    />
                 </div>
             </div>
         </div>

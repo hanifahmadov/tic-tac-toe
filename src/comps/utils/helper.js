@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { minimax } from "./ai";
+import { minimax_lg, minimax_sm } from "./ai";
 
 export function shuffleArray(array) {
     let currentIndex = array.length,
@@ -42,7 +42,7 @@ export function getWinnerCells(small, arr, positions) {
     let temp = [];
 
     for (let position of positions) {
-        let count = small ? 3 : 4;
+        let count = small ? 3 : 5;
 
         for (let val of position) {
             if (arr.includes(val)) count -= 1;
@@ -81,13 +81,21 @@ export function getRandomCell(board) {
 
 // INFO: make move
 export function makeMove(board, player, current, index, positions, setting) {
+
+    board = JSON.parse(JSON.stringify(board));
     player = JSON.parse(JSON.stringify(player));
     current = JSON.parse(JSON.stringify(current));
+    setting = JSON.parse(JSON.stringify(setting));
+
+    
+    
 
     // INFO: vs Ai
     // WARN: player ai
     if (player.ai.turn && !current.gameOver && setting.ai) {
+
         board[index] = "O";
+
         current.totalMoves += 1;
 
         player.ai.moves.push(index);
@@ -96,6 +104,8 @@ export function makeMove(board, player, current, index, positions, setting) {
 
         let win = checkWinner(board, positions);
 
+    
+
         if (win == 0) {
             current.gameOver = true;
             current.winPositions = getWinnerCells(
@@ -103,14 +113,22 @@ export function makeMove(board, player, current, index, positions, setting) {
                 [...player.ai.moves],
                 positions
             );
+
             return { board, current, player };
+        } 
+
+        if(isBordFull(board) == true){
+            current.gameOver = true;
         }
 
         return { board, current, player };
+
     }
+
 
     // WARN: player hu
     if (player.hu.turn && !current.gameOver && setting.ai) {
+
         board[index] = "X";
         current.totalMoves += 1;
 
@@ -129,6 +147,10 @@ export function makeMove(board, player, current, index, positions, setting) {
             );
 
             return { board, current, player };
+        }
+
+        if(isBordFull(board) == true){
+            current.gameOver = true;
         }
 
         return { board, current, player };
@@ -155,6 +177,10 @@ export function makeMove(board, player, current, index, positions, setting) {
             );
 
             return { board, current, player };
+        }
+
+        if(isBordFull(board) == true){
+            current.gameOver = true;
         }
 
         return { board, current, player };
@@ -184,49 +210,51 @@ export function makeMove(board, player, current, index, positions, setting) {
             return { board, current, player };
         }
 
+        if(isBordFull(board) == true){
+            current.gameOver = true;
+        }
+
         return { board, current, player };
     }
 }
 
 // INFO: getBestIndex
-export function getBestIndex(board, positions) {
+export function getBestIndex(board, positions, large) {
     board = JSON.parse(JSON.stringify(board));
 
     let index = null;
-    let best = -Infinity
-    let d = 0;
-    let c = 0;
+    let best = { v: -Infinity, d: Infinity, s: 0 };
 
     for (let i = 0; i < board.length; i++) {
         if (board[i] == "") {
             board[i] = "O";
-            let score = minimax(board, positions, false, d);
-
-            c += d;
+            let score = large
+                ? minimax_lg(board, positions, false, 0, 0, -1000, 1000)
+                : minimax_sm(board, positions, false, 0, 0);
 
             board[i] = "";
 
-            if (score > best ) {
+            best.s += score.s;
+
+            if (score.v > best.v) {
                 best = score;
                 index = i;
             }
         }
     }
 
-    console.log('c::', c)
-
     return index;
 }
 
 // INFO: handle settings click
 export function handleSettingClicks(val, board, setting, current, player) {
-    console.log(val)
 
     setting = JSON.parse(JSON.stringify(setting));
     current = JSON.parse(JSON.stringify(current));
     board = JSON.parse(JSON.stringify(board));
     current = JSON.parse(JSON.stringify(current));
     player = JSON.parse(JSON.stringify(player));
+    
 
     if (val === "size5x5") {
         setting.fxf = true;
@@ -240,8 +268,7 @@ export function handleSettingClicks(val, board, setting, current, player) {
     } else if (val === "ai") {
         setting.pvp = false;
         setting.ai = true;
-    }
-    else if (val == "easy") {
+    } else if (val == "easy") {
         setting.easy = !setting.easy;
     } else if (val === "reset") {
         let b3 = ["", "", "", "", "", "", "", "", ""];
@@ -311,33 +338,6 @@ export function isBordFull(b) {
     return true;
 }
 
-// // INFO: get status
-// export async function getStatus(
-//     current,
-//     player,
-//     board,
-//     positions,
-//     checkWinner,
-//     getWinnerCells
-// ) {
-//     let temp = checkWinner(true, [...board], positions);
 
-//     if (temp == 1) {
-//         current.winPositions = getWinnerCells([...player.hu.moves], positions);
-//         current.gameOver = true;
 
-//         return current;
-//     } else if (temp == 0) {
-//         current.winPositions = getWinnerCells([...player.ai.moves], positions);
-//         current.gameOver = true;
 
-//         return current;
-//     } else if (current.totalMoves == 9) {
-//         current.draw = true;
-//         current.gameOver = true;
-
-//         return current;
-//     } else {
-//         return true;
-//     }
-// }

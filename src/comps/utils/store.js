@@ -102,6 +102,14 @@ export const winPositionsState5x5 = [
     [4, 9, 14, 19, 24],
 ];
 
+
+export const winPositionState5x5_dioganals = [
+    [0, 6, 12, 18, 24],
+    [4, 8, 12, 16, 20],
+]
+
+
+
 // INFO: board state 3x3
 export const boardState3x3 = atom({
     key: "boardState3x3",
@@ -196,8 +204,8 @@ export const currentState = atom({
 //  draw: totalMoves == 9 && !gameOver ? true : false,
 
 // INFO: player state
-export const vsAiState = atom({
-    key: "vsAiState",
+export const playerState = atom({
+    key: "playerState",
     default: {
         hu: {
             value: "X",
@@ -222,6 +230,15 @@ export const settingsState = atom({
         fxf: false,
         pvp: true,
         ai: false,
-        easy: false
+        easy: true
     },
 });
+
+
+export const randomEmoj = [
+    "https://yt3.ggpht.com/HmsXEgqUogkQOnL5LP_FdPit9Z909RJxby-uYcPxBLNhaPyqPTcGwvGaGPk2hzB_cC0hs_pV=w48-h48-c-k-nd",
+    "https://yt3.ggpht.com/2Ht4KImoWDlCddiDQVuzSJwpEb59nZJ576ckfaMh57oqz2pUkkgVTXV8osqUOgFHZdUISJM=w48-h48-c-k-nd",
+    "https://yt3.ggpht.com/EURfJZi_heNulV3mfHzXBk8PIs9XmZ9lOOYi5za6wFMCGrps4i2BJX9j-H2gK6LIhW6h7sY=w48-h48-c-k-nd",
+    "https://yt3.ggpht.com/2Ht4KImoWDlCddiDQVuzSJwpEb59nZJ576ckfaMh57oqz2pUkkgVTXV8osqUOgFHZdUISJM=w48-h48-c-k-nd",
+    "https://yt3.ggpht.com/g6_km98AfdHbN43gvEuNdZ2I07MmzVpArLwEvNBwwPqpZYzszqhRzU_DXALl11TchX5_xFE=w48-h48-c-k-nd",
+];

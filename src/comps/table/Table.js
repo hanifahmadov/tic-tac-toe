@@ -6,11 +6,11 @@ import * as helper from "../utils/helper";
 import * as store from "../utils/store";
 
 export const Table = () => {
-    const [setting, setSetting] = useRecoilState(store.settingsState);
-    const [player, setPlayer] = useRecoilState(store.vsAiState);
-    const [current, setCurrent] = useRecoilState(store.currentState);
-    const [boardIndex, setBoardIndex] = useRecoilState(store.boardIndex3x3);
-    const [board, setBoard] = useRecoilState(store.boardState3x3);
+    let [setting, setSetting] = useRecoilState(store.settingsState);
+    let [player, setPlayer] = useRecoilState(store.playerState);
+    let [current, setCurrent] = useRecoilState(store.currentState);
+    let [boardIndex, setBoardIndex] = useRecoilState(store.boardIndex3x3);
+    let [board, setBoard] = useRecoilState(store.boardState3x3);
 
     // person plays
     const handleClick = (e) => {
@@ -26,13 +26,17 @@ export const Table = () => {
         ) {
             // hu makes move
             let temp = helper.makeMove(
-                [...board],
-                { ...player },
-                { ...current },
+                board,
+                player,
+                current,
                 index,
-                setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4,
+                setting.txt
+                    ? store.winPositionsState3x3
+                    : store.winPositionsState5x5,
                 setting
             );
+
+            console.log('temp', temp)
 
             setBoard(temp.board);
             setCurrent(temp.current);
@@ -47,11 +51,11 @@ export const Table = () => {
                 { ...player },
                 { ...current },
                 index,
-                setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4,
+                setting.txt
+                    ? store.winPositionsState3x3
+                    : store.winPositionsState5x5,
                 setting
             );
-
-            console.log(temp)
 
             setBoard(temp.board);
             setCurrent(temp.current);
@@ -61,23 +65,21 @@ export const Table = () => {
 
     // ai turn
     useEffect(() => {
+
+    
         if (player.ai.turn && !current.gameOver && setting.ai) {
-            
-        
+
+            let index = helper.getBestIndex(
+                board,
+                setting.txt
+                    ? store.winPositionsState3x3
+                    : store.winPositionsState5x5,
+                setting.fxf && true
+            );
+
+
             setTimeout(() => {
                 // get valid best index for ai
-            
-
-                let index = player.ai.moves.length < 1 && current.easyMode
-                    ? helper.shuffleArray(
-                          helper.getAvailableCells(board)
-                      )[0]
-                    : helper.getBestIndex(
-                        board,
-                        setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4
-                    )
-                    
-                 
 
                 //ai makes move
                 let temp = helper.makeMove(
@@ -85,14 +87,15 @@ export const Table = () => {
                     { ...player },
                     { ...current },
                     index,
-                    setting.txt ? store.winPositionsState3x3 : store.winPositionsState4x4,
+                    setting.txt
+                        ? store.winPositionsState3x3
+                        : store.winPositionsState5x5,
                     setting
                 );
 
                 setBoard(temp.board);
                 setCurrent(temp.current);
                 setPlayer(temp.player);
-                
             }, 300);
         }
     }, [player.ai.turn]);
@@ -122,16 +125,12 @@ export const Table = () => {
     // INFO: Table return
     return (
         <div id='table'>
-     
             <div id='table_header'>
-
                 <div
                     id={setting.txt ? "table_body_3x3" : "table_body_5x5"}
                     onClick={handleClick}
                 >
                     {boardIndex.map((val, index) => {
-                     
-
                         let [i, j] = val;
                         return (
                             <div
@@ -139,7 +138,9 @@ export const Table = () => {
                                 key={index}
                                 style={{
                                     background: current.gameOver ? "#eee" : "",
-                                    cursor: current.gameOver ? 'not-allowed' : 'pointer'
+                                    cursor: current.gameOver
+                                        ? "not-allowed"
+                                        : "pointer",
                                 }}
                             >
                                 {board.slice(i, j).map((el, ind) => (
@@ -151,7 +152,9 @@ export const Table = () => {
                                             current.gameOver ? "" : "active"
                                         }
                                         style={{
-                                            cursor: current.gameOver ? 'not-allowed' : 'pointer',
+                                            cursor: current.gameOver
+                                                ? "not-allowed"
+                                                : "pointer",
                                             background:
                                                 current.winPositions.includes(
                                                     i + ind

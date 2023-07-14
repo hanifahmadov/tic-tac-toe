@@ -1,21 +1,13 @@
 /* eslint-disable */
  
+let[ a, b, c ]= [5, 10, false]
 
 
-let arr = ['X', null, null]
+let f = (a, b, c, d) => {
 
-
-
-const gen_boards = (board) => {
-
-    return board.reduce((array, pos, i) => {
-        if (pos === null) {
-            const validBoard = [...board]
-            validBoard[i] = 'O'
-            array.push({to: i, board: validBoard})
-        }
-        return array
-    }, [])
+    console.log('a:::', a)
+    console.log('b:::', b)
+    console.log('c:::', c += 20)
 }
 
-console.log( gen_boards(arr))
+f(a, b, c ? true : '') 
