@@ -17,12 +17,14 @@ export const Table = () => {
         // hu turn
         let index = Number(e.target.getAttribute("data"));
 
+        console.log(board);
+
         // WARN: vs Ai
         if (
             setting.ai &&
             player.hu.turn &&
             !current.gameOver &&
-            board[index] == ""
+            board[index] == null
         ) {
             // hu makes move
             let temp = helper.makeMove(
@@ -36,20 +38,18 @@ export const Table = () => {
                 setting
             );
 
-            console.log('temp', temp)
-
             setBoard(temp.board);
             setCurrent(temp.current);
             setPlayer(temp.player);
         }
 
         // WARN: PvP
-        if (setting.pvp && !current.gameOver && board[index] == "") {
+        if (setting.pvp && !current.gameOver && board[index] == null) {
             // hu makes move
             let temp = helper.makeMove(
-                [...board],
-                { ...player },
-                { ...current },
+                board,
+                player,
+                current,
                 index,
                 setting.txt
                     ? store.winPositionsState3x3
@@ -65,27 +65,40 @@ export const Table = () => {
 
     // ai turn
     useEffect(() => {
-
-    
         if (player.ai.turn && !current.gameOver && setting.ai) {
+            let index = 0;
 
-            let index = helper.getBestIndex(
-                board,
-                setting.txt
-                    ? store.winPositionsState3x3
-                    : store.winPositionsState5x5,
-                setting.fxf && true
-            );
-
+            if (setting.txt) {
+                index = helper.getBestIndex(
+                    player,
+                    board,
+                    store.winPositionsState3x3,
+                    false
+                );
+            } else if (setting.fxf) {
+                index =
+                    current.totalMoves < 10
+                        ? helper.getRandomIndex_forAi(
+                              board,
+                              store.winPositionsState5x5,
+                              current
+                          )
+                        : helper.getBestIndex(
+                              player,
+                              board,
+                              store.winPositionsState5x5,
+                              true
+                          );
+            }
 
             setTimeout(() => {
                 // get valid best index for ai
 
                 //ai makes move
                 let temp = helper.makeMove(
-                    [...board],
-                    { ...player },
-                    { ...current },
+                    board,
+                    player,
+                    current,
                     index,
                     setting.txt
                         ? store.winPositionsState3x3
@@ -102,21 +115,14 @@ export const Table = () => {
 
     useEffect(() => {
         if (setting.fxf) {
-            setBoard(store.b5);
+            setBoard(new Array(25).fill(null));
             setBoardIndex(store.ind5);
             return;
         }
 
         if (setting.txt) {
-            const b3 = ["", "", "", "", "", "", "", "", ""];
-            const ind3 = [
-                [0, 3],
-                [3, 6],
-                [6, 9],
-            ];
-
-            setBoard(b3);
-            setBoardIndex(ind3);
+            setBoard(new Array(9).fill(null));
+            setBoardIndex(store.ind3);
 
             return;
         }

@@ -1,13 +1,15 @@
 /* eslint-disable */
- 
-let[ a, b, c ]= [5, 10, false]
 
+let a = new Array(5).fill(null);
 
-let f = (a, b, c, d) => {
+let f = (arr) => {
+    arr[0] = 0;
+    arr[1] = 1;
+    arr[2] = 2;
+};
 
-    console.log('a:::', a)
-    console.log('b:::', b)
-    console.log('c:::', c += 20)
-}
+f(a);
 
-f(a, b, c ? true : '') 
+let newArr = a;
+
+console.log(newArr)

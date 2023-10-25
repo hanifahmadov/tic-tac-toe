@@ -2,11 +2,11 @@
 import * as helper from "./helper";
 
 // INFO: minimax 3x3
-export const minimax_sm = (board, positions, aiturn, depth, sum) => {
+export const minimax_sm = (player, board, positions, aiturn, depth, sum) => {
     console.log("minimax_sm::::::");
 
     let isFull = helper.isBordFull(board);
-    let win = helper.checkWinner(board, positions);
+    let win = helper.checkWinner(player, board, positions);
 
     sum += 1;
 
@@ -32,10 +32,10 @@ export const minimax_sm = (board, positions, aiturn, depth, sum) => {
         let best = { v: -Infinity, d: Infinity, s: 0 };
 
         for (let i = 0; i < board.length; i++) {
-            if (board[i] == "") {
-                board[i] = "O";
-                let score = minimax_sm(board, positions, false, depth + 1, sum);
-                board[i] = "";
+            if (board[i] == null) {
+                board[i] = player.ai.value;
+                let score = minimax_sm(player, board, positions, false, depth + 1, sum);
+                board[i] = null;
 
                 best.s += score.s;
 
@@ -50,10 +50,10 @@ export const minimax_sm = (board, positions, aiturn, depth, sum) => {
         let best = { v: Infinity, d: Infinity, s: 0 };
 
         for (let i = 0; i < board.length; i++) {
-            if (board[i] == "") {
-                board[i] = "X";
-                let score = minimax_sm(board, positions, true, depth + 1, sum);
-                board[i] = "";
+            if (board[i] == null) {
+                board[i] = player.hu.value;
+                let score = minimax_sm(player, board, positions, true, depth + 1, sum);
+                board[i] = null;
 
                 best.s += score.s;
 
@@ -112,6 +112,7 @@ export const minimax_sm = (board, positions, aiturn, depth, sum) => {
 
 // INFO: minimax larget
 export const minimax_lg = (
+    player,
     board,
     positions,
     aiturn,
@@ -123,7 +124,7 @@ export const minimax_lg = (
     console.log("minimax_lg::::::");
 
     let isFull = helper.isBordFull(board);
-    let win = helper.checkWinner(board, positions);
+    let win = helper.checkWinner(player, board, positions);
 
     sum += 1;
 
@@ -141,9 +142,11 @@ export const minimax_lg = (
         let best = { v: -Infinity, d: Infinity, s: 0 };
 
         for (let i = 0; i < board.length; i++) {
-            if (board[i] == "") {
-                board[i] = "O";
+            if (board[i] == null) {
+                board[i] = player.ai.value;
+
                 let score = minimax_lg(
+                    player,
                     board,
                     positions,
                     false,
@@ -152,7 +155,7 @@ export const minimax_lg = (
                     alfa,
                     betta
                 );
-                board[i] = "";
+                board[i] = null;
 
                 if (score.v > best.v) {
                     best = score;
@@ -169,9 +172,10 @@ export const minimax_lg = (
         let best = { v: Infinity, d: Infinity, s: 0 };
 
         for (let i = 0; i < board.length; i++) {
-            if (board[i] == "") {
-                board[i] = "X";
+            if (board[i] == null) {
+                board[i] = player.hu.value;
                 let score = minimax_lg(
+                    player,
                     board,
                     positions,
                     true,
@@ -180,7 +184,7 @@ export const minimax_lg = (
                     alfa,
                     betta
                 );
-                board[i] = "";
+                board[i] = null;
 
                 best.s += score.s;
 

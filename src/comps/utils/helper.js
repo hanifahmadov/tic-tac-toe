@@ -1,5 +1,9 @@
 /* eslint-disable */
 import { minimax_lg, minimax_sm } from "./ai";
+import * as store from './store'
+
+
+
 
 export function shuffleArray(array) {
     let currentIndex = array.length,
@@ -19,20 +23,20 @@ export function shuffleArray(array) {
 }
 
 // INFO: checkWinner
-export function checkWinner(board, positions) {
+export function checkWinner(player, board, positions) {
     for (let position of positions) {
         let win = true;
 
         for (let i of position) {
-            if (board[i] == "" || board[i] != board[position[0]]) {
+            if (board[i] == null || board[i] != board[position[0]]) {
                 win = false;
                 break;
             }
         }
 
         if (win) {
-            if (board[position[0]] == "X") return 1;
-            if (board[position[0]] == "O") return 0;
+            if (board[position[0]] == player.hu.value) return 1;
+            if (board[position[0]] == player.ai.value) return 0;
         }
     }
 }
@@ -62,7 +66,7 @@ export function getAvailableCells(board) {
 
     // store empty spots index
     board.forEach((val, index) => {
-        if (val === "") {
+        if (val == null) {
             temp.push(index);
         }
     });
@@ -94,7 +98,7 @@ export function makeMove(board, player, current, index, positions, setting) {
     // WARN: player ai
     if (player.ai.turn && !current.gameOver && setting.ai) {
 
-        board[index] = "O";
+        board[index] = player.ai.value;
 
         current.totalMoves += 1;
 
@@ -102,7 +106,7 @@ export function makeMove(board, player, current, index, positions, setting) {
         player.ai.turn = false;
         player.hu.turn = true;
 
-        let win = checkWinner(board, positions);
+        let win = checkWinner(player, board, positions);
 
     
 
@@ -129,14 +133,14 @@ export function makeMove(board, player, current, index, positions, setting) {
     // WARN: player hu
     if (player.hu.turn && !current.gameOver && setting.ai) {
 
-        board[index] = "X";
+        board[index] = player.hu.value;
         current.totalMoves += 1;
 
         player.hu.moves.push(index);
         player.hu.turn = false;
         player.ai.turn = true;
 
-        let win = checkWinner(board, positions);
+        let win = checkWinner(player, board, positions);
 
         if (win == 1) {
             current.gameOver = true;
@@ -159,14 +163,14 @@ export function makeMove(board, player, current, index, positions, setting) {
     // INFO: PvP
     // WARN: player ai && pvp
     if (player.ai.turn && !current.gameOver && setting.pvp) {
-        board[index] = "O";
+        board[index] = player.ai.value;
         current.totalMoves += 1;
 
         player.ai.moves.push(index);
         player.ai.turn = false;
         player.hu.turn = true;
 
-        let win = checkWinner(board, positions);
+        let win = checkWinner(player, board, positions);
 
         if (win == 0) {
             current.gameOver = true;
@@ -188,14 +192,14 @@ export function makeMove(board, player, current, index, positions, setting) {
 
     // WARN: player hu && pvp
     if (player.hu.turn && !current.gameOver && setting.pvp) {
-        board[index] = "X";
+        board[index] = player.hu.value;
         current.totalMoves += 1;
 
         player.hu.moves.push(index);
         player.hu.turn = false;
         player.ai.turn = true;
 
-        let win = checkWinner(board, positions);
+        let win = checkWinner(player, board, positions);
 
         // console.log('win inside hu:::', win)
 
@@ -219,20 +223,20 @@ export function makeMove(board, player, current, index, positions, setting) {
 }
 
 // INFO: getBestIndex
-export function getBestIndex(board, positions, large) {
+export function getBestIndex(player, board, positions, large, current) {
     board = JSON.parse(JSON.stringify(board));
 
     let index = null;
     let best = { v: -Infinity, d: Infinity, s: 0 };
 
     for (let i = 0; i < board.length; i++) {
-        if (board[i] == "") {
-            board[i] = "O";
+        if (board[i] == null) {
+            board[i] = player.ai.value;
             let score = large
-                ? minimax_lg(board, positions, false, 0, 0, -1000, 1000)
-                : minimax_sm(board, positions, false, 0, 0);
+                ? minimax_lg(player, board, positions, false, 0, 0, -1000, 1000)
+                : minimax_sm(player, board, positions, false, 0, 0);
 
-            board[i] = "";
+            board[i] = null;
 
             best.s += score.s;
 
@@ -254,7 +258,7 @@ export function handleSettingClicks(val, board, setting, current, player) {
     board = JSON.parse(JSON.stringify(board));
     current = JSON.parse(JSON.stringify(current));
     player = JSON.parse(JSON.stringify(player));
-    
+
 
     if (val === "size5x5") {
         setting.fxf = true;
@@ -271,34 +275,8 @@ export function handleSettingClicks(val, board, setting, current, player) {
     } else if (val == "easy") {
         setting.easy = !setting.easy;
     } else if (val === "reset") {
-        let b3 = ["", "", "", "", "", "", "", "", ""];
-        let b5 = [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-        ];
+        let b3 = new Array(9).fill(null);
+        let b5 = new Array(25).fill(null);
 
         board = setting.txt ? b3 : b5;
 
@@ -332,12 +310,27 @@ export function handleSettingClicks(val, board, setting, current, player) {
 
 export function isBordFull(b) {
     for (let i of b) {
-        if (i == "") return false;
+        if (i == null) return false;
     }
 
     return true;
 }
 
 
+// minimax_lg(player, board, positions, false, 0, 0, -1000, 1000)
+
+export function getRandomIndex_forAi(b5, wpos, current){
 
 
+    if(current.totalMoves < 4){
+
+        let random = new Set([...store.winPositionState5x5_dioganals[0],...store.winPositionState5x5_dioganals[1]])
+        console.log('random', random)
+
+        return 
+
+    } else {
+
+    }
+
+}

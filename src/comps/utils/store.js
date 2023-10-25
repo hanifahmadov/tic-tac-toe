@@ -13,33 +13,21 @@ import { atom } from "recoil";
 
 */
 
-export const b5 = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-];
+
+
+// INFO: board state 3x3
+export const boardState3x3 = atom({
+    key: "boardState3x3",
+    default: new Array(9).fill(null)
+});
+
+
+
+// INFO: boardState
+export const boardState5x5 = atom({
+    key: "boardState5x5",
+    default: new Array(25).fill(null)
+});
 
 export const ind5 = [
     [0, 5],
@@ -49,37 +37,13 @@ export const ind5 = [
     [20, 25],
 ];
 
-// INFO: boardState
-export const boardState5x5 = atom({
-    key: "boardState5x5",
-    default: [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-    ],
-});
+export const ind3 = [
+    [0, 3],
+    [3, 6],
+    [6, 9],
+];
+
+
 
 // INFO: win positions 5
 export const winPositionsState5x5 = [
@@ -110,11 +74,7 @@ export const winPositionState5x5_dioganals = [
 
 
 
-// INFO: board state 3x3
-export const boardState3x3 = atom({
-    key: "boardState3x3",
-    default: ["", "", "", "", "", "", "", "", ""],
-});
+
 
 // INFO: board INDEX 3x3
 export const boardIndex3x3 = atom({
