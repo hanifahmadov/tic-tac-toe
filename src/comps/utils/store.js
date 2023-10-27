@@ -12,7 +12,13 @@ import { atom } from "recoil";
 
 
 */
-
+//: media queries by break points
+export const deviceState = atom({
+    key: "deviceState",
+    default: {
+        phone: null
+    }
+});
 
 
 // INFO: board state 3x3
@@ -202,3 +208,5 @@ export const randomEmoj = [
     "https://yt3.ggpht.com/2Ht4KImoWDlCddiDQVuzSJwpEb59nZJ576ckfaMh57oqz2pUkkgVTXV8osqUOgFHZdUISJM=w48-h48-c-k-nd",
     "https://yt3.ggpht.com/g6_km98AfdHbN43gvEuNdZ2I07MmzVpArLwEvNBwwPqpZYzszqhRzU_DXALl11TchX5_xFE=w48-h48-c-k-nd",
 ];
+
+

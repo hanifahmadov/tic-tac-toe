@@ -3,8 +3,6 @@ import * as helper from "./helper";
 
 // INFO: minimax 3x3
 export const minimax_sm = (player, board, positions, aiturn, depth, sum) => {
-    console.log("minimax_sm::::::");
-
     let isFull = helper.isBordFull(board);
     let win = helper.checkWinner(player, board, positions);
 

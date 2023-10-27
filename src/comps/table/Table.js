@@ -4,6 +4,7 @@ import "./table.scss";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as helper from "../utils/helper";
 import * as store from "../utils/store";
+import { Cell, CellsWr } from "./table.styled";
 
 export const Table = () => {
     let [setting, setSetting] = useRecoilState(store.settingsState);
@@ -65,9 +66,10 @@ export const Table = () => {
 
     // ai turn
     useEffect(() => {
-        if (player.ai.turn && !current.gameOver && setting.ai) {
+        if (player.ai.turn && !current.gameOver && setting.ai && setting.txt) {
             let index = 0;
 
+            console.log('3x3 ai works')
             if (setting.txt) {
                 index = helper.getBestIndex(
                     player,
@@ -132,7 +134,7 @@ export const Table = () => {
     return (
         <div id='table'>
             <div id='table_header'>
-                <div
+                <CellsWr
                     id={setting.txt ? "table_body_3x3" : "table_body_5x5"}
                     onClick={handleClick}
                 >
@@ -150,7 +152,7 @@ export const Table = () => {
                                 }}
                             >
                                 {board.slice(i, j).map((el, ind) => (
-                                    <div
+                                    <Cell
                                         id={"id_" + (i + ind)}
                                         key={ind}
                                         data={i + ind}
@@ -170,12 +172,12 @@ export const Table = () => {
                                         }}
                                     >
                                         {el}
-                                    </div>
+                                    </Cell>
                                 ))}
                             </div>
                         );
                     })}
-                </div>
+                </CellsWr>
             </div>
         </div>
     );

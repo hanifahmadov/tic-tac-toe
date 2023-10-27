@@ -2,9 +2,6 @@
 import { minimax_lg, minimax_sm } from "./ai";
 import * as store from './store'
 
-
-
-
 export function shuffleArray(array) {
     let currentIndex = array.length,
         randomIndex;
