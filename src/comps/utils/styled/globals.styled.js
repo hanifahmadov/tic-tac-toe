@@ -33,30 +33,21 @@ export const bg = {
 		)`,
 };
 
-export const GStyled = createGlobalStyle`
+export const GlobalStyled = createGlobalStyle`
   body {
-	background: ${clr.athens03};
-	color: black;
 
 
+  }
+`;
 
-	box-sizing: border-box;
-	margin: 0px;
-	padding: 0px;
-	height: 100vh;
-	// background: silver;
+export const Icon = styled.div`
 
 
-	.colored-toast .swal2-timer-progress-bar {
-		background-color: #10c2fe;
+	img {
+		border-radius: 10%;
+		padding: 2px;
+		height: 60px;
+		width: 60px;
+		background: white;
 	}
-
-  }
-
-  #root{
-	height: 100%;
-	width: 100%;
-	// background: red;
-  }
-  
 `;
