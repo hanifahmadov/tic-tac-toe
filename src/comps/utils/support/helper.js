@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { minimax } from "./minimax";
+import { sweetAlertify } from "./notify";
 
 //# Set Setting
 export function setSetting(id, state) {
@@ -19,12 +20,21 @@ export function setSetting(id, state) {
 		state.setting.ai = true;
 	}
 
+	if (state.setting.ai && state.setting.ff) {
+		let t = `<h2>I'M ON IT</h2>
+			<p>Because of the lag issue on single thread JS, I have decided to move it to AWS serverless. Be back soon!</p>`;
+		sweetAlertify(t, 4000);
+
+		state.setting.pvp = true;
+		state.setting.ai = false;
+	}
+
 	return state;
 }
 
 //# Make Move PvP
 export function makeMovePvP(index, state) {
-	console.log("make move PvP works");
+	// console.log("make move PvP works");
 	state = JSON.parse(JSON.stringify(state));
 	let otherPlayer = "O";
 
@@ -73,7 +83,7 @@ export function makeMovePvP(index, state) {
 
 	state.person.turn = !state.person.turn;
 	return state;
-};
+}
 
 //# Make Move Ai
 export function makeMoveAi(index, state) {
@@ -87,10 +97,10 @@ export function makeMoveAi(index, state) {
 	state.person.turn = true;
 
 	return state;
-};
+}
 
 //# Best Index
-export function getBestIndex(state){
+export function getBestIndex(state) {
 	state = JSON.parse(JSON.stringify(state));
 	let board = state.board.tt;
 
@@ -117,10 +127,10 @@ export function getBestIndex(state){
 	}
 
 	return index;
-};
+}
 
 //# Available Spots
-export function availableSpots(board){
+export function availableSpots(board) {
 	let temp = [];
 
 	board.forEach((val, index) => {
@@ -130,7 +140,7 @@ export function availableSpots(board){
 	});
 
 	return temp;
-};
+}
 
 //# Is Board Full
 export function isBoardFull(board) {
@@ -139,10 +149,10 @@ export function isBoardFull(board) {
 	}
 
 	return true;
-};
+}
 
 //# Check Winner
-export function checkWinner(state, board, winPositions){
+export function checkWinner(state, board, winPositions) {
 	for (let position of winPositions) {
 		let win = true;
 
@@ -160,28 +170,32 @@ export function checkWinner(state, board, winPositions){
 	}
 
 	return null;
-};
-
-
+}
 
 //# Board Check Up
-export function boardCheckUp (state, board, winPositions) {
+export function boardCheckUp(state, board, winPositions) {
 	let win = checkWinner(state, board, winPositions);
 	let isFull = isBoardFull(board);
 
 	if (win == 0) {
 		state.current.winner = win;
 		state.current.gameover = true;
-		
-		state.current.winPositions = winnerCellIndexes(state.setting.tt, state.ai.moves, winPositions)
 
+		state.current.winPositions = winnerCellIndexes(
+			state.setting.tt,
+			state.ai.moves,
+			winPositions
+		);
 	}
 
 	if (win == 1) {
 		state.current.winner = win;
 		state.current.gameover = true;
-		state.current.winPositions = winnerCellIndexes(state.setting.tt, state.person.moves, winPositions)
-
+		state.current.winPositions = winnerCellIndexes(
+			state.setting.tt,
+			state.person.moves,
+			winPositions
+		);
 	}
 
 	if (isFull && win == null) {
@@ -190,8 +204,7 @@ export function boardCheckUp (state, board, winPositions) {
 	}
 
 	return state;
-};
-
+}
 
 //# Winner Cell Indexes
 export function winnerCellIndexes(tt, moves, winPositions) {
@@ -212,4 +225,32 @@ export function winnerCellIndexes(tt, moves, winPositions) {
 	}
 
 	return temp;
+}
+
+//# Get Random Index
+export function getRandomIndex(arr, board) {
+	let indx = arr[Math.floor(Math.random() * arr.length)];
+
+	while (board[indx] !== null) {
+		indx = arr[Math.floor(Math.random() * arr.length)];
+	}
+
+	return indx;
+}
+
+export function shuffleArray(array) {
+	let currentIndex = array.length,
+		randomIndex;
+
+	while (currentIndex != 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+
+		[array[currentIndex], array[randomIndex]] = [
+			array[randomIndex],
+			array[currentIndex],
+		];
+	}
+
+	return array;
 }

@@ -5,9 +5,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Unica+One&display=swap");
 
 body {
-
-
-    
 	#root {
 		background-color: rgb(107, 116, 124);
 		border: 5px solid rgb(255, 0, 0);
@@ -20,5 +17,62 @@ body {
 
 		display: flex;
 		flex-direction: column;
+	}
+
+	.swallContainer {
+		.progressBar {
+			background-color: #2778c4;
+			height: 12px;
+			position: relative;
+			bottom:0px;
+		}
+		.swallHTML {
+			color:black;
+			padding: 1rem 0;
+
+			h1, h2, h3, h4, h5, h5, h6{
+				font-family: 'Unica One', sans-serif;
+				letter-spacing: 2px;
+				font-weight: 900 !important;
+			}
+
+			p{
+				font-family: 'Poppins', sans-serif;
+				letter-spacing: .5px;
+				font-size: 0.9rem;
+				font-weight: 500 !important;
+
+			}
+
+
+		}
+
+		.icon {
+
+			margin-top: 10px;
+			width: 65px;
+			height: 65px;
+
+			color:#0048ff;
+
+			img {
+				width: 50px;
+				height: 50px;
+			}
+		}
+
+		.swallPopUp {
+			box-sizing: border-box;
+			width: 15rem;
+			line-height: 0;
+			border-radius: 10px;
+			overflow: hidden;
+
+		}
+
+		.swalltitle {
+			margin: 0;
+			padding: 0;
+		}
 	}
 }

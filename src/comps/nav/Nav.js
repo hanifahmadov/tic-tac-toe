@@ -11,14 +11,6 @@ export const Nav = () => {
 	return (
 		<>
 			<span className='hder'>Tic Tac Toe</span>
-
-			<Icon>
-				<img
-					// src={helper.shuffleArray(data.randomEmoj)[0]}
-					src={randomEmoj[6]}
-				/>
-			</Icon>
-
 			<span className='demo'>DEMO</span>
 		</>
 	);

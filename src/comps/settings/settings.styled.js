@@ -27,10 +27,22 @@ export const SettingsContent = styled.div`
 	flex-direction: row;
 
 	background: white;
+
 	width: 50%;
 	height: 100%;
+
+	.btn-group {
+		transition: all 0.4s ease-in-out;
+		opacity: ${({ theme }) => (theme.person.moves.length ? 0.2 : 1)};
+
+		button {
+			pointer-events: ${({ theme }) =>
+				theme.person.moves.length && "none;"};
+		}
+	}
 `;
 
 export const ResetButton = styled.div``;
 export const SizeButtons = styled.div``;
 export const PlayerButtons = styled.div``;
+export const Button = styled.button``;

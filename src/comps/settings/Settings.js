@@ -7,10 +7,12 @@ import {
 	SettingsContent,
 	SettingsWr,
 	SizeButtons,
+	Button,
 } from "./settings.styled";
 
 import { stateDefaultValue } from "../utils/states/store";
 import { setSetting } from "../utils/support/helper";
+import { sweetAlertify } from "../utils/support/notify";
 
 export const Settings = ({ handleClickAlert }) => {
 	let [state, setState] = useRecoilState(stateDefaultValue);
@@ -22,7 +24,9 @@ export const Settings = ({ handleClickAlert }) => {
 		if (id == 0) {
 			resetSetting();
 		} else {
-			setState(setSetting(id, state));
+			if (!state.person.moves.length) {
+				setState(setSetting(id, state));
+			}
 		}
 	};
 
@@ -30,6 +34,7 @@ export const Settings = ({ handleClickAlert }) => {
 		<SettingsWr>
 			{/* {console.log("state::", state)} */}
 			<SettingsContent onClick={handleClick}>
+				{console.log(state)}
 				<ResetButton>
 					<button
 						type='button'

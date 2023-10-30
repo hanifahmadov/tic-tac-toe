@@ -21,19 +21,18 @@ export const TableContent = styled.div`
 
 	// background: rgba(255, 0, 0, 0.4);
 	border: 2px solid red;
-
-
 `;
 
 export const CellsWr = styled.div`
 	display: flex;
-	width: ${({ theme }) => theme.setting.ff ? "550px" : '450px'};
+	width: ${({ theme }) => (theme.setting.ff ? "550px" : "450px")};
 	flex-wrap: wrap;
-	border-radius: 1rem;
+	border-radius: 50px 50px;
 
 	pointer-events: auto;
 	${({ theme }) => theme.current.gameover && " pointer-events: none;"}
 
+	
 	${({ theme }) =>
 		theme.setting.tt &&
 		`
@@ -66,19 +65,19 @@ export const CellsWr = styled.div`
 
 		//:borders
 		#cell0 {
-			border-top-left-radius: 40px 40px;
+			border-top-left-radius: 50px 50px;
 		}
 
 		#cell2 {
-			border-top-right-radius: 40px 40px;
+			border-top-right-radius: 50px 50px;
 		}
 
 		#cell6 {
-			border-bottom-left-radius: 40px 40px;
+			border-bottom-left-radius: 50px 50px;
 		}
 
 		#cell8 {
-			border-bottom-right-radius: 40px 40px;
+			border-bottom-right-radius: 50px 50px;
 		}
 
 
@@ -124,47 +123,42 @@ export const CellsWr = styled.div`
 	    	border-bottom: none;
 	    }
 
-        `} 
-        
-        // background: silver;
+        `}
 `;
 
 export const Cell = styled.div`
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	
+	height: ${({ theme }) => (theme.setting.ff ? "110px" : "150px")};
+	width: ${({ theme }) => (theme.setting.ff ? "110px" : "150px")};
 
-	height: ${({ theme }) => theme.setting.ff ? "110px" : '150px'};
-	width: ${({ theme }) => theme.setting.ff ? "110px" : '150px'};
+	line-height: 0;
 
-	
-
-    line-height: 0;
-
-    font-size: 7rem;
-    font-weight: 300;
+	font-size: 7rem;
+	font-weight: 300;
 
 	cursor: pointer;
-    pointer-events: auto;
+	pointer-events: auto;
 
+	border: 3px solid white;
+	transition: background 0.25s ease-in-out;
 
-    
-    
-
-    border: 3px solid white;
-	transition: background .2s ease-in-out;
-
-	&:hover{
+	&:hover {
 		background: #91bad4;
 	}
 
-	${({value}) => value != null && 'cursor: default;'}
-	${(props) => props.theme.current.winPositions.includes(props["data-ind"]) && 'background: red;'}
+	${({ value }) => value != null && "cursor: default;"}
+	${(props) =>
+		props.theme.current.winPositions.includes(props["data-ind"]) &&
+		"background: red;"} 
 
-	${({theme}) => console.log(theme, "theme in Cell")}
+	${({ theme }) =>
+		theme.current.gameover &&
+		"pointer-events: none;"} 
+		
+		
 	// background: lightblue;
 `;
 

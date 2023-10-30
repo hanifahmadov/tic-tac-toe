@@ -2,15 +2,15 @@
 
 import delf from "../../utils/svg/delfine.png";
 import butterfly from "../../utils/svg/butterfly.png";
-import fish from "../../utils/svg/fly.png";
+import hams from "../../utils/svg/hamster.png";
 import lady from "../../utils/svg/lady.png";
 import panda from "../../utils/svg/panda.png";
 import ping from "../../utils/svg/pinguin.png";
 import tavs from "../../utils/svg/tavsan.png";
 
 //: svgs
-export const randomEmoj = [delf, butterfly, lady, panda, tavs, ping, fish];
-
+export const randomEmoj = [delf, butterfly, lady, panda, tavs, ping, hams];
+export const randomIndex = [0, 2, 4, 6, 8];
 //: boards
 export const tableBoard3 = new Array(9).fill(null);
 export const tableBoard5 = new Array(25).fill(null);

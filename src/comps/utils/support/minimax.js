@@ -75,6 +75,9 @@ export const minimax = (board, state, aiturn, move) => {
 			}
 		}
 
+
+		
+
 		return best;
 	}
 };

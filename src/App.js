@@ -7,11 +7,13 @@ import { INav, ISettings, ITable } from "./comps/utils/styled/app.styled";
 import { Nav } from "./comps/nav/Nav";
 import { Settings } from "./comps/settings/Settings";
 import { Table } from "./comps/table/Table";
+import Swal from "sweetalert2";
 
 const App = () => {
 	//: solutuon for dublicate bug error on recoil atom
-	RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false
+	RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 	const [state, setState] = useRecoilState(stateDefaultValue);
+
 	return (
 		<Fragment>
 			<ThemeProvider theme={state}>
@@ -24,8 +26,7 @@ const App = () => {
 				</ISettings>
 
 				<ITable>
-
-					<Table/>
+					<Table />
 				</ITable>
 			</ThemeProvider>
 		</Fragment>
