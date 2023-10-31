@@ -20,6 +20,7 @@ body {
 
 	background-color: transparent;
 
+
 	#root {
 		background-color:transparent;
 		width: 100vw;
@@ -29,6 +30,8 @@ body {
 
 		display: flex;
 		flex-direction: column;
+
+		position: fixed;
 	}
 
 	.swallContainer {

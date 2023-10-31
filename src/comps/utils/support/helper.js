@@ -23,7 +23,7 @@ export function setSetting(id, state) {
 	if (state.setting.ai && state.setting.ff) {
 		let t = `<h2>I'M ON IT</h2>
 			<p>Because of the lag issue on single thread JS, I have decided to move it to AWS serverless. Be back soon!</p>`;
-		sweetAlertify(t, 4000);
+		sweetAlertify(t, 5000);
 
 		state.setting.pvp = true;
 		state.setting.ai = false;
