@@ -45,7 +45,8 @@ export const ISettings = styled.div`
 
 export const ITable = styled.div`
 	width: 100%;
-    flex-grow: 1;
+	margin-top: 3rem;
 
+    // flex-grow: 1;
     // border: 2px solid yellow;
 `;

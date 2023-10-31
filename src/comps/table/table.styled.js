@@ -25,8 +25,8 @@ export const CellsWr = styled.div`
 
 	width: ${({ theme }) => (theme.setting.ff ? "550px" : "450px")};
 
-	width: ${({ theme }) => theme.device.phone && theme.setting.ff && "340px"};
-	width: ${({ theme }) => theme.device.phone && theme.setting.tt && "330px"};
+	width: ${({ theme }) => theme.device.phone && theme.setting.ff && "100%"};
+	width: ${({ theme }) => theme.device.phone && theme.setting.tt && "100%"};
 
 	
 
@@ -167,16 +167,16 @@ export const Cell = styled.div`
 	height: ${({ theme }) => (theme.setting.ff ? "109px" : "149px")};
 	width: ${({ theme }) => (theme.setting.ff ? "109px" : "149px")};
 
-	height: ${({ theme }) => (theme.device.phone && theme.setting.ff && "67px")};
-	width: ${({ theme }) => (theme.device.phone && theme.setting.ff && "67px")};
+	height: ${({ theme }) => (theme.device.phone && theme.setting.ff && "80px")};
+	width: ${({ theme }) => (theme.device.phone && theme.setting.ff && "20%")};
 
-	height: ${({ theme }) => (theme.device.phone && theme.setting.tt && "109px")};
-	width: ${({ theme }) => (theme.device.phone && theme.setting.tt && "109px")};
+	height: ${({ theme }) => (theme.device.phone && theme.setting.tt && "130px")};
+	width: ${({ theme }) => (theme.device.phone && theme.setting.tt && "33.3%")};
 
 
 	line-height: 0;
 
-	font-size:  ${({ theme }) => theme.device.phone  ? "5rem" : "7rem"};
+	font-size:  ${({ theme }) => theme.device.phone  ? "4rem" : "7rem"};
 	font-weight: ${({ theme }) => theme.device.phone  ? "400" : "300"};
 
 	cursor: pointer;
