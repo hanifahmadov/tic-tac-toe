@@ -4,6 +4,7 @@ import { bg, ff } from "./globals.styled";
 
 
 export const IApp = styled.div`
+
     width: 100%;
     height: 100vh;
 
@@ -11,6 +12,7 @@ export const IApp = styled.div`
 
 
 export const INav = styled.div`
+${(props) => console.log(props, "Styled thememme")}
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -31,18 +33,19 @@ export const INav = styled.div`
 
 export const ISettings = styled.div`
 	width: 100%; 
+
 	height: ${({theme}) => theme.device.phone ? '4rem' : '5rem'};
 	margin:  ${({theme}) => theme.device.phone ? '1rem 0rem' : '0rem'};
 
+	margin-top: 1rem;
 
 
-
-	border: 2px solid white;
+	// border: 2px solid white;
 `;
 
 export const ITable = styled.div`
 	width: 100%;
     flex-grow: 1;
 
-    border: 2px solid yellow;
+    // border: 2px solid yellow;
 `;

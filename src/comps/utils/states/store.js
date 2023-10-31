@@ -1,108 +1,101 @@
 /* eslint-disable */
 import { atom } from "recoil";
-import { tableBoard3, tableBoard5 } from "./db";
+import { tableBoard33, tableBoard55 } from "./db";
 
-export const stateDefaultValue = atom({
-	key: "stateDefaultValue",
-	default: {
-		board: {
-			tt: tableBoard3,
-			ff: tableBoard5,
-		},
-
-		current: {
-			// totalmoves: 0,
-			winPositions: [],
-			gameover: false,
-			draw: false,
-			winner: null,
-		},
-
-		setting: {
-			reset: false,
-			tt: true, //: third x third
-			ff: false, //: five x five
-			pvp: true, //: person vs person
-			ai: false, //: minimax
-		},
-
-		person: {
-			value: "X",
-			moves: [],
-			turn: true,
-		},
-
-		ai: {
-			value: "O",
-			moves: [],
-			turn: false,
-		},
-
-
-		device: {
-			phone: false,
-		},
-	},
-});
-
-
-/* 
+/*
 
 TODO:
 : remove reset value from store setting
 
 */
 
-export const boardDefaults = atom({
-	key: "boardDefaults",
-	default:  {
-		tt: tableBoard3,
-		ff: tableBoard5,
-	}
-});
+export const boardDefaults = {
+	tt: tableBoard33,
+	ff: tableBoard55,
+};
 
-export const settingsDefaults = atom({
-	key: "settingsDefaults",
-	default:{
-		reset: false,
-		tt: true, //: third x third
-		ff: false, //: five x five
-		pvp: true, //: person vs person
-		ai: false, //: minimax
-	}
-});
+export const currentDefaults = {
+	// totalmoves: 0,
+	winPositions: [],
+	gameover: false,
+	draw: false,
+	winner: null,
+};
 
-export const currentDefaults = atom({
-	key: "currentDefaults",
-	default:  {
-		winPositions: [],
-		gameover: false,
-		draw: false,
-		winner: null,
-	}
-});
+export const settingDefaults = {
+	reset: false,
+	tt: true, //: third x third
+	ff: false, //: five x five
+	pvp: true, //: person vs person
+	ai: false, //: minimax
+};
 
-export const aiDefaults = atom({
-	key: "aiDefaults",
-	default:  {
-		value: "O",
-		moves: [],
-		turn: false,
-	}
-});
+export const personDefaults = {
+	value: "X",
+	moves: [],
+	turn: true,
+};
 
-export const personDefaults = atom({
-	key: "personDefaults",
-	default:  {
-		value: "X",
-		moves: [],
-		turn: false,
-	}
-});
+export const aiDefaults = {
+	value: "O",
+	moves: [],
+	turn: false,
+};
 
-export const deviceDefaults = atom({
-	key: "deviceDefaults",
+export const deviceDefaults = {
+	phone: false,
+};
+
+export const stateDefaultValue = atom({
+	key: "stateDefaultValue",
 	default: {
-		phone: false
-	}
+		board: boardDefaults,
+		current: currentDefaults,
+		setting: settingDefaults,
+		person: personDefaults,
+		ai: aiDefaults,
+		device: deviceDefaults,
+	},
 });
+
+// export const stateDefaultValue = atom({
+// 	key: "stateDefaultValue",
+// 	default: {
+// 		board: {
+// 			tt: tableBoard33,
+// 			ff: tableBoard55,
+// 		},
+
+// 		current: {
+// 			// totalmoves: 0,
+// 			winPositions: [],
+// 			gameover: false,
+// 			draw: false,
+// 			winner: null,
+// 		},
+
+// 		setting: {
+// 			reset: false,
+// 			tt: true, //: third x third
+// 			ff: false, //: five x five
+// 			pvp: true, //: person vs person
+// 			ai: false, //: minimax
+// 		},
+
+// 		person: {
+// 			value: "X",
+// 			moves: [],
+// 			turn: true,
+// 		},
+
+// 		ai: {
+// 			value: "O",
+// 			moves: [],
+// 			turn: false,
+// 		},
+
+// 		device: {
+// 			phone: false,
+// 		},
+// 	},
+// });

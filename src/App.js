@@ -28,7 +28,6 @@ const App = () => {
 
 	return (
 		<Fragment>
-			{console.log(state)}
 			<ThemeProvider theme={state}>
 				<INav>
 					<Nav />

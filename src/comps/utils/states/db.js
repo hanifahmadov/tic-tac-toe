@@ -12,8 +12,8 @@ import tavs from "../../utils/svg/tavsan.png";
 export const randomEmoj = [delf, butterfly, lady, panda, tavs, ping, hams];
 export const randomIndex = [0, 2, 4, 6, 8];
 //: boards
-export const tableBoard3 = new Array(9).fill(null);
-export const tableBoard5 = new Array(25).fill(null);
+export const tableBoard33 = new Array(9).fill(null);
+export const tableBoard55 = new Array(25).fill(null);
 
 //: board cell indexes for txt
 export const indtxt = [

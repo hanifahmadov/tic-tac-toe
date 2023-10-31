@@ -18,8 +18,6 @@ export const TableContent = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	// background: rgba(255, 0, 0, 0.4);
-	// border: 2px solid red;
 `;
 
 export const CellsWr = styled.div`
@@ -183,8 +181,10 @@ export const Cell = styled.div`
 
 	cursor: pointer;
 	pointer-events: auto;
+	background: #f8feff;
 
-	border:  ${({ theme }) => (theme.device.phone ? "2px solid white" : "3px solid white")};
+	border:  ${({ theme }) => (theme.device.phone ? "2px solid #1f2d50" : "3px solid #1f2d50")};
+
 	transition: background 0.25s ease-in-out;
 
 	&:hover {

@@ -9,19 +9,27 @@ import {
 	SizeButtons,
 } from "./settings.styled";
 
-import { aiDefaults, stateDefaultValue } from "../utils/states/store";
+import { aiDefaults, boardDefaults, currentDefaults, personDefaults, stateDefaultValue } from "../utils/states/store";
 import { setSetting } from "../utils/support/helper";
 import { sweetAlertify } from "../utils/support/notify";
 
+
 export const Settings = ({ handleClickAlert }) => {
 	let [state, setState] = useRecoilState(stateDefaultValue);
-	let resetSetting = useResetRecoilState(stateDefaultValue);
+
 
 	const handleClick = (e) => {
 		let id = Number(e.target.id);
+		state = JSON.parse(JSON.stringify(state));
+		
 
 		if (id == 0) {
-			resetSetting();
+			state.board = boardDefaults
+			state.person = personDefaults
+			state.ai = aiDefaults
+			state.current = currentDefaults
+			setState(state);
+
 		} else {
 			if (!state.person.moves.length) {
 				setState(setSetting(id, state));

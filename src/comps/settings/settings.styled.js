@@ -26,9 +26,9 @@ export const SettingsContent = styled.div`
 	justify-content: space-evenly;
 	flex-direction: row;
 
-	background: white;
+	
 
-	width:${({theme}) => theme.device.phone ? '100%' : '50%'};
+	width:${({theme}) => theme.device.phone ? '100%' : '40%'};
 	height: 100%;
 
 	.btn-group {
