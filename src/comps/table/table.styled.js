@@ -5,9 +5,7 @@ import { ff } from "../utils/styled/globals.styled";
 export const TableWr = styled.div`
 	height: 100%;
 	width: 100%;
-	padding: ${({theme}) => theme.device.phone ? '5px' : '20px'};
-
-
+	padding: ${({ theme }) => (theme.device.phone ? "5px" : "20px")};
 `;
 
 export const TableContent = styled.div`
@@ -17,7 +15,6 @@ export const TableContent = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
 `;
 
 export const CellsWr = styled.div`
@@ -28,15 +25,20 @@ export const CellsWr = styled.div`
 	width: ${({ theme }) => theme.device.phone && theme.setting.ff && "100%"};
 	width: ${({ theme }) => theme.device.phone && theme.setting.tt && "100%"};
 
-	
-
 	flex-wrap: wrap;
-	border-radius: ${({ theme }) => theme.device.phone ? "20px 20px" : "50px 50px"};
+	border-radius: ${({ theme }) =>
+		theme.device.phone ? "20px 20px" : "50px 50px"};
 
 	pointer-events: auto;
-	${({ theme }) => theme.current.gameover && " pointer-events: none;"}
 
-	
+	${({ theme }) =>
+		theme.current.gameover &&
+		` 
+	 	pointer-events: none; 
+		opacity: 0.75;
+
+		`}
+
 	${({ theme }) =>
 		theme.setting.tt &&
 		`
@@ -91,7 +93,10 @@ export const CellsWr = styled.div`
 
 
 
-	${({theme}) => theme.device.phone && theme.setting.tt && `
+	${({ theme }) =>
+		theme.device.phone &&
+		theme.setting.tt &&
+		`
 	
 	//:borders
 		#cell0 {
@@ -152,9 +157,7 @@ export const CellsWr = styled.div`
 	    	border-bottom: none;
 	    }
 
-        `}
-
-	// border: 1px solid blue;
+        `} // border: 1px solid blue;
 `;
 
 export const Cell = styled.div`
@@ -162,46 +165,47 @@ export const Cell = styled.div`
 	justify-content: center;
 	align-items: center;
 
-
-
 	height: ${({ theme }) => (theme.setting.ff ? "109px" : "149px")};
 	width: ${({ theme }) => (theme.setting.ff ? "109px" : "149px")};
 
-	height: ${({ theme }) => (theme.device.phone && theme.setting.ff && "80px")};
-	width: ${({ theme }) => (theme.device.phone && theme.setting.ff && "20%")};
+	height: ${({ theme }) => theme.device.phone && theme.setting.ff && "80px"};
+	width: ${({ theme }) => theme.device.phone && theme.setting.ff && "20%"};
 
-	height: ${({ theme }) => (theme.device.phone && theme.setting.tt && "130px")};
-	width: ${({ theme }) => (theme.device.phone && theme.setting.tt && "33.3%")};
-
+	height: ${({ theme }) => theme.device.phone && theme.setting.tt && "130px"};
+	width: ${({ theme }) => theme.device.phone && theme.setting.tt && "33.3%"};
 
 	line-height: 0;
 
-	font-size:  ${({ theme }) => theme.device.phone  ? "4rem" : "7rem"};
-	font-weight: ${({ theme }) => theme.device.phone  ? "400" : "300"};
+	font-size: ${({ theme }) => (theme.device.phone ? "4rem" : "7rem")};
+	font-weight: ${({ theme }) => (theme.device.phone ? "400" : "300")};
 
 	cursor: pointer;
 	pointer-events: auto;
 	background: #f8feff;
 
-	border:  ${({ theme }) => (theme.device.phone ? "2px solid #1f2d50" : "3px solid #1f2d50")};
+	border: ${({ theme }) =>
+		theme.device.phone ? "2px solid #1f2d50" : "3px solid #1f2d50"};
 
 	transition: background 0.25s ease-in-out;
 
-	&:hover {
-		background: #91bad4;
-	}
+	${({ theme }) =>
+		!theme.current.gameover &&
+		`
+	
+		&:hover {
+			background: #1086df;
+		}
+	
+	`}
 
 	${({ value }) => value != null && "cursor: default;"}
 	${(props) =>
 		props.theme.current.winPositions.includes(props["data-ind"]) &&
-		"background: red;"} 
+		"background: #ff7979;"} 
 
 	${({ theme }) =>
 		theme.current.gameover &&
-		"pointer-events: none;"} 
-		
-		
-	// background: lightblue;
+		"pointer-events: none;"} // background: lightblue;
 `;
 
 /* 

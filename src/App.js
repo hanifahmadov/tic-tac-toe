@@ -17,7 +17,7 @@ const App = () => {
 	let [state, setState] = useRecoilState(stateDefaultValue);
 
 	let phone = useMediaQuery({
-		query: "(max-width: 768px)",
+		query: "(max-width: 550px)",
 	});
 
 	useEffect(() => {

@@ -14,8 +14,8 @@ export const SettingsWr = styled.div`
 	}
 
 	button {
-		padding: ${({theme}) => theme.device.phone ? '.6rem' : '.75rem'};
-		font-size: ${({theme}) => theme.device.phone ? '.9rem' : '1rem'};
+		padding: ${({theme}) => theme.device.phone ? '.7rem' : '.75rem'};
+		font-size: ${({theme}) => theme.device.phone ? '.95rem' : '1rem'};
 		pointer-events: auto;
 	}
 `;
@@ -27,8 +27,8 @@ export const SettingsContent = styled.div`
 	flex-direction: row;
 
 	
-
-	width:${({theme}) => theme.device.phone ? '100%' : '40%'};
+	width:${({theme}) => theme.device.phone ? '100%' : '30rem'};
+	
 	height: 100%;
 
 	.btn-group {

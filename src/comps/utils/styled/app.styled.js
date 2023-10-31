@@ -1,6 +1,6 @@
 /* eslint-disable */
 import styled, { createGlobalStyle } from "styled-components";
-import { bg, ff } from "./globals.styled";
+import { bg, clr, ff } from "./globals.styled";
 
 
 export const IApp = styled.div`
@@ -12,11 +12,10 @@ export const IApp = styled.div`
 
 
 export const INav = styled.div`
-${(props) => console.log(props, "Styled thememme")}
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding:${({theme}) => theme.device.phone ? '.5rem' : '0rem 2rem'};
+	padding:${({theme}) => theme.device.phone ? '0 1rem ' : '0rem 2rem'};
 	height: 6rem;
 	
 
@@ -26,7 +25,13 @@ ${(props) => console.log(props, "Styled thememme")}
 	font-size:  ${({theme}) => theme.device.phone ? '2.5rem' : '3rem'};
 	font-weight: 900 !important;
 
-
+	.demo {
+		color: ${clr.athens01};
+		border: 2px solid ${clr.athens01};
+		font-size: 1.5rem;
+		padding: .25rem;
+		border-radius: 5px;
+	}
 
 	// border: 2px solid black;
 `;
