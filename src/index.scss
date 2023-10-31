@@ -4,6 +4,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Unica+One&display=swap");
 
+html {
+	background-color: #EBECF0;
+}
+
 body {
 
 	// athens01: "#EBECF0",
@@ -14,10 +18,10 @@ body {
 	// coolblack: "#151922",
 	// personal01: "#212224",
 
+	background-color: transparent;
 
 	#root {
-		background-color: #EBECF0;
-		height: 100vh;
+		background-color:transparent;
 		width: 100vw;
 		box-sizing: border-box;
 		margin: 0;
