@@ -5,10 +5,9 @@ import { ff } from "../utils/styled/globals.styled";
 export const TableWr = styled.div`
 	height: 100%;
 	width: 100%;
-	padding: 20px;
+	padding: ${({theme}) => theme.device.phone ? '5px' : '20px'};
 
-	// background: black;
-	// border: 20px solid purple;
+
 `;
 
 export const TableContent = styled.div`
@@ -20,14 +19,21 @@ export const TableContent = styled.div`
 	align-items: center;
 
 	// background: rgba(255, 0, 0, 0.4);
-	border: 2px solid red;
+	// border: 2px solid red;
 `;
 
 export const CellsWr = styled.div`
 	display: flex;
+
 	width: ${({ theme }) => (theme.setting.ff ? "550px" : "450px")};
+
+	width: ${({ theme }) => theme.device.phone && theme.setting.ff && "340px"};
+	width: ${({ theme }) => theme.device.phone && theme.setting.tt && "330px"};
+
+	
+
 	flex-wrap: wrap;
-	border-radius: 50px 50px;
+	border-radius: ${({ theme }) => theme.device.phone ? "20px 20px" : "50px 50px"};
 
 	pointer-events: auto;
 	${({ theme }) => theme.current.gameover && " pointer-events: none;"}
@@ -82,6 +88,31 @@ export const CellsWr = styled.div`
 
 
         `}
+
+
+
+
+
+	${({theme}) => theme.device.phone && theme.setting.tt && `
+	
+	//:borders
+		#cell0 {
+			border-top-left-radius: 20px 20px;
+		}
+
+		#cell2 {
+			border-top-right-radius: 20px 20px;
+		}
+
+		#cell6 {
+			border-bottom-left-radius: 20px 20px;
+		}
+
+		#cell8 {
+			border-bottom-right-radius: 20px 20px;
+		}
+
+	`}
 	
 
 	${({ theme }) =>
@@ -124,6 +155,8 @@ export const CellsWr = styled.div`
 	    }
 
         `}
+
+	// border: 1px solid blue;
 `;
 
 export const Cell = styled.div`
@@ -131,18 +164,27 @@ export const Cell = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	height: ${({ theme }) => (theme.setting.ff ? "110px" : "150px")};
-	width: ${({ theme }) => (theme.setting.ff ? "110px" : "150px")};
+
+
+	height: ${({ theme }) => (theme.setting.ff ? "109px" : "149px")};
+	width: ${({ theme }) => (theme.setting.ff ? "109px" : "149px")};
+
+	height: ${({ theme }) => (theme.device.phone && theme.setting.ff && "67px")};
+	width: ${({ theme }) => (theme.device.phone && theme.setting.ff && "67px")};
+
+	height: ${({ theme }) => (theme.device.phone && theme.setting.tt && "109px")};
+	width: ${({ theme }) => (theme.device.phone && theme.setting.tt && "109px")};
+
 
 	line-height: 0;
 
-	font-size: 7rem;
-	font-weight: 300;
+	font-size:  ${({ theme }) => theme.device.phone  ? "5rem" : "7rem"};
+	font-weight: ${({ theme }) => theme.device.phone  ? "400" : "300"};
 
 	cursor: pointer;
 	pointer-events: auto;
 
-	border: 3px solid white;
+	border:  ${({ theme }) => (theme.device.phone ? "2px solid white" : "3px solid white")};
 	transition: background 0.25s ease-in-out;
 
 	&:hover {

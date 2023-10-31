@@ -7,10 +7,9 @@ import {
 	SettingsContent,
 	SettingsWr,
 	SizeButtons,
-	Button,
 } from "./settings.styled";
 
-import { stateDefaultValue } from "../utils/states/store";
+import { aiDefaults, stateDefaultValue } from "../utils/states/store";
 import { setSetting } from "../utils/support/helper";
 import { sweetAlertify } from "../utils/support/notify";
 
@@ -32,9 +31,7 @@ export const Settings = ({ handleClickAlert }) => {
 
 	return (
 		<SettingsWr>
-			{/* {console.log("state::", state)} */}
 			<SettingsContent onClick={handleClick}>
-				{console.log(state)}
 				<ResetButton>
 					<button
 						type='button'

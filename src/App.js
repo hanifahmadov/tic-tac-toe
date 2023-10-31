@@ -1,5 +1,6 @@
 /* eslint-disable */
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+
 import { useRecoilState, RecoilEnv } from "recoil";
 import { ThemeProvider } from "styled-components";
 import { stateDefaultValue } from "./comps/utils/states/store";
@@ -8,14 +9,26 @@ import { Nav } from "./comps/nav/Nav";
 import { Settings } from "./comps/settings/Settings";
 import { Table } from "./comps/table/Table";
 import Swal from "sweetalert2";
+import { useMediaQuery } from "react-responsive";
 
 const App = () => {
 	//: solutuon for dublicate bug error on recoil atom
 	RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
-	const [state, setState] = useRecoilState(stateDefaultValue);
+	let [state, setState] = useRecoilState(stateDefaultValue);
+
+	let phone = useMediaQuery({
+		query: "(max-width: 768px)",
+	});
+
+	useEffect(() => {
+		state = JSON.parse(JSON.stringify(state));
+		state.device.phone = phone;
+		setState(state)
+	}, [phone]);
 
 	return (
 		<Fragment>
+			{console.log(state)}
 			<ThemeProvider theme={state}>
 				<INav>
 					<Nav />

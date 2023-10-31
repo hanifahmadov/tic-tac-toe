@@ -14,8 +14,8 @@ export const SettingsWr = styled.div`
 	}
 
 	button {
-		padding: 0.75rem;
-		font-size: 1rem;
+		padding: ${({theme}) => theme.device.phone ? '.6rem' : '.75rem'};
+		font-size: ${({theme}) => theme.device.phone ? '.9rem' : '1rem'};
 		pointer-events: auto;
 	}
 `;
@@ -28,7 +28,7 @@ export const SettingsContent = styled.div`
 
 	background: white;
 
-	width: 50%;
+	width:${({theme}) => theme.device.phone ? '100%' : '50%'};
 	height: 100%;
 
 	.btn-group {

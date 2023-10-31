@@ -14,23 +14,27 @@ export const INav = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0rem 2rem;
+	padding:${({theme}) => theme.device.phone ? '.5rem' : '0rem 2rem'};
 	height: 6rem;
+	
 
 	background: ${bg.unk02};
 	color: black;
 	font-family: ${ff.unicaone};
-	font-size: 3rem;
+	font-size:  ${({theme}) => theme.device.phone ? '2.5rem' : '3rem'};
 	font-weight: 900 !important;
 
 
 
-	border: 2px solid black;
+	// border: 2px solid black;
 `;
 
 export const ISettings = styled.div`
-	width: 100%;
-	height: 5rem;
+	width: 100%; 
+	height: ${({theme}) => theme.device.phone ? '4rem' : '5rem'};
+	margin:  ${({theme}) => theme.device.phone ? '1rem 0rem' : '0rem'};
+
+
 
 
 	border: 2px solid white;
