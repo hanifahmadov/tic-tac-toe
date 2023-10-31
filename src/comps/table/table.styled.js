@@ -35,7 +35,7 @@ export const CellsWr = styled.div`
 		theme.current.gameover &&
 		` 
 	 	pointer-events: none; 
-		opacity: 0.75;
+		opacity: 0.6;
 
 		`}
 
