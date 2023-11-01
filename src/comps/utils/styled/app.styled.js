@@ -42,7 +42,7 @@ export const ISettings = styled.div`
 	height: ${({theme}) => theme.device.phone ? '4rem' : '5rem'};
 	margin:  ${({theme}) => theme.device.phone ? '1rem 0rem' : '0rem'};
 
-	margin-top: 1rem;
+	margin-top: .5rem;
 
 
 	// border: 2px solid white;
@@ -50,8 +50,9 @@ export const ISettings = styled.div`
 
 export const ITable = styled.div`
 	width: 100%;
-	margin-top: 3rem;
+	margin-top: 1rem;
+	overflow:hidden;
 
     // flex-grow: 1;
-    // border: 2px solid yellow;
+    // border: 10px solid yellow;
 `;
