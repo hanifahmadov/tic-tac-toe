@@ -100,12 +100,12 @@ export const Table = () => {
 		);
 
 		if(winner == 1){
-			let t = `<h2>CONGRATS</h2> 
-					<h6>YOU WON!</h6>`
+			let t = `<h2>CONGRATS ✌️</h2> 
+					<h5>YOU WON!</h5>`
 			sweetAlertify(t, 2000)
 		} else if(winner == 0){
-			let t = `<h2>WOOW</h2> 
-			<h6>YOU LOST</h6>`
+			let t = `<h2>YOU LOST 😢</h2> 
+			<h5>NEXT TIME</h5>`
 			sweetAlertify(t, 2000)
 		}
 	}, [state.current.gameover]);
