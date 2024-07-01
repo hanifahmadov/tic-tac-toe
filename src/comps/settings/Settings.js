@@ -50,7 +50,7 @@ export const Settings = ({ handleClickAlert }) => {
 					</button>
 				</ResetButton>
 
-				<SizeButtons className='btn-group' role='group'>
+				{/* <SizeButtons className='btn-group' role='group'>
 					<button
 						type='button'
 						id='33'
@@ -73,7 +73,7 @@ export const Settings = ({ handleClickAlert }) => {
 					>
 						5x5
 					</button>
-				</SizeButtons>
+				</SizeButtons> */}
 
 				<PlayerButtons className='btn-group' role='group'>
 					<button

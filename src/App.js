@@ -4,11 +4,10 @@ import React, { Fragment, useEffect } from "react";
 import { useRecoilState, RecoilEnv } from "recoil";
 import { ThemeProvider } from "styled-components";
 import { stateDefaultValue } from "./comps/utils/states/store";
-import { INav, ISettings, ITable } from "./comps/utils/styled/app.styled";
+import { INav, ISettings, ITable, IApp } from "./comps/utils/styled/app.styled";
 import { Nav } from "./comps/nav/Nav";
 import { Settings } from "./comps/settings/Settings";
 import { Table } from "./comps/table/Table";
-import Swal from "sweetalert2";
 import { useMediaQuery } from "react-responsive";
 
 const App = () => {
@@ -23,23 +22,25 @@ const App = () => {
 	useEffect(() => {
 		state = JSON.parse(JSON.stringify(state));
 		state.device.phone = phone;
-		setState(state)
+		setState(state);
 	}, [phone]);
 
 	return (
 		<Fragment>
 			<ThemeProvider theme={state}>
-				<INav>
-					<Nav />
-				</INav>
+				<IApp>
+					<INav>
+						<Nav />
+					</INav>
 
-				<ISettings>
-					<Settings />
-				</ISettings>
+					<ISettings>
+						<Settings />
+					</ISettings>
 
-				<ITable>
-					<Table />
-				</ITable>
+					<ITable>
+						<Table />
+					</ITable>
+				</IApp>
 			</ThemeProvider>
 		</Fragment>
 	);

@@ -20,6 +20,8 @@ export const clr = {
 	coolblack: "#151922",
 	personal01: "#212224",
 
+	
+
 	unk01: "#ecf0f4",
 };
 
