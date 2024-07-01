@@ -1,6 +1,6 @@
 /* eslint-disable */
 import styled from "styled-components";
-import { ff } from "../utils/styled/globals.styled";
+import { ff, clr, bg } from "../utils/styled/globals.styled";
 
 export const TableWr = styled.div`
 	height: 100%;
@@ -15,19 +15,23 @@ export const TableContent = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+
+
 `;
 
 export const CellsWr = styled.div`
 	display: flex;
+	justify-content: center;
+	align-items: center;
 
-	width: ${({ theme }) => (theme.setting.ff ? "550px" : "450px")};
+	width: ${({ theme }) => (theme.setting.ff ? "500px" : "500px")};
 
 	width: ${({ theme }) => theme.device.phone && theme.setting.ff && "100%"};
 	width: ${({ theme }) => theme.device.phone && theme.setting.tt && "100%"};
 
 	flex-wrap: wrap;
-	border-radius: ${({ theme }) =>
-		theme.device.phone ? "20px 20px" : "50px 50px"};
+	border-radius: ${({ theme }) => (theme.device.phone ? "20px 20px" : "50px 50px")};
 
 	pointer-events: auto;
 
@@ -157,7 +161,9 @@ export const CellsWr = styled.div`
 	    	border-bottom: none;
 	    }
 
-        `} // border: 1px solid blue;
+        `} 
+
+
 `;
 
 export const Cell = styled.div`
@@ -165,14 +171,11 @@ export const Cell = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	height: ${({ theme }) => (theme.setting.ff ? "109px" : "149px")};
-	width: ${({ theme }) => (theme.setting.ff ? "109px" : "149px")};
+	height: 140px;
+	width: 140px;
 
-	height: ${({ theme }) => theme.device.phone && theme.setting.ff && "80px"};
-	width: ${({ theme }) => theme.device.phone && theme.setting.ff && "20%"};
-
-	height: ${({ theme }) => theme.device.phone && theme.setting.tt && "130px"};
-	width: ${({ theme }) => theme.device.phone && theme.setting.tt && "33.3%"};
+	// height: ${({ theme }) => theme.device.phone && "80px"};
+	// width: ${({ theme }) => theme.device.phone && "20%"};
 
 	line-height: 0;
 
@@ -181,31 +184,27 @@ export const Cell = styled.div`
 
 	cursor: pointer;
 	pointer-events: auto;
-	background: #f8feff;
+	background: transparent;
 
-	border: ${({ theme }) =>
-		theme.device.phone ? "2px solid #1f2d50" : "3px solid #1f2d50"};
+	border: ${({ theme }) => (theme.device.phone ? "2px solid #1f2d50" : "3px solid white")};
 
 	transition: background 0.25s ease-in-out;
+	color: white;
 
 	${({ theme }) =>
 		!theme.current.gameover &&
 		`
 	
 		&:hover {
-			background: #1086df;
+			background: rgba(255, 255, 255, .5);
 		}
 	
 	`}
 
 	${({ value }) => value != null && "cursor: default;"}
-	${(props) =>
-		props.theme.current.winPositions.includes(props["data-ind"]) &&
-		"background: #ff7979;"} 
+	${(props) => props.theme.current.winPositions.includes(props["data-ind"]) && "background: #ff7979;"} 
 
-	${({ theme }) =>
-		theme.current.gameover &&
-		"pointer-events: none;"} // background: lightblue;
+	${({ theme }) => theme.current.gameover && "pointer-events: none;"} // background: lightblue;
 `;
 
 /* 

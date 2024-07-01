@@ -51,17 +51,14 @@ export const Table = () => {
 	//: minimax moves
 	useEffect(() => {
 		//: minimax ai turn
-		if ( state.ai.turn && state.setting.tt && !state.current.gameover ) {
+		if (state.ai.turn && state.setting.tt && !state.current.gameover) {
 			console.log("table useEffect state:", state);
 			state = JSON.parse(JSON.stringify(state));
 
 			//: get best index for minimax
 
-
 			let bestIndex =
-				state.ai.moves.length == 0
-					? getRandomIndex([2, 4, 6, 8], state.board.tt)
-					: getBestIndex(state);
+				state.ai.moves.length == 0 ? getRandomIndex([2, 4, 6, 8], state.board.tt) : getBestIndex(state);
 
 			// let bestIndex = getBestIndex(state);
 
@@ -73,7 +70,6 @@ export const Table = () => {
 				setState(res);
 			}, 1000);
 		}
-
 	}, [state.ai.turn]);
 
 	//: check for winner on every move on board
@@ -99,14 +95,14 @@ export const Table = () => {
 			state.setting.tt ? winPositions33 : winPositions55
 		);
 
-		if(winner == 1){
+		if (winner == 1) {
 			let t = `<h2>CONGRATS ✌️</h2> 
-					<h5>YOU WON!</h5>`
-			sweetAlertify(t, 2000)
-		} else if(winner == 0){
+					<h5>YOU WON!</h5>`;
+			sweetAlertify(t, 3000);
+		} else if (winner == 0) {
 			let t = `<h2>YOU LOST 😢</h2> 
-			<h5>NEXT TIME</h5>`
-			sweetAlertify(t, 2000)
+			<h5>NEXT TIME</h5>`;
+			sweetAlertify(t, 3000);
 		}
 	}, [state.current.gameover]);
 
@@ -114,18 +110,16 @@ export const Table = () => {
 		<TableWr>
 			<TableContent>
 				<CellsWr onClick={handleClick}>
-					{(state.setting.tt ? state.board.tt : state.board.ff).map(
-						(val, index) => (
-							<Cell
-								key={index}
-								id={"cell" + index}
-								data-ind={index}
-								value={val} //: it passes the val to Cell to cursor default if played
-							>
-								{val}
-							</Cell>
-						)
-					)}
+					{state.board.tt.map((val, index) => (
+						<Cell
+							key={index}
+							id={"cell" + index}
+							data-ind={index}
+							value={val} //: it passes the val to Cell to cursor default if played
+						>
+							{val}
+						</Cell>
+					))}
 				</CellsWr>
 			</TableContent>
 		</TableWr>
