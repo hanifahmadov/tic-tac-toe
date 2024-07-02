@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { atom } from "recoil";
 import { tableBoard33, tableBoard55 } from "./db";
+import { clr, ff } from "../styled/globals.styled";
 
 /*
 
@@ -28,6 +29,7 @@ export const settingDefaults = {
 	ff: false, //: five x five
 	pvp: true, //: person vs person
 	ai: false, //: minimax
+	lang: ff.carter,
 };
 
 export const personDefaults = {

@@ -9,6 +9,9 @@ export const ff = {
 	robslab: `'Roboto Slab', serif`,
 	robmono: `'Roboto Mono', monospace`,
 	unicaone: `'Unica One', sans-serif`,
+	marker: `'Permanent Marker', cursive`,
+	acme: `'Acme', sans-serif`,
+	carter: `'Carter One', system-ui`,
 };
 
 export const clr = {
@@ -20,9 +23,9 @@ export const clr = {
 	coolblack: "#151922",
 	personal01: "#212224",
 
-	
-
 	unk01: "#ecf0f4",
+	white: '#ffffff',
+	blue01: '#394d8f'
 };
 
 export const bg = {
@@ -43,8 +46,6 @@ export const GlobalStyled = createGlobalStyle`
 `;
 
 export const Icon = styled.div`
-
-
 	img {
 		border-radius: 10%;
 		padding: 2px;

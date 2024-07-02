@@ -17,10 +17,10 @@ export const SettingsWr = styled.div`
 	}
 
 	button {
-		padding: ${({ theme }) => (theme.device.phone ? ".7rem" : ".75rem")};
-		font-size: ${({ theme }) => (theme.device.phone ? ".95rem" : "1rem")};
+		padding: ${({ theme }) => (theme.device.phone ? ".75rem .5rem" : ".75rem .75rem")};
+		font-size: ${({ theme }) => (theme.device.phone ? ".75rem" : ".95rem")};
 		pointer-events: auto;
-		border: 3px solid white;
+		border: 2.5px solid white;
 
 		color: white;
 	}
@@ -31,7 +31,8 @@ export const SettingsContent = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	flex-direction: row;
-	width: ${({ theme }) => (theme.device.phone ? "18rem" : "18rem")};
+	padding: 0px ${({ theme }) => (theme.device.phone ? "0rem" : "3rem")};
+	width: 100%;
 
 	button {
 		border-radius: 9px;
@@ -45,14 +46,24 @@ export const ResetButton = styled.div`
 	opacity: ${({ $resetAbled }) => ($resetAbled ? "0.5" : "1")};
 `;
 
-export const SizeButtons = styled.div``;
+
+
+export const LangsButtons = styled.div`
+	border-radius: 10px;
+	transition: all 0.3s ease-in-out;
+	opacity: ${({ $abled }) => ($abled ? "0.5" : "1")};
+`;
+
 
 export const PlayerButtons = styled.div`
 	border-radius: 10px;
 	transition: all 0.3s ease-in-out;
 	opacity: ${({ $abled }) => ($abled ? "0.5" : "1")};
 `;
+
 export const Button = styled.button``;
+export const ColorButtons = styled.div``;
+export const SizeButtons = styled.div``;
 
 /* 
 		pointer-events: auto;

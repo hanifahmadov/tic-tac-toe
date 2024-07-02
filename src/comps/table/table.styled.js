@@ -172,22 +172,21 @@ export const Cell = styled.div`
 	align-items: center;
 
 
-	height: ${({ theme }) => theme.device.phone ? '100px' : '140px'};
-	width: ${({ theme }) => theme.device.phone ? '100px' : '140px'};
+	height: ${({ theme }) => theme.device.phone ? '90px' : '140px'};
+	width: ${({ theme }) => theme.device.phone ? '90px' : '140px'};
+	font-size: ${({ theme }) => (theme.device.phone ? "4rem" : "5rem")};
 
-	line-height: 0;
-
-	font-size: ${({ theme }) => (theme.device.phone ? "4rem" : "7rem")};
-	font-weight: ${({ theme }) => (theme.device.phone ? "400" : "300")};
 
 	cursor: pointer;
 	pointer-events: auto;
 	background: transparent;
 
-	border: 3px solid white;
+	border: 2px solid white;
 
 	transition: background 0.25s ease-in-out;
-	color: white;
+	color: #394d8f;
+	font-weight: 900 !important;
+	font-family:${({theme}) => theme.setting.lang};
 
 	${({ theme }) =>
 		!theme.current.gameover &&

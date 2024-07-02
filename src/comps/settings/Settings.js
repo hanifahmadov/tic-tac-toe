@@ -1,15 +1,17 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { PlayerButtons, ResetButton, SettingsContent, SettingsWr } from "./settings.styled";
+import { PlayerButtons, ResetButton, SettingsContent, SettingsWr, LangsButtons, ColorButtons } from "./settings.styled";
 
-import { aiDefaults, boardDefaults, currentDefaults, personDefaults, stateDefaultValue } from "../utils/states/store";
+import { aiDefaults, boardDefaults, currentDefaults, personDefaults, stateDefaultValue} from "../utils/states/store";
 import { setSetting } from "../utils/support/helper";
+import { ff } from "../utils/styled/globals.styled";
 
 export const Settings = ({ handleClickAlert }) => {
 	let [state, setState] = useRecoilState(stateDefaultValue);
 
 	let disabledPlayerButtons = state.person.moves.length && true;
+	let disabledLangsButtons = state.person.moves.length && true;
 	let disabledResetButtons = state.current.gameover ? false : true;
 
 	const handleClick = (e) => {
@@ -62,6 +64,27 @@ export const Settings = ({ handleClickAlert }) => {
 						vs Ai
 					</button>
 				</PlayerButtons>
+
+				<LangsButtons $abled={disabledLangsButtons}>
+					<button
+						type='button'
+						id='3'
+						className={state.setting.lang == ff.carter ? "fw-bold mx-1 bg-warning" : "fw-bold mx-1 bg-transparent"}
+						disabled={disabledLangsButtons}
+					>
+						Carter
+					</button>
+
+					<button
+						type='button'
+						id='4'
+						className={state.setting.lang == ff.acme ? "fw-bold bg-warning" : "fw-bold bg-transparent"}
+						disabled={disabledLangsButtons}
+					>
+						Acme
+					</button>
+				</LangsButtons>
+
 			</SettingsContent>
 		</SettingsWr>
 	);

@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { ff } from "../styled/globals.styled";
 import { minimax } from "./minimax";
 import { sweetAlertify } from "./notify";
 
@@ -6,30 +7,37 @@ import { sweetAlertify } from "./notify";
 export function setSetting(id, state) {
 	state = JSON.parse(JSON.stringify(state));
 
-	if (id == 55) {
-		state.setting.ff = true;
-		state.setting.tt = false;
-	} else if (id == 33) {
-		state.setting.ff = false;
-		state.setting.tt = true;
-	} else if (id == 1) {
-		state.setting.pvp = true;
-		state.setting.ai = false;
-	} else if (id == 2) {
-		state.setting.pvp = false;
-		state.setting.ai = true;
-	}
+	// if (id == 55) {
+	// 	state.setting.ff = true;
+	// 	state.setting.tt = false;
+	// } else if (id == 33) {
+	// 	state.setting.ff = false;
+	// 	state.setting.tt = true;
+	// } 
+	
+	
+	// if (state.setting.ai && state.setting.ff) {
+		// 	let t = `<h2>I'M ON IT</h2>
+		// 		<p>Because of the lag issue on single thread JS, I have decided to move it to AWS serverless. Be back soon!</p>`;
+		// 	sweetAlertify(t, 5000);
+		
+		// 	state.setting.pvp = true;
+		// 	state.setting.ai = false;
+		// }
 
-	if (state.setting.ai && state.setting.ff) {
-		let t = `<h2>I'M ON IT</h2>
-			<p>Because of the lag issue on single thread JS, I have decided to move it to AWS serverless. Be back soon!</p>`;
-		sweetAlertify(t, 5000);
-
-		state.setting.pvp = true;
-		state.setting.ai = false;
-	}
-
-	return state;
+		if (id == 1) {
+			state.setting.pvp = true;
+			state.setting.ai = false;
+		} else if (id == 2) {
+			state.setting.pvp = false;
+			state.setting.ai = true;
+		} else if (id == 3) {
+			state.setting.lang = ff.carter;
+		} else if (id == 4) {
+			state.setting.lang = ff.acme;
+		}
+		
+		return state;
 }
 
 //# Make Move PvP
