@@ -5,7 +5,7 @@ import { ff, clr, bg } from "../utils/styled/globals.styled";
 export const TableWr = styled.div`
 	height: 100%;
 	width: 100%;
-	padding: ${({ theme }) => (theme.device.phone ? "5px" : "20px")};
+	padding: ${({ theme }) => (theme.device.phone ? "10px" : "20px")};
 `;
 
 export const TableContent = styled.div`
@@ -16,6 +16,8 @@ export const TableContent = styled.div`
 	justify-content: center;
 	align-items: center;
 
+	margin-top: 2rem;
+
 
 
 `;
@@ -25,10 +27,8 @@ export const CellsWr = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	width: ${({ theme }) => (theme.setting.ff ? "500px" : "500px")};
-
-	width: ${({ theme }) => theme.device.phone && theme.setting.ff && "100%"};
-	width: ${({ theme }) => theme.device.phone && theme.setting.tt && "100%"};
+	// width: 500px;
+	// width: ${({ theme }) => theme.device.phone && "100%"};
 
 	flex-wrap: wrap;
 	border-radius: ${({ theme }) => (theme.device.phone ? "20px 20px" : "50px 50px")};
@@ -171,11 +171,9 @@ export const Cell = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	height: 140px;
-	width: 140px;
 
-	// height: ${({ theme }) => theme.device.phone && "80px"};
-	// width: ${({ theme }) => theme.device.phone && "20%"};
+	height: ${({ theme }) => theme.device.phone ? '100px' : '140px'};
+	width: ${({ theme }) => theme.device.phone ? '100px' : '140px'};
 
 	line-height: 0;
 
@@ -186,7 +184,7 @@ export const Cell = styled.div`
 	pointer-events: auto;
 	background: transparent;
 
-	border: ${({ theme }) => (theme.device.phone ? "2px solid #1f2d50" : "3px solid white")};
+	border: 3px solid white;
 
 	transition: background 0.25s ease-in-out;
 	color: white;
@@ -204,7 +202,8 @@ export const Cell = styled.div`
 	${({ value }) => value != null && "cursor: default;"}
 	${(props) => props.theme.current.winPositions.includes(props["data-ind"]) && "background: #ff7979;"} 
 
-	${({ theme }) => theme.current.gameover && "pointer-events: none;"} // background: lightblue;
+	${({ theme }) => theme.current.gameover && "pointer-events: none;"};
+	// background: lightblue;
 `;
 
 /* 

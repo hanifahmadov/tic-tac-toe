@@ -8,7 +8,6 @@ import { setSetting } from "../utils/support/helper";
 
 export const Settings = ({ handleClickAlert }) => {
 	let [state, setState] = useRecoilState(stateDefaultValue);
-	
 
 	let disabledPlayerButtons = state.person.moves.length && true;
 	let disabledResetButtons = state.current.gameover ? false : true;
@@ -34,7 +33,12 @@ export const Settings = ({ handleClickAlert }) => {
 		<SettingsWr>
 			<SettingsContent onClick={handleClick}>
 				<ResetButton $resetAbled={disabledResetButtons}>
-					<button type='button' id='0' className={"fw-bold bg-transparent"} disabled={disabledResetButtons}>
+					<button
+						type='button'
+						id='0'
+						className={disabledResetButtons ? "fw-bold bg-transparent" : "fw-bold bg-danger"}
+						disabled={disabledResetButtons}
+					>
 						Reset
 					</button>
 				</ResetButton>

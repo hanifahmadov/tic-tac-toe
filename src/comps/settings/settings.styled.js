@@ -20,7 +20,7 @@ export const SettingsWr = styled.div`
 		padding: ${({ theme }) => (theme.device.phone ? ".7rem" : ".75rem")};
 		font-size: ${({ theme }) => (theme.device.phone ? ".95rem" : "1rem")};
 		pointer-events: auto;
-		border: 2px solid white;
+		border: 3px solid white;
 
 		color: white;
 	}
@@ -31,7 +31,7 @@ export const SettingsContent = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	flex-direction: row;
-	width: ${({ theme }) => (theme.device.phone ? "100%" : "18rem")};
+	width: ${({ theme }) => (theme.device.phone ? "18rem" : "18rem")};
 
 	button {
 		border-radius: 9px;

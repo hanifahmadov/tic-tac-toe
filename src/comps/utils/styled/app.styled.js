@@ -3,11 +3,10 @@ import styled, { createGlobalStyle } from "styled-components";
 import { bg, clr, ff } from "./globals.styled";
 
 export const IApp = styled.div`
-	max-width: 40rem;
-	// background: ;
-	// border: 1px solid white;
+	width:${({ theme }) => (theme.device.phone ? "25rem" : "40rem")}; ;
 	border-radius: 1rem;
-	padding-top: 1rem;
+	padding: 1rem;
+
 
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
@@ -19,7 +18,7 @@ export const INav = styled.div`
 	padding: ${({ theme }) => (theme.device.phone ? "0 1rem " : "0rem 2rem")};
 	height: 5rem;
 
-	border-bottom: 3px solid rgba(255, 255, 255, 1);
+	border-bottom: 5px solid rgba(255, 255, 255, 1);
 	color: white;
 	font-family: ${ff.unicaone};
 	font-size: ${({ theme }) => (theme.device.phone ? "2.5rem" : "4rem")};
@@ -45,6 +44,5 @@ export const ITable = styled.div`
 	margin-top: 1rem;
 	overflow: hidden;
 
-	// flex-grow: 1;
-	// border: 10px solid yellow;
+
 `;
