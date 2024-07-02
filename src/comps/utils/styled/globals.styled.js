@@ -12,6 +12,7 @@ export const ff = {
 	marker: `'Permanent Marker', cursive`,
 	acme: `'Acme', sans-serif`,
 	carter: `'Carter One', system-ui`,
+	nunito: `"Nunito", sans-serif`
 };
 
 export const clr = {

@@ -174,14 +174,14 @@ export const Cell = styled.div`
 
 	height: ${({ theme }) => theme.device.phone ? '90px' : '140px'};
 	width: ${({ theme }) => theme.device.phone ? '90px' : '140px'};
-	font-size: ${({ theme }) => (theme.device.phone ? "4rem" : "5rem")};
+	font-size: ${({ theme }) => (theme.device.phone ? "4rem" : "6rem")};
 
 
 	cursor: pointer;
 	pointer-events: auto;
 	background: transparent;
 
-	border: 2px solid white;
+	border: 2px solid rgba(255, 255, 255, .8);
 
 	transition: background 0.25s ease-in-out;
 	color: #394d8f;

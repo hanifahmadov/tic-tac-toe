@@ -34,7 +34,7 @@ export function setSetting(id, state) {
 		} else if (id == 3) {
 			state.setting.lang = ff.carter;
 		} else if (id == 4) {
-			state.setting.lang = ff.acme;
+			state.setting.lang = ff.nunito;
 		}
 		
 		return state;

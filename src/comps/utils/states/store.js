@@ -29,7 +29,7 @@ export const settingDefaults = {
 	ff: false, //: five x five
 	pvp: true, //: person vs person
 	ai: false, //: minimax
-	lang: ff.carter,
+	lang: ff.nunito,
 };
 
 export const personDefaults = {
