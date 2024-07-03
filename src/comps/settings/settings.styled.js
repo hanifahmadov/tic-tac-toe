@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import { checkWinner, isBoardFull } from "../utils/support/helper";
 import { winPositions33 } from "../utils/states/db";
+import { ff } from "../utils/styled/globals.styled";
 
 export const SettingsWr = styled.div`
 	width: 100%;
@@ -34,10 +35,12 @@ export const SettingsContent = styled.div`
 	padding: 0px ${({ theme }) => (theme.device.phone ? "0rem" : "3rem")};
 	width: 100%;
 
+
 	button {
 		border-radius: 9px;
 		transition: all 0.4s ease-in-out;
 	}
+
 `;
 
 export const ResetButton = styled.div`
@@ -52,6 +55,8 @@ export const LangsButtons = styled.div`
 	border-radius: 10px;
 	transition: all 0.3s ease-in-out;
 	opacity: ${({ $abled }) => ($abled ? "0.5" : "1")};
+
+	
 `;
 
 

@@ -20,7 +20,7 @@ export const INav = styled.div`
 
 	border-bottom: 5px solid rgba(255, 255, 255, 1);
 	color: white;
-	font-family: ${ff.unicaone};
+	font-family: ${({theme}) => theme.setting.lang};
 	font-size: ${({ theme }) => (theme.device.phone ? "2.5rem" : "4rem")};
 	font-weight: 900 !important;
 `;
