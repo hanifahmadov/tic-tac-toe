@@ -1,1 +1,1 @@
-# TIC TAC TOE   ```[ minmax ]```
+## Tic-Tac-Toe with Minimax Algorithm

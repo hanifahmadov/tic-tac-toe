@@ -1,15 +1,67 @@
 /* eslint-disable */
-import React, { StrictMode } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider, Route, Navigate } from "react-router-dom";
+
 import "./index.scss";
 
-import App from "./App";
+import { StyleSheetManager } from "styled-components";
 import { RecoilRoot } from "recoil";
 
-const appJsx = (
-	<RecoilRoot>
-		<App />
-	</RecoilRoot>
+
+
+/* layouts */
+import { RootLayout } from "./layouts/RootLayout";
+import { App } from "./App";
+
+
+
+const router = createBrowserRouter([
+	{
+		element: <RootLayout />,
+		children: [
+			{
+				path: "/",
+				element: <App />,
+				children: [
+					// {
+					// 	path: "/",
+					// 	element: <div />,
+					// },
+			
+					// {
+					// 	path: "*",
+					// 	element: <Navigate to='/' replace />,
+					// },
+				],
+			},
+		],
+	},
+	{
+		path: "/404",
+		element: <Navigate to='/' replace />,
+	},
+	{
+		path: "*",
+		element: <Navigate to='/' replace />,
+	},
+]);
+
+/**
+ *
+ *  StyleSheetManager, CustomStyleSheetManager
+ * 	are to avoid $value or $ while passing arg to styled-components
+ *
+ */
+const CustomStyleSheetManager = (props) => (
+	<StyleSheetManager shouldForwardProp={(prop) => prop !== "comp"}>{props.children}</StyleSheetManager>
 );
 
-ReactDOM.render(appJsx, document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+	<CustomStyleSheetManager>
+		<RecoilRoot>
+			<RouterProvider router={router} />
+		</RecoilRoot>
+	</CustomStyleSheetManager>
+);
