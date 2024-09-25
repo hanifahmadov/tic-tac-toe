@@ -16,7 +16,6 @@ import {
 /* helper */
 import { checkWinner } from "./store/fn/helper";
 import { getBestIndex, minimax } from "./store/fn/minimax";
-import Loading from "./store/spinner/Loading";
 import { Toaster } from "./comps/Toaster";
 
 /* helpers */

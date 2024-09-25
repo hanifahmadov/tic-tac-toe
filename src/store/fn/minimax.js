@@ -96,7 +96,7 @@ export const getBestIndex = (board, turn) => {
 			// Call the minimax function to get the best index and call count
 			const result = minimax(board, turn, true, counter);
 
-			await delay(1500);
+			await delay(2000);
 
 			// Resolve the promise with the best index and call count
 			resolve({
